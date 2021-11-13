@@ -114,7 +114,6 @@ export const muiTheme = createTheme({
     },
 
     cardParentGrid: {
-      background: "#fff",
       borderRadius: 10,
       height: "20.8rem",
       cursor: "pointer",

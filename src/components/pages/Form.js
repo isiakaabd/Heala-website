@@ -129,20 +129,6 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.main,
     "&.MuiGrid-item": {
       ...theme.typography.cardParentGrid,
-      // minWidth: "25rem",
-      [theme.breakpoints.down("sm")]: {
-        "& >*": {
-          // background: "green",
-          // width: "40%",
-        },
-      },
-      "&:hover": {
-        background: "#fcfcfc",
-      },
-
-      "&:active": {
-        background: "#fafafa",
-      },
     },
   },
   cardIcon: {
