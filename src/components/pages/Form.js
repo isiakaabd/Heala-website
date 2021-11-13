@@ -106,7 +106,6 @@ const useStyles = makeStyles((theme) => ({
   },
   infoBadge: {
     "&.MuiGrid-item": {
-      // fontSize: "1.25rem",
       padding: ".2rem 2rem",
       borderRadius: "1.5rem",
       display: "flex",
@@ -125,7 +124,6 @@ const useStyles = makeStyles((theme) => ({
   },
   parentGrid: {
     textDecoration: "none",
-    // width: "24.7rem",
     color: theme.palette.primary.main,
     "&.MuiGrid-item": {
       ...theme.typography.cardParentGrid,
