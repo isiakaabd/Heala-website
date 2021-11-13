@@ -108,13 +108,13 @@ const Header = () => {
             {isMobile ? (
               <>
                 <IconButton
-                  size="large"
+                  // size="large"
                   edge="start"
                   aria-label="menu"
-                  sx={{ mr: 2, color: "red" }}
+                  sx={{ color: "red", fontSize: "3rem" }}
                   onClick={handleMenu}
                 >
-                  <MenuIcon />
+                  <MenuIcon fontSize="3rem" />
                 </IconButton>
                 <Menu
                   id="menu-appbar"
