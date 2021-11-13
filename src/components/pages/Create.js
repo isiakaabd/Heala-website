@@ -9,7 +9,7 @@ const Create = ({ step, handleNext, state, handlePrevious }) => {
     case 2:
       return <PageTwo state={state} handleNext={handleNext} handlePrevious={handlePrevious} />;
     default:
-      <PageOne />;
+      <PageOne state={state} handleNext={handleNext} handlePrevious={handlePrevious} />;
       break;
   }
 };

@@ -29,8 +29,8 @@ export const PageOne = ({ state, handleNext }) => {
   };
   return (
     <Grid item container direction="column" gap={5}>
-      <Grid item>
-        <Typography variant="h4">Create Account</Typography>
+      <Grid item textAlign="center">
+        <Typography variant="h3">Create Account</Typography>
       </Grid>
       <Grid item>
         <Formik initialValues={state} validateOnChange={false} validateOnMount>
@@ -38,8 +38,8 @@ export const PageOne = ({ state, handleNext }) => {
             return (
               <Form>
                 <Grid container gap={3}>
-                  <Grid item container justifyContent="space-around">
-                    <Grid item md={5} sm={10}>
+                  <Grid item container justifyContent="space-around" rowSpacing={2}>
+                    <Grid item container md={5} sm={10}>
                       <FormikControl
                         control="input"
                         type="email"
@@ -48,7 +48,7 @@ export const PageOne = ({ state, handleNext }) => {
                         placeholder=" Enter your email"
                       />
                     </Grid>
-                    <Grid item md={5} sm={10}>
+                    <Grid item container md={5} sm={10}>
                       <FormikControl
                         control="input"
                         name="password"
@@ -58,7 +58,7 @@ export const PageOne = ({ state, handleNext }) => {
                       />
                     </Grid>
                   </Grid>
-                  <Grid item md={2} sm={5} margin="auto">
+                  <Grid item container md={2} sm={5} margin="auto">
                     <CustomButton
                       variant="contained"
                       title="continue"

@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 const Footer = () => {
   const classes = useStyles();
   return (
-    <AppBar position="static" color="primary" sx={{ bottom: 0 }}>
+    <AppBar elevation={0} position="static" sx={{ bottom: 0 }}>
       <Container maxWidth="false" disableGutters>
         <Toolbar>
           <Grid container gap={2} justifyContent="center">

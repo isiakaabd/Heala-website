@@ -8,6 +8,11 @@ const BecomePartner = () => {
   const useStyles = makeStyles((theme) => ({
     form: theme.mixins.toolbar,
     avatar: {},
+    subheading: {
+      [theme.breakpoints.down("sm")]: {
+        textAlign: "center",
+      },
+    },
   }));
 
   const classes = useStyles();
@@ -36,13 +41,13 @@ const BecomePartner = () => {
   const z = `${step}` >= 1 ? "red" : "";
   const y = `${step}` >= 2 ? "red" : "";
   const w = `${step}` >= 3 ? "red" : "";
-  console.log(z);
+
   return (
     <>
       <div className={classes.form}></div>
       <div className={classes.form}></div>
       <Grid container direction="column" gap={5} width="80%" margin="auto">
-        <Grid item>
+        <Grid item className={classes.subheading}>
           <Typography textAlign="center" variant="h1">
             Set up your Partner Account
           </Typography>

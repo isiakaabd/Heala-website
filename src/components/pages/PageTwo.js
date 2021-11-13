@@ -48,7 +48,7 @@ const PageTwo = ({ state, handleNext, handlePrevious }) => {
               <Form>
                 <Grid container gap={3}>
                   <Grid item container justifyContent="space-around" gap={2}>
-                    <Grid item md={5} sm={10}>
+                    <Grid item container md={5} sm={10}>
                       <FormikControl
                         control="input"
                         name="firstName"
@@ -56,7 +56,7 @@ const PageTwo = ({ state, handleNext, handlePrevious }) => {
                         label="First Name"
                       />
                     </Grid>
-                    <Grid item md={5} sm={10}>
+                    <Grid item container md={5} sm={10}>
                       <FormikControl
                         control="input"
                         name="lastName"
@@ -66,7 +66,7 @@ const PageTwo = ({ state, handleNext, handlePrevious }) => {
                     </Grid>
                   </Grid>
                   <Grid item container justifyContent="space-around" gap={2}>
-                    <Grid item md={5} sm={10}>
+                    <Grid item container md={5} sm={10}>
                       <FormikControl
                         control="input"
                         name="Specialization"
@@ -75,7 +75,7 @@ const PageTwo = ({ state, handleNext, handlePrevious }) => {
                         options={options}
                       />
                     </Grid>
-                    <Grid item md={5} sm={10}>
+                    <Grid item container md={5} sm={10}>
                       <FormikControl
                         control="input"
                         name="phone"
@@ -85,8 +85,8 @@ const PageTwo = ({ state, handleNext, handlePrevious }) => {
                     </Grid>
                   </Grid>
                   {/*  */}
-                  <Grid item container justifyContent="space-around" gap={3}>
-                    <Grid item md={5} sm={12} sx={{ width: "90%" }}>
+                  <Grid item container justifyContent="space-around" gap={2}>
+                    <Grid item container md={5} sm={12}>
                       <FormikControl
                         control="select"
                         name="plan"
@@ -95,7 +95,7 @@ const PageTwo = ({ state, handleNext, handlePrevious }) => {
                         placeholder="Select Plan"
                       />
                     </Grid>
-                    <Grid item md={5} sm={10} sx={{ width: "90%" }}>
+                    <Grid item container md={5} sm={10}>
                       <FormikControl
                         control="select"
                         name="affliate"
@@ -105,7 +105,7 @@ const PageTwo = ({ state, handleNext, handlePrevious }) => {
                       />
                     </Grid>
                   </Grid>
-                  <Grid item justifyContent="space-around" container gap={3}>
+                  <Grid item justifyContent="space-around" container gap={2}>
                     <Grid item container md={5}>
                       <FormLabel
                         component="legend"
@@ -114,15 +114,20 @@ const PageTwo = ({ state, handleNext, handlePrevious }) => {
                       >
                         Upload Your Qualification
                       </FormLabel>
-                      <Grid item container sx={{ height: "200px", border: "2px dashed #CCCCCC" }}>
-                        <Grid item md display="flex" alignItems="center">
+                      <Grid
+                        item
+                        container
+                        justifyContent="space-around"
+                        sx={{ height: "200px", border: "2px dashed #CCCCCC" }}
+                      >
+                        <Grid item md display="flex" alignItems="center" justifyContent="center">
                           <Grid
                             container
                             direction="column"
                             alignItems="center"
                             justifyContent="center"
                           >
-                            <label htmlFor="contained-button-file">
+                            <label htmlFor="contained-button-file" style={{ textAlign: "center" }}>
                               <Input
                                 accept="image/*"
                                 id="contained-button-file"
@@ -143,7 +148,7 @@ const PageTwo = ({ state, handleNext, handlePrevious }) => {
                                 <Typography textAlign="center" variant="h6">
                                   Drag and Drop and Image or
                                 </Typography>
-                                <Typography textAlign="left" variant="h6" color="error">
+                                <Typography textAlign="center" variant="h6" color="error">
                                   Browse
                                 </Typography>
                               </Grid>
@@ -154,8 +159,8 @@ const PageTwo = ({ state, handleNext, handlePrevious }) => {
                     </Grid>
                     <Grid item md={5}></Grid>
                   </Grid>
-                  <Grid item container justifyContent="space-around">
-                    <Grid item md={2} sm={5}>
+                  <Grid item container justifyContent="space-around" gap={3}>
+                    <Grid item container md={2} sm={5}>
                       <CustomButton
                         variant="contained"
                         title="Previous"
@@ -165,7 +170,7 @@ const PageTwo = ({ state, handleNext, handlePrevious }) => {
                         // disabled={formik.isSubmitting || !(formik.dirty && formik.isValid)}
                       />
                     </Grid>
-                    <Grid item md={2} sm={5}>
+                    <Grid item container md={2} sm={5}>
                       <CustomButton
                         variant="contained"
                         title="continue"

@@ -125,11 +125,11 @@ const useStyles = makeStyles((theme) => ({
   },
   parentGrid: {
     textDecoration: "none",
-    width: "24.7rem",
+    // width: "24.7rem",
     color: theme.palette.primary.main,
     "&.MuiGrid-item": {
       ...theme.typography.cardParentGrid,
-      minWidth: "25rem",
+      // minWidth: "25rem",
       [theme.breakpoints.down("sm")]: {
         "& >*": {
           // background: "green",
@@ -151,8 +151,9 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   active: {
-    // color: "green",
-    background: "#ECF6F3 !important",
+    "&> *": {
+      background: "#ECF6F3 !important",
+    },
   },
 }));
 
@@ -225,9 +226,12 @@ const Forms = () => {
               (Qualification and any other)
             </Typography>
           </Grid>
-          <Grid item container justifyContent="space-between" rowGap={3}>
+          <Grid item container justifyContent="space-between" rowGap={3} spacing={3}>
             <Grid
               item
+              md={3.5}
+              sm={6}
+              container
               className={
                 qualification ? `${classes.parentGrid} ${classes.active}` : classes.parentGrid
               }
@@ -247,6 +251,9 @@ const Forms = () => {
             </Grid>
             <Grid
               item
+              container
+              md={3.5}
+              sm={6}
               className={license ? `${classes.parentGrid} ${classes.active}` : classes.parentGrid}
               onClick={() => {
                 setLicense(!license);
@@ -262,6 +269,9 @@ const Forms = () => {
             </Grid>
             <Grid
               item
+              md={3.5}
+              sm={6}
+              container
               className={yearBook ? `${classes.parentGrid} ${classes.active}` : classes.parentGrid}
               onClick={() => {
                 setYearBook(!yearBook);
@@ -275,9 +285,12 @@ const Forms = () => {
                 />
               </Card>
             </Grid>
-          </Grid>
-          <Grid item container justifyContent="space-between" rowGap={3}>
+
+            {/* second container */}
             <Grid
+              md={3.5}
+              sm={6}
+              container
               item
               className={alumni ? `${classes.parentGrid} ${classes.active}` : classes.parentGrid}
               onClick={() => {
@@ -294,9 +307,12 @@ const Forms = () => {
                 </Grid>
               </Card>
             </Grid>
-
+            {/* 2b */}
             <Grid
               item
+              container
+              md={3.5}
+              sm={6}
               className={reference ? `${classes.parentGrid} ${classes.active}` : classes.parentGrid}
               onClick={() => {
                 setReference(!reference);
@@ -310,8 +326,12 @@ const Forms = () => {
                 />
               </Card>
             </Grid>
+            {/* 3b */}
             <Grid
               item
+              md={3.5}
+              sm={6}
+              container
               className={
                 externalReference ? `${classes.parentGrid} ${classes.active}` : classes.parentGrid
               }
@@ -324,6 +344,7 @@ const Forms = () => {
               </Card>
             </Grid>
           </Grid>
+
           <Grid item className={classes.infoBadge} gap={2}>
             <ErrorRoundedIcon />
             <Typography variant="h6">
@@ -356,8 +377,8 @@ const Forms = () => {
                         >
                           <Typography variant="h2">Qualification</Typography>
 
-                          <Grid item container justifyContent="space-between">
-                            <Grid item xs={5}>
+                          <Grid item container justifyContent="space-between" gap={3}>
+                            <Grid item container md={5} sm={10}>
                               <FormikControl
                                 control="select"
                                 name="Name"
@@ -366,7 +387,7 @@ const Forms = () => {
                                 options={options}
                               />
                             </Grid>
-                            <Grid item xs={5}>
+                            <Grid item container md={5} sm={10}>
                               <FormikControl
                                 control="select"
                                 placeholder="Choose Date"
@@ -384,14 +405,18 @@ const Forms = () => {
                             container
                             sx={{ height: "200px", border: "2px dashed #CCCCCC" }}
                           >
-                            <Grid item md display="flex" alignItems="center">
+                            <Grid item container alignItems="center">
                               <Grid
                                 container
+                                item
                                 direction="column"
                                 alignItems="center"
                                 justifyContent="center"
                               >
-                                <label htmlFor="contained-button-file">
+                                <label
+                                  htmlFor="contained-button-file"
+                                  style={{ textAlign: "center" }}
+                                >
                                   <Input
                                     accept="image/*"
                                     id="contained-button-file"
@@ -412,7 +437,7 @@ const Forms = () => {
                                     <Typography textAlign="center" variant="h6">
                                       Drag and Drop and Image or
                                     </Typography>
-                                    <Typography textAlign="left" variant="h6" color="error">
+                                    <Typography textAlign="center" variant="h6" color="error">
                                       Browse
                                     </Typography>
                                   </Grid>
@@ -439,7 +464,7 @@ const Forms = () => {
                         >
                           <Typography variant="h2">License</Typography>
                           <Grid item container justifyContent="space-between" spacing={3}>
-                            <Grid item xs={12}>
+                            <Grid item container md={12} sm={10}>
                               <FormikControl
                                 control="input"
                                 name="License"
@@ -447,8 +472,8 @@ const Forms = () => {
                                 label="License Number"
                               />
                             </Grid>
-                            <Grid item container justifyContent="space-between">
-                              <Grid item xs={5}>
+                            <Grid item container justifyContent="space-between" gap={3}>
+                              <Grid item container md={5} sm={10}>
                                 <FormikControl
                                   control="select"
                                   name="LicenseType"
@@ -457,7 +482,7 @@ const Forms = () => {
                                   options={options}
                                 />
                               </Grid>
-                              <Grid item xs={5}>
+                              <Grid item container md={5} sm={10}>
                                 <FormikControl
                                   control="select"
                                   placeholder="Choose Date"
@@ -476,14 +501,17 @@ const Forms = () => {
                             container
                             sx={{ height: "200px", border: "2px dashed #CCCCCC" }}
                           >
-                            <Grid item md display="flex" alignItems="center">
+                            <Grid item container alignItems="center">
                               <Grid
                                 container
                                 direction="column"
                                 alignItems="center"
                                 justifyContent="center"
                               >
-                                <label htmlFor="contained-button-file">
+                                <label
+                                  htmlFor="contained-button-file"
+                                  style={{ textAlign: "center" }}
+                                >
                                   <Input
                                     accept="image/*"
                                     id="contained-button-file"
@@ -504,7 +532,7 @@ const Forms = () => {
                                     <Typography textAlign="center" variant="h6">
                                       Drag and Drop and Image or
                                     </Typography>
-                                    <Typography textAlign="left" variant="h6" color="error">
+                                    <Typography textAlign="center" variant="h6" color="error">
                                       Browse
                                     </Typography>
                                   </Grid>
@@ -532,7 +560,7 @@ const Forms = () => {
                           <Typography variant="h2">Year Book</Typography>
                           <Grid item container justifyContent="space-between" spacing={3}>
                             <Grid item container justifyContent="space-between">
-                              <Grid item md={5} xs={12}>
+                              <Grid item container md={5} sm={10}>
                                 <FormikControl
                                   control="select"
                                   name="graduationYear"
@@ -549,16 +577,20 @@ const Forms = () => {
                           <Grid
                             item
                             container
+                            justifyContent="center"
                             sx={{ height: "200px", border: "2px dashed #CCCCCC" }}
                           >
-                            <Grid item md display="flex" alignItems="center">
+                            <Grid item container alignItems="center" justifyContent="center">
                               <Grid
                                 container
                                 direction="column"
                                 alignItems="center"
                                 justifyContent="center"
                               >
-                                <label htmlFor="contained-button-file">
+                                <label
+                                  htmlFor="contained-button-file"
+                                  style={{ textAlign: "center" }}
+                                >
                                   <Input
                                     accept="image/*"
                                     id="contained-button-file"
@@ -579,7 +611,7 @@ const Forms = () => {
                                     <Typography textAlign="center" variant="h6">
                                       Drag and Drop and Image or
                                     </Typography>
-                                    <Typography textAlign="left" variant="h6" color="error">
+                                    <Typography textAlign="center" variant="h6" color="error">
                                       Browse
                                     </Typography>
                                   </Grid>
@@ -605,8 +637,8 @@ const Forms = () => {
                           marginBottom={4}
                         >
                           <Typography variant="h2">Alumni Association</Typography>
-                          <Grid item container justifyContent="space-between" spacing={3}>
-                            <Grid item xs={12}>
+                          <Grid item container justifyContent="space-between" gap={3}>
+                            <Grid item container sm={10} md={12}>
                               <FormikControl
                                 control="input"
                                 name="FacebookName"
@@ -614,7 +646,7 @@ const Forms = () => {
                                 label="Facebook Group Name"
                               />
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item container sm={10} md={12}>
                               <FormikControl
                                 control="input"
                                 name="InstagramName"
@@ -641,7 +673,7 @@ const Forms = () => {
                         >
                           <Typography variant="h2">Reference From Doctor on Doci</Typography>
                           <Grid item container justifyContent="space-between" spacing={3}>
-                            <Grid item xs={12}>
+                            <Grid item container md={12} sm={10}>
                               <FormikControl
                                 control="input"
                                 name="referenceCode"
@@ -669,8 +701,8 @@ const Forms = () => {
                         >
                           <Typography variant="h2">External Reference</Typography>
                           <Grid item container justifyContent="space-between" spacing={3}>
-                            <Grid item container justifyContent="space-between">
-                              <Grid item xs={5}>
+                            <Grid item container justifyContent="space-between" gap={3}>
+                              <Grid item container md={5} sm={10}>
                                 <FormikControl
                                   control="input"
                                   name="DoctorName"
@@ -678,7 +710,7 @@ const Forms = () => {
                                   label="Doctor's name"
                                 />
                               </Grid>
-                              <Grid item xs={5}>
+                              <Grid item container md={5} sm={10}>
                                 <FormikControl
                                   control="input"
                                   name="DoctorInstitution"
@@ -687,8 +719,8 @@ const Forms = () => {
                                 />
                               </Grid>
                             </Grid>
-                            <Grid item container justifyContent="space-between">
-                              <Grid item xs={5}>
+                            <Grid item container justifyContent="space-between" gap={3}>
+                              <Grid item container md={5} sm={10}>
                                 <FormikControl
                                   control="input"
                                   name="Doctorposition"
@@ -696,7 +728,7 @@ const Forms = () => {
                                   placeholder="e.g Dentist"
                                 />
                               </Grid>
-                              <Grid item xs={5}>
+                              <Grid item container md={5} sm={10}>
                                 <FormikControl
                                   control="input"
                                   name="DoctorEmail"
