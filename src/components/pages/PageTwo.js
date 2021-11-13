@@ -144,7 +144,6 @@ const PageTwo = ({ state, handleNext, handlePrevious }) => {
                                 Upload Photo
                               </Button>
                               <Grid marginTop="1.5rem">
-                                {" "}
                                 <Typography textAlign="center" variant="h6">
                                   Drag and Drop and Image or
                                 </Typography>

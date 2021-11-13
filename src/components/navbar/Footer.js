@@ -45,12 +45,16 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
+  footer: {
+    boxShadow: "none",
+    borderTop: "1px solid #CCCCCC",
+  },
 }));
 
 const Footer = () => {
   const classes = useStyles();
   return (
-    <AppBar elevation={0} position="static" sx={{ bottom: 0 }}>
+    <AppBar elevation={0} position="static" sx={{ bottom: 0 }} className={classes.footer}>
       <Container maxWidth="false" disableGutters>
         <Toolbar>
           <Grid container gap={2} justifyContent="center">
