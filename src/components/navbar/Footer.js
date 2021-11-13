@@ -6,7 +6,7 @@ import play from "assets/images/play.jpg";
 // import vector from "assets/images/vector.png";
 import store from "assets/images/store.jpg";
 import Typography from "@mui/material/Typography";
-import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
+// import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import {
   AppBar,
   Toolbar,
@@ -25,6 +25,11 @@ const useStyles = makeStyles((theme) => ({
   },
   listbutton: {
     "& .MuiListItemButton-root": {
+      "& .MuiTypography-root": {
+        [theme.breakpoints.down("sm")]: {
+          fontSize: "1.2rem",
+        },
+      },
       "&:hover": {
         background: "transparent",
         "& .MuiTypography-root": {
@@ -35,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     "& .MuiGrid-root": {
+      padding: 0,
       "& > *": {
         width: "inherit",
         // padding: " .5rem .8rem",
@@ -45,9 +51,28 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
+  link: {
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+      // order: 4,
+    },
+  },
+  footerBottom: {
+    [theme.breakpoints.up("sm")]: {
+      display: "none",
+      // order: 4,
+    },
+  },
   footer: {
     boxShadow: "none",
     borderTop: "1px solid #CCCCCC",
+    paddingBottom: "2rem",
+  },
+  footerImage: {
+    flexDirection: "column",
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "row",
+    },
   },
 }));
 
@@ -55,7 +80,7 @@ const Footer = () => {
   const classes = useStyles();
   return (
     <AppBar elevation={0} position="static" sx={{ bottom: 0 }} className={classes.footer}>
-      <Container maxWidth="false" disableGutters>
+      <Container maxWidth="false">
         <Toolbar>
           <Grid container gap={2} justifyContent="center">
             <Grid
@@ -68,24 +93,22 @@ const Footer = () => {
               justifyContent="center"
               flexDirection="column"
             >
-              <Grid item width="80%">
+              <Grid item>
                 <img src={logo} style={{ width: 150, objectFit: "contain" }} />
-                <Typography variant="h5" color="primary">
+                <Typography fontSize="1rem" color="primary">
                   Accessible Health care for all
                 </Typography>
               </Grid>
-              <Grid item width="80%">
+              <Grid item container className={classes.link}>
                 <Stack direction="row" spacing={2}>
                   <Avatar>In</Avatar>
+                  <Avatar>W</Avatar>
                   <Avatar>In</Avatar>
-                  <Avatar>In</Avatar>
-                  <Avatar>
-                    <FacebookOutlinedIcon />
-                  </Avatar>
+                  <Avatar>T{/* <FacebookOutlinedIcon /> */}</Avatar>
                   <Avatar>F</Avatar>
                 </Stack>
               </Grid>
-              <Grid item>
+              <Grid item className={classes.link}>
                 <Typography variant="h5" color="primary">
                   &copy; 2021 Doci Health Care Inc.
                 </Typography>
@@ -144,16 +167,16 @@ const Footer = () => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item container flexDirection="column" md={3} xs={12} sm={12}>
-              <Grid item container columnSpacing={3}>
-                <Grid item padding="2rem">
+            <Grid item container flexDirection="column" md={3} gap={3} sm={12}>
+              <Grid item container>
+                <Grid item>
                   <Typography variant="body1" color="primary">
                     Download App
                   </Typography>
                 </Grid>
               </Grid>
-              <Grid item container gap={4} flexDirection="column">
-                <Grid item>
+              <Grid item container spacing={4} className={classes.footerImage}>
+                <Grid container item sm={6}>
                   <img
                     src={play}
                     style={{
@@ -164,7 +187,7 @@ const Footer = () => {
                     }}
                   />
                 </Grid>
-                <Grid item>
+                <Grid container item sm={6}>
                   <img
                     src={store}
                     style={{
@@ -175,6 +198,27 @@ const Footer = () => {
                     }}
                   />
                 </Grid>
+              </Grid>
+            </Grid>
+            <Grid
+              item
+              container
+              justifyContent="center"
+              p="2"
+              gap={3}
+              className={classes.footerBottom}
+            >
+              <Grid item container gap={2} flexWrap="nowrap">
+                <Avatar>In</Avatar>
+                <Avatar>W</Avatar>
+                <Avatar>In</Avatar>
+                <Avatar>F{/* <FacebookOutlinedIcon /> */}</Avatar>
+                <Avatar>F</Avatar>
+              </Grid>
+              <Grid item>
+                <Typography variant="h5" textAlign="center" color="primary">
+                  &copy; 2021 Doci Health Care Inc.
+                </Typography>
               </Grid>
             </Grid>
           </Grid>
