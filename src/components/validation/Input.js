@@ -21,7 +21,7 @@ const Input = (props) => {
   const { label, name, ...rest } = props;
   const classes = useStyles();
   return (
-    <Grid container direction="column" gap={1}>
+    <Grid item container direction="column" gap={1}>
       <FormLabel component="legend" className={classes.FormLabel}>
         {label}
       </FormLabel>

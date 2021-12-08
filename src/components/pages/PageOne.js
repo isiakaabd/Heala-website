@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Grid, Typography } from "@mui/material";
-import CustomButton from "components/Utilities/CustomButton";
+import { CustomButton } from "components/Utilities";
 import { useTheme } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 import { Formik, Form } from "formik";
@@ -18,10 +18,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const PageOne = ({ state, handleNext }) => {
+const PageOne = ({ state, handleNext }) => {
   const classes = useStyles();
   const theme = useTheme();
-  console.log(state);
   const greenButton = {
     background: theme.palette.success.main,
     hover: theme.palette.success.light,
@@ -37,9 +36,9 @@ export const PageOne = ({ state, handleNext }) => {
           {(formik) => {
             return (
               <Form>
-                <Grid container gap={3}>
-                  <Grid item container justifyContent="space-around" rowSpacing={2}>
-                    <Grid item container md={5} sm={10}>
+                <Grid container item gap={3}>
+                  <Grid item container justifyContent="center" rowSpacing={2}>
+                    <Grid item container md={8} sm={10}>
                       <FormikControl
                         control="input"
                         type="email"
@@ -48,7 +47,7 @@ export const PageOne = ({ state, handleNext }) => {
                         placeholder=" Enter your email"
                       />
                     </Grid>
-                    <Grid item container md={5} sm={10}>
+                    <Grid item container md={8} sm={10}>
                       <FormikControl
                         control="input"
                         name="password"
@@ -77,6 +76,8 @@ export const PageOne = ({ state, handleNext }) => {
     </Grid>
   );
 };
+export default PageOne;
+
 PageOne.propTypes = {
   state: PropTypes.object.isRequired,
   handlePrevious: PropTypes.func.isRequired,

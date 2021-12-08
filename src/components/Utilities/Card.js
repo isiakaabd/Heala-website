@@ -1,13 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
+import { Grid, Typography } from "@mui/material";
+
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
   gridWrapper: {
     ...theme.typography.cardGridWrapper,
-    width: "100%",
+    "@media (max-width:600px)": {
+      width: "12rem",
+      maxWidth: "100%",
+      height: "20rem",
+    },
   },
 
   iconWrapper: {
@@ -26,10 +30,10 @@ const Card = ({ title, background, children, header = "h4", padding }) => {
       className={classes.gridWrapper}
       style={{ padding: padding ? padding : "2rem 1rem" }}
     >
-      <Grid item className={classes.iconWrapper} style={{ background }}>
+      <Grid item container className={classes.iconWrapper} style={{ background }}>
         {children}
       </Grid>
-      <Grid item>
+      <Grid item textAlign="center">
         <Typography variant={header}>{title}</Typography>
       </Grid>
     </Grid>

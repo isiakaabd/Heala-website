@@ -1,12 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import FormLabel from "@mui/material/FormLabel";
 import { Grid, Typography } from "@mui/material";
 import CustomButton from "components/Utilities/CustomButton";
 import { useTheme } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
-import Input from "@mui/material/Input";
-import Button from "@mui/material/Button";
 import { Formik, Form } from "formik";
 import FormikControl from "components/validation/FormikControl";
 
@@ -30,7 +27,7 @@ const PageTwo = ({ state, handleNext, handlePrevious }) => {
     { key: "read", value: "read" },
     { key: "delete", value: "delete" },
   ];
-  console.log(state);
+
   const greenButton = {
     background: theme.palette.success.main,
     hover: theme.palette.success.light,
@@ -38,8 +35,10 @@ const PageTwo = ({ state, handleNext, handlePrevious }) => {
   };
   return (
     <Grid item container direction="column" gap={5}>
-      <Grid item>
-        <Typography variant="h4">Create Account</Typography>
+      <Grid item container justifyContent="center">
+        <Typography variant="h4" textAlign="center">
+          Create Profile
+        </Typography>
       </Grid>
       <Grid item>
         <Formik initialValues={state} validateOnChange={false} validateOnMount>
@@ -105,59 +104,7 @@ const PageTwo = ({ state, handleNext, handlePrevious }) => {
                       />
                     </Grid>
                   </Grid>
-                  <Grid item justifyContent="space-around" container gap={2}>
-                    <Grid item container md={5}>
-                      <FormLabel
-                        component="legend"
-                        className={classes.FormLabel}
-                        sx={{ paddingBottom: "1rem" }}
-                      >
-                        Upload Your Qualification
-                      </FormLabel>
-                      <Grid
-                        item
-                        container
-                        justifyContent="space-around"
-                        sx={{ height: "200px", border: "2px dashed #CCCCCC" }}
-                      >
-                        <Grid item md display="flex" alignItems="center" justifyContent="center">
-                          <Grid
-                            container
-                            direction="column"
-                            alignItems="center"
-                            justifyContent="center"
-                          >
-                            <label htmlFor="contained-button-file" style={{ textAlign: "center" }}>
-                              <Input
-                                accept="image/*"
-                                id="contained-button-file"
-                                multiple
-                                type="file"
-                                name="Qualification"
-                                style={{ display: "none" }}
-                              />
-                              <Button
-                                variant="contained"
-                                component="span"
-                                className={classes.uploadBtn}
-                              >
-                                Upload Photo
-                              </Button>
-                              <Grid marginTop="1.5rem">
-                                <Typography textAlign="center" variant="h6">
-                                  Drag and Drop and Image or
-                                </Typography>
-                                <Typography textAlign="center" variant="h6" color="error">
-                                  Browse
-                                </Typography>
-                              </Grid>
-                            </label>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item md={5}></Grid>
-                  </Grid>
+
                   <Grid item container justifyContent="space-around" gap={3}>
                     <Grid item container md={2} sm={5}>
                       <CustomButton
@@ -174,7 +121,7 @@ const PageTwo = ({ state, handleNext, handlePrevious }) => {
                         variant="contained"
                         title="continue"
                         type={greenButton}
-                        onClick={() => alert("what Next?")}
+                        onClick={handleNext}
                         className={classes.btn}
                         // disabled={formik.isSubmitting || !(formik.dirty && formik.isValid)}
                       />

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Grid, Typography, Avatar } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-
-import Create from "components/pages/Create";
+import { PreviousButton } from "components/Utilities";
+import { Create } from "components/pages";
 
 const BecomePartner = () => {
+  //   let hh = 1
+  // if(hh<1) return hh=1
   const useStyles = makeStyles((theme) => ({
     form: theme.mixins.toolbar,
     avatar: {},
@@ -29,24 +31,23 @@ const BecomePartner = () => {
 
   const [step, setStep] = useState(1);
 
-  const handleNext = () => {
-    setStep(step + 1);
-  };
+  const handleNext = () => setStep(step + 1);
+
   const handlePrevious = () => {
-    setStep(step - 1);
+    if (step === 1) return setStep(1);
+    else setStep(step - 1);
   };
-  //   style={
-  //       {step==1? color:"green"}
-  //   }
   const z = `${step}` >= 1 ? "red" : "";
   const y = `${step}` >= 2 ? "red" : "";
   const w = `${step}` >= 3 ? "red" : "";
 
   return (
     <>
-      <div className={classes.form}></div>
-      <div className={classes.form}></div>
-      <Grid container direction="column" gap={5} width="80%" margin="auto">
+      <Grid container direction="column" gap={5} width="90%" margin="auto">
+        <Grid item container>
+          <PreviousButton step={step} handlePrevious={handlePrevious} />
+        </Grid>
+
         <Grid item className={classes.subheading}>
           <Typography textAlign="center" variant="h1">
             Set up your Partner Account

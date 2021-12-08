@@ -34,7 +34,6 @@ const IconLabelButtons = ({
       spacing={2}
       sx={{
         width,
-        // height: "100%",
       }}
     >
       <Button

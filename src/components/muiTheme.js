@@ -65,6 +65,9 @@ export const muiTheme = createTheme({
     h4: {
       fontSize: "1.85rem",
       fontWeight: 500,
+      "@media (max-width:600px)": {
+        fontSize: "1.3rem",
+      },
     },
     h5: {
       fontSize: "1.5rem",
@@ -109,6 +112,9 @@ export const muiTheme = createTheme({
     cardGridWrapper: {
       height: "100%",
       padding: "5rem 3rem",
+      "@media (max-width:600px)": {
+        padding: "1rem 1.5rem",
+      },
       borderRadius: 10,
       boxShadow: "-1px 0px 10px -2px rgba(0,0,0,0.15)",
     },
@@ -117,6 +123,10 @@ export const muiTheme = createTheme({
       borderRadius: 10,
       height: "20.8rem",
       cursor: "pointer",
+      padding: 0,
+      "@media (min-width:600px)": {
+        width: "30px",
+      },
     },
     FormLabel: {
       fontSize: "1.6rem",

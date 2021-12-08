@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from "react";
 import FormLabel from "@mui/material/FormLabel";
 import { Grid, Typography, Box } from "@mui/material";
-import CustomButton from "components/Utilities/CustomButton";
+import { Card, CustomButton } from "components/Utilities";
 import { ReactComponent as LicenseIcon } from "assets/images/licenses.svg";
 // import { ReactComponent as YearBookIcon } from "assets/images/yearbook.svg";
 import { ReactComponent as CalendarIcon } from "assets/images/calendar.svg";
@@ -12,7 +12,6 @@ import { ReactComponent as QualificationIcon } from "assets/images/qualification
 import ErrorRoundedIcon from "@mui/icons-material/ErrorRounded";
 import { useTheme } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
-import Card from "components/Utilities/Card";
 import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
 import { Formik, Form } from "formik";
@@ -195,10 +194,16 @@ const Forms = () => {
 
   return (
     <Fragment>
-      <div className={classes.form}></div>
-      <div className={classes.form}></div>
+      {/* <div className={classes.form}></div> */}
       <Box>
-        <Grid container direction="column" gap={5} width="80%" margin="auto">
+        <Grid
+          container
+          direction="column"
+          justifyContent="center"
+          gap={5}
+          width="90%"
+          margin="auto"
+        >
           <Grid item>
             <Typography textAlign="center" variant="h1">
               HCP Verification
@@ -210,12 +215,17 @@ const Forms = () => {
               (Qualification and any other)
             </Typography>
           </Grid>
-          <Grid item container justifyContent="space-between" rowGap={3} spacing={3}>
+          <Grid
+            container
+            justifyContent="space-between"
+            rowGap={3}
+            spacing={3}
+            sx={{ width: "100%", margin: "auto" }}
+          >
             <Grid
               item
               md={3.5}
               sm={6}
-              container
               className={
                 qualification ? `${classes.parentGrid} ${classes.active}` : classes.parentGrid
               }
@@ -235,13 +245,10 @@ const Forms = () => {
             </Grid>
             <Grid
               item
-              container
               md={3.5}
               sm={6}
               className={license ? `${classes.parentGrid} ${classes.active}` : classes.parentGrid}
-              onClick={() => {
-                setLicense(!license);
-              }}
+              onClick={() => setLicense(!license)}
             >
               <Card title="License" background={theme.palette.common.lightRed}>
                 <LicenseIcon
@@ -255,7 +262,6 @@ const Forms = () => {
               item
               md={3.5}
               sm={6}
-              container
               className={yearBook ? `${classes.parentGrid} ${classes.active}` : classes.parentGrid}
               onClick={() => {
                 setYearBook(!yearBook);
@@ -274,7 +280,6 @@ const Forms = () => {
             <Grid
               md={3.5}
               sm={6}
-              container
               item
               className={alumni ? `${classes.parentGrid} ${classes.active}` : classes.parentGrid}
               onClick={() => {
@@ -294,7 +299,6 @@ const Forms = () => {
             {/* 2b */}
             <Grid
               item
-              container
               md={3.5}
               sm={6}
               className={reference ? `${classes.parentGrid} ${classes.active}` : classes.parentGrid}
@@ -315,7 +319,6 @@ const Forms = () => {
               item
               md={3.5}
               sm={6}
-              container
               className={
                 externalReference ? `${classes.parentGrid} ${classes.active}` : classes.parentGrid
               }
