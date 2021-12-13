@@ -42,6 +42,9 @@ const PageOne = ({ state, handleNext }) => {
                       <Typography variant="h3">Create Account</Typography>
                     </Grid>
                     <Grid item container md={8} sm={10}>
+                      <Typography variant="body1">Account Info</Typography>
+                    </Grid>
+                    <Grid item container md={8} sm={10}>
                       <FormikControl
                         control="input"
                         type="email"

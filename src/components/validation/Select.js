@@ -26,7 +26,15 @@ const Selects = (props) => {
   return (
     <FormControl fullWidth sx={{ width: "100%" }}>
       <FormLabel className={classes.FormLabel}>{label}</FormLabel>
-      <Field id={name} name={name} type="select" as={Select} className={classes.input} {...rest}>
+      <Field
+        id={name}
+        name={name}
+        type="select"
+        as={Select}
+        placeholder="tt"
+        className={classes.input}
+        {...rest}
+      >
         {options.map((option) => {
           return (
             <MenuItem key={option.key} value={option.value}>

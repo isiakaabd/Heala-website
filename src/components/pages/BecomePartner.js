@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { Grid, Typography, Avatar } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { PreviousButton } from "components/Utilities";
@@ -41,12 +41,12 @@ const BecomePartner = () => {
 
   const [step, setStep] = useState(1);
 
-  const handleNext = () => setStep(step + 1);
+  const handleNext = useCallback(() => setStep(step + 1), [step]);
 
-  const handlePrevious = () => {
+  const handlePrevious = useCallback(() => {
     if (step === 1) return setStep(1);
     else setStep(step - 1);
-  };
+  }, [step]);
   const z = `${step}` >= 1 ? "red" : "";
   const y = `${step}` >= 2 ? "red" : "";
   const w = `${step}` >= 3 ? "red" : "";

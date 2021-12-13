@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-const PageTwo = ({ state, handleNext, handlePrevious }) => {
+const PageTwo = ({ state, handleNext }) => {
   const classes = useStyles();
   const theme = useTheme();
   const options = [
@@ -42,14 +42,19 @@ const PageTwo = ({ state, handleNext, handlePrevious }) => {
   return (
     <Grid item container direction="column" gap={5}>
       <Grid item>
-        <Typography variant="h3">Create Profile</Typography>
-      </Grid>
-      <Grid item>
         <Formik initialValues={state} validateOnChange={false} validateOnMount>
           {(formik) => {
             return (
               <Form>
                 <Grid container gap={3}>
+                  <Grid item container justifyContent="space-around" gap={2}>
+                    <Grid item container md={5} sm={10}>
+                      <Grid item>
+                        <Typography variant="h3">Create Profile</Typography>
+                      </Grid>
+                    </Grid>
+                    <Grid item container md={5} sm={10}></Grid>
+                  </Grid>
                   <Grid item container justifyContent="space-around" gap={2}>
                     <Grid item container md={5} sm={10}>
                       <FormikControl
@@ -146,7 +151,7 @@ const PageTwo = ({ state, handleNext, handlePrevious }) => {
                       />
                     </Grid>
                   </Grid>
-                 
+
                   <Grid item container md={11} margin="auto">
                     <FormikControl
                       control="input"
@@ -154,7 +159,6 @@ const PageTwo = ({ state, handleNext, handlePrevious }) => {
                       label="Hospital"
                       placeholder="Hospital"
                     />
-                 
                   </Grid>
 
                   <Grid item container md={2} sm={5} margin="auto">
@@ -168,7 +172,6 @@ const PageTwo = ({ state, handleNext, handlePrevious }) => {
                     />
                   </Grid>
                 </Grid>
-           
               </Form>
             );
           }}
