@@ -7,14 +7,11 @@ import { makeStyles } from "@mui/styles";
 const useStyles = makeStyles((theme) => ({
   gridWrapper: {
     ...theme.typography.cardGridWrapper,
-    "@media (max-width:600px)": {
-      width: "12rem",
-      maxWidth: "100%",
-      height: "20rem",
-    },
+    height: "100%",
   },
 
   iconWrapper: {
+    padding: "2rem 1rem",
     ...theme.typography.cardIconWrapper,
   },
 }));
@@ -23,17 +20,19 @@ const Card = ({ title, background, children, header = "h4", padding }) => {
   const classes = useStyles();
   return (
     <Grid
+      item
       container
-      flexDirection="column"
+      direction="column"
       alignItems="center"
-      justifyContent="space-between"
+      justifyContent="center"
+      gap={2}
+      sx={{ width: "100%" }}
       className={classes.gridWrapper}
-      style={{ padding: padding ? padding : "2rem 1rem" }}
     >
       <Grid item container className={classes.iconWrapper} style={{ background }}>
         {children}
       </Grid>
-      <Grid item textAlign="center">
+      <Grid item textAlign="center" sx={{ width: "100%" }}>
         <Typography variant={header}>{title}</Typography>
       </Grid>
     </Grid>

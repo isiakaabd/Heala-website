@@ -26,9 +26,10 @@ const PageOne = ({ state, handleNext }) => {
     hover: theme.palette.success.light,
     active: theme.palette.primary.dark,
   };
+
   return (
     <Grid item container direction="column" gap={5}>
-      <Grid item textAlign="center">
+      <Grid item width="80%" margin="auto" container justifyContent="left">
         <Typography variant="h3">Create Account</Typography>
       </Grid>
       <Grid item>

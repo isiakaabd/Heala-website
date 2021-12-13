@@ -3,16 +3,20 @@ import { Grid, Typography, Avatar } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { PreviousButton } from "components/Utilities";
 import { Create } from "components/pages";
+import Divider from "@mui/material/Divider";
 
 const BecomePartner = () => {
-  //   let hh = 1
-  // if(hh<1) return hh=1
   const useStyles = makeStyles((theme) => ({
     form: theme.mixins.toolbar,
-    avatar: {},
     subheading: {
       [theme.breakpoints.down("sm")]: {
         textAlign: "center",
+      },
+    },
+    width: {
+      width: "30%",
+      [theme.breakpoints.down("sm")]: {
+        width: "20%",
       },
     },
   }));
@@ -27,6 +31,11 @@ const BecomePartner = () => {
     phone: "",
     plan: "",
     affliate: "",
+    DOB: "",
+    sex: "",
+    hospital: "",
+    age: "",
+    medicalID: "",
   };
 
   const [step, setStep] = useState(1);
@@ -53,9 +62,11 @@ const BecomePartner = () => {
             Set up your Partner Account
           </Typography>
         </Grid>
-        <Grid item container justifyContent="space-around">
+        <Grid item container justifyContent="space-around" alignItems="center" flexWrap="no-wrap">
           <Avatar sx={{ background: z }}>1</Avatar>
+          <Divider light sx={{ background: z }} className={classes.width} />
           <Avatar sx={{ background: y }}>2</Avatar>
+          <Divider light sx={{ background: y }} className={classes.width} />
           <Avatar sx={{ background: w }}>3</Avatar>
         </Grid>
         <Create step={step} state={state} handleNext={handleNext} handlePrevious={handlePrevious} />

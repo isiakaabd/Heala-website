@@ -111,10 +111,7 @@ export const muiTheme = createTheme({
 
     cardGridWrapper: {
       height: "100%",
-      padding: "5rem 3rem",
-      "@media (max-width:600px)": {
-        padding: "1rem 1.5rem",
-      },
+      width: "100%",
       borderRadius: 10,
       boxShadow: "-1px 0px 10px -2px rgba(0,0,0,0.15)",
     },
@@ -124,8 +121,9 @@ export const muiTheme = createTheme({
       height: "20.8rem",
       cursor: "pointer",
       padding: 0,
+      width: "100%",
       "@media (min-width:600px)": {
-        width: "30px",
+        borderRadius: 6,
       },
     },
     FormLabel: {

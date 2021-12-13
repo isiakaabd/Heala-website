@@ -5,10 +5,10 @@ import { Card, CustomButton } from "components/Utilities";
 import { ReactComponent as LicenseIcon } from "assets/images/licenses.svg";
 // import { ReactComponent as YearBookIcon } from "assets/images/yearbook.svg";
 import { ReactComponent as CalendarIcon } from "assets/images/calendar.svg";
-import { ReactComponent as TimerIcon } from "assets/images/timer.svg";
+// import { ReactComponent as TimerIcon } from "assets/images/timer.svg";
 // import { ReactComponent as AlumniIcon } from "assets/images/alumni.svg";
 import { ReactComponent as ReferenceIcon } from "assets/images/reference.svg";
-import { ReactComponent as QualificationIcon } from "assets/images/qualification.svg";
+// import { ReactComponent as QualificationIcon } from "assets/images/qualification.svg";
 import ErrorRoundedIcon from "@mui/icons-material/ErrorRounded";
 import { useTheme } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
@@ -216,6 +216,7 @@ const Forms = () => {
             </Typography>
           </Grid>
           <Grid
+            item
             container
             justifyContent="space-between"
             rowGap={3}
@@ -224,8 +225,9 @@ const Forms = () => {
           >
             <Grid
               item
+              container
               md={3.5}
-              sm={6}
+              xs={5.5}
               className={
                 qualification ? `${classes.parentGrid} ${classes.active}` : classes.parentGrid
               }
@@ -236,7 +238,7 @@ const Forms = () => {
               <Card title="Qualification" background={theme.palette.common.lightRed}>
                 <Grid className={classes.iconWrapper}>
                   <CalendarIcon
-                    color="success"
+                    color="error"
                     fill={theme.palette.common.red}
                     className={classes.cardIcon}
                   />
@@ -246,7 +248,7 @@ const Forms = () => {
             <Grid
               item
               md={3.5}
-              sm={6}
+              xs={5.5}
               className={license ? `${classes.parentGrid} ${classes.active}` : classes.parentGrid}
               onClick={() => setLicense(!license)}
             >
@@ -256,22 +258,27 @@ const Forms = () => {
                   fill={theme.palette.common.red}
                   // className={classes.cardIcon}
                 />
+                {/* <CalendarIcon
+                  color="error"
+                  fill={theme.palette.common.red}
+                  className={classes.cardIcon}
+                /> */}
               </Card>
             </Grid>
             <Grid
               item
               md={3.5}
-              sm={6}
+              xs={5.5}
               className={yearBook ? `${classes.parentGrid} ${classes.active}` : classes.parentGrid}
               onClick={() => {
                 setYearBook(!yearBook);
               }}
             >
               <Card title="Year Book" background={theme.palette.common.lightRed}>
-                <TimerIcon
+                <CalendarIcon
                   color="error"
-                  className={classes.cardIcon}
                   fill={theme.palette.common.red}
+                  className={classes.cardIcon}
                 />
               </Card>
             </Grid>
@@ -279,7 +286,7 @@ const Forms = () => {
             {/* second container */}
             <Grid
               md={3.5}
-              sm={6}
+              xs={5.5}
               item
               className={alumni ? `${classes.parentGrid} ${classes.active}` : classes.parentGrid}
               onClick={() => {
@@ -287,20 +294,20 @@ const Forms = () => {
               }}
             >
               <Card title="Alumni Association" background={theme.palette.common.lightRed}>
-                <Grid className={classes.iconWrapper}>
-                  <QualificationIcon
-                    color="success"
-                    fill={theme.palette.common.red}
-                    className={classes.cardIcon}
-                  />
-                </Grid>
+                {/* <Grid item className={classes.iconWrapper}> */}
+                <CalendarIcon
+                  color="error"
+                  fill={theme.palette.common.red}
+                  className={classes.cardIcon}
+                />
+                {/* </Grid> */}
               </Card>
             </Grid>
             {/* 2b */}
             <Grid
               item
               md={3.5}
-              sm={6}
+              xs={5.5}
               className={reference ? `${classes.parentGrid} ${classes.active}` : classes.parentGrid}
               onClick={() => {
                 setReference(!reference);
@@ -318,7 +325,7 @@ const Forms = () => {
             <Grid
               item
               md={3.5}
-              sm={6}
+              xs={5.5}
               className={
                 externalReference ? `${classes.parentGrid} ${classes.active}` : classes.parentGrid
               }
