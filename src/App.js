@@ -8,20 +8,14 @@ import { Container } from "@mui/material";
 import BecomePartner from "components/pages/BecomePartner";
 
 const App = () => {
-  const sectionStyles = {
-    paddingBottom: "5rem",
-    minHeight: "100vh",
-    width: "100%",
-    backgroundColor: "#fbfbfb",
-  };
   return (
     <ThemeProvider theme={muiTheme}>
       <Router>
-        <Container maxWidth="false" disableGutters>
+        <Container>
           <div className="container">
             <ScrollToView>
               <Switch>
-                <section style={sectionStyles}>
+                <section className="sectionStyles">
                   <Route exact path={["/", "/partners/form"]} component={BecomePartner} />
                 </section>
               </Switch>

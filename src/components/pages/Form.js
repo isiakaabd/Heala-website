@@ -313,7 +313,7 @@ const Forms = () => {
                 setReference(!reference);
               }}
             >
-              <Card title="Doci Reference" background={theme.palette.common.lightRed}>
+              <Card title="Heala Reference" background={theme.palette.common.lightRed}>
                 <CalendarIcon
                   color="error"
                   fill={theme.palette.common.red}
@@ -665,7 +665,7 @@ const Forms = () => {
                           gap={3}
                           marginBottom={4}
                         >
-                          <Typography variant="h2">Reference From Doctor on Doci</Typography>
+                          <Typography variant="h2">Reference From Doctor on Heala</Typography>
                           <Grid item container justifyContent="space-between" spacing={3}>
                             <Grid item container md={12} sm={10}>
                               <FormikControl

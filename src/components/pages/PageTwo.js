@@ -146,13 +146,7 @@ const PageTwo = ({ state, handleNext, handlePrevious }) => {
                       />
                     </Grid>
                   </Grid>
-                  {/* <Grid
-                    item
-                    container
-                    justifyContent="space-around"
-                    // gap={2}
-                    sx={{ background: "red" }}
-                  > */}
+                 
                   <Grid item container md={11} margin="auto">
                     <FormikControl
                       control="input"
@@ -160,7 +154,7 @@ const PageTwo = ({ state, handleNext, handlePrevious }) => {
                       label="Hospital"
                       placeholder="Hospital"
                     />
-                    {/* </Grid> */}
+                 
                   </Grid>
 
                   <Grid item container md={2} sm={5} margin="auto">
@@ -174,7 +168,7 @@ const PageTwo = ({ state, handleNext, handlePrevious }) => {
                     />
                   </Grid>
                 </Grid>
-                {/* </Grid> */}
+           
               </Form>
             );
           }}
