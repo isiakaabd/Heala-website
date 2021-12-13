@@ -14,9 +14,10 @@ const BecomePartner = () => {
       },
     },
     width: {
-      width: "30%",
+      width: "60%",
+      flexGrow: 2,
       [theme.breakpoints.down("sm")]: {
-        width: "20%",
+        width: "40%",
       },
     },
   }));
@@ -62,12 +63,19 @@ const BecomePartner = () => {
             Set up your Partner Account
           </Typography>
         </Grid>
-        <Grid item container justifyContent="space-around" alignItems="center" flexWrap="no-wrap">
-          <Avatar sx={{ background: z }}>1</Avatar>
-          <Divider light sx={{ background: z }} className={classes.width} />
-          <Avatar sx={{ background: y }}>2</Avatar>
-          <Divider light sx={{ background: y }} className={classes.width} />
-          <Avatar sx={{ background: w }}>3</Avatar>
+        <Grid item container sx={{ justifyContent: "center" }}>
+          <Grid item container md={4} xs={4} alignItems="center">
+            <Avatar sx={{ background: z }}>1</Avatar>
+            <Divider light sx={{ background: z }} className={classes.width} />
+          </Grid>
+          <Grid item container alignItems="center" md={4} xs={4}>
+            <Avatar sx={{ background: y }}>2</Avatar>
+            <Divider light sx={{ background: y }} className={classes.width} />
+          </Grid>
+          <Grid item>
+            <Avatar sx={{ background: w }}>3</Avatar>
+            {/* <Divider light sx={{ background: y }} className={classes.width} /> */}
+          </Grid>
         </Grid>
         <Create step={step} state={state} handleNext={handleNext} handlePrevious={handlePrevious} />
       </Grid>

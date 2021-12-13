@@ -29,9 +29,8 @@ const PageOne = ({ state, handleNext }) => {
 
   return (
     <Grid item container direction="column" gap={5}>
-      <Grid item width="80%" margin="auto" container justifyContent="left">
-        <Typography variant="h3">Create Account</Typography>
-      </Grid>
+      {/* <Grid item width="80%" margin="auto" container justifyContent="left">
+      </Grid> */}
       <Grid item>
         <Formik initialValues={state} validateOnChange={false} validateOnMount>
           {(formik) => {
@@ -39,6 +38,9 @@ const PageOne = ({ state, handleNext }) => {
               <Form>
                 <Grid container item gap={3}>
                   <Grid item container justifyContent="center" rowSpacing={2}>
+                    <Grid item container md={8} sm={10}>
+                      <Typography variant="h3">Create Account</Typography>
+                    </Grid>
                     <Grid item container md={8} sm={10}>
                       <FormikControl
                         control="input"
