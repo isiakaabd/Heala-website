@@ -194,7 +194,7 @@ const Forms = () => {
 
   return (
     <Fragment>
-      <Box>
+      <Box sx={{ paddingBottom: "4rem" }}>
         <Grid item container direction="column" gap={5}>
           <Grid item>
             <Typography textAlign="center" variant="h1">

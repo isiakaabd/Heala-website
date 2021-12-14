@@ -40,7 +40,7 @@ const PageTwo = ({ state, handleNext }) => {
     active: theme.palette.primary.dark,
   };
   return (
-    <Grid item container direction="column" gap={5}>
+    <Grid item container direction="column" gap={5} paddingBottom={5}>
       <Grid item>
         <Formik initialValues={state} validateOnChange={false} validateOnMount>
           {(formik) => {

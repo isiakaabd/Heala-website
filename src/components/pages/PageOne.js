@@ -28,7 +28,7 @@ const PageOne = ({ state, handleNext }) => {
   };
 
   return (
-    <Grid item container direction="column" gap={5}>
+    <Grid item container direction="column" gap={5} sx={{ paddingBottom: "2rem" }}>
       <Grid item>
         <Formik initialValues={state} validateOnChange={false} validateOnMount>
           {(formik) => {
