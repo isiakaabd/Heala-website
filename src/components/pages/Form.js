@@ -197,12 +197,13 @@ const Forms = () => {
       {/* <div className={classes.form}></div> */}
       <Box>
         <Grid
+          item
           container
           direction="column"
-          justifyContent="center"
+          // justifyContent="center"
           gap={5}
-          width="90%"
-          margin="auto"
+          // width="90%"
+          // margin="auto"
         >
           <Grid item>
             <Typography textAlign="center" variant="h1">

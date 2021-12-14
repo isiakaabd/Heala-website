@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   iconWrapper: {
-    padding: "2rem 1rem",
+    // padding: "2rem 1rem",
     ...theme.typography.cardIconWrapper,
   },
 }));
