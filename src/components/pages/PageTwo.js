@@ -104,19 +104,6 @@ const PageTwo = ({ state, handleNext }) => {
                     </Grid>
                     <Grid item container md={5} sm={10}>
                       <FormikControl
-                        control="input"
-                        name="age"
-                        label="Age"
-                        placeholder="e.g Enter Your Age"
-                      />
-                    </Grid>
-                  </Grid>
-                  {/*  */}
-
-
-                  <Grid item container justifyContent="space-around" gap={2}>
-                    <Grid item container md={5} sm={12}>
-                      <FormikControl
                         control="select"
                         name="sex"
                         label="Gender"
@@ -124,23 +111,37 @@ const PageTwo = ({ state, handleNext }) => {
                         placeholder="Select Plan"
                       />
                     </Grid>
-                    <Grid item container md={5} sm={10}>
+                  </Grid>
+                  {/*  */}
+
+                  <Grid item container justifyContent="center">
+                    <Grid item container md={11} sm={10}>
                       <FormikControl
+                        control="input"
+                        name="age"
+                        label="Age"
+                        placeholder="e.g Enter Your Age"
+                      />
+                    </Grid>
+                    {/* <Grid item container md={5} sm={10}> */}
+                    {/* <FormikControl
                         control="input"
                         name="medicalID"
                         placeholder="Medical"
                         label="Medical"
-                      />
-                    </Grid>
+                      /> */}
+                    {/* </Grid> */}
                   </Grid>
 
-                  <Grid item container md={11} margin="auto">
-                    <FormikControl
-                      control="input"
-                      name="hospital"
-                      label="Hospital"
-                      placeholder="Hospital"
-                    />
+                  <Grid item container justifyContent="space-around">
+                    <Grid item container md={11}>
+                      <FormikControl
+                        control="input"
+                        name="hospital"
+                        label="Hospital"
+                        placeholder="Hospital"
+                      />
+                    </Grid>
                   </Grid>
 
                   <Grid item container md={2} sm={5} margin="auto">
