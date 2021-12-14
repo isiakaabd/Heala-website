@@ -140,7 +140,6 @@ export const muiTheme = createTheme({
       fontSize: "1.6rem",
       color: dark,
       fontWeight: 600,
-
       "&:focus": {
         outline: "none",
       },
