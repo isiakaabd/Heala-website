@@ -112,26 +112,8 @@ const PageTwo = ({ state, handleNext }) => {
                     </Grid>
                   </Grid>
                   {/*  */}
-                  <Grid item container justifyContent="space-around" gap={2}>
-                    <Grid item container md={5} sm={12}>
-                      <FormikControl
-                        control="select"
-                        name="plan"
-                        label="Plan"
-                        options={options}
-                        placeholder="Select Plan"
-                      />
-                    </Grid>
-                    <Grid item container md={5} sm={10}>
-                      <FormikControl
-                        control="select"
-                        name="affliate"
-                        placeholder="Affliate"
-                        label="Affliate"
-                        options={options}
-                      />
-                    </Grid>
-                  </Grid>
+
+
                   <Grid item container justifyContent="space-around" gap={2}>
                     <Grid item container md={5} sm={12}>
                       <FormikControl
@@ -146,8 +128,8 @@ const PageTwo = ({ state, handleNext }) => {
                       <FormikControl
                         control="input"
                         name="medicalID"
-                        placeholder="Medical ID"
-                        label="Medical ID"
+                        placeholder="Medical"
+                        label="Medical"
                       />
                     </Grid>
                   </Grid>
