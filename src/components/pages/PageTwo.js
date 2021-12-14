@@ -95,12 +95,7 @@ const PageTwo = ({ state, handleNext }) => {
                   {/*  */}
                   <Grid item container justifyContent="space-around" gap={2}>
                     <Grid item container md={5} sm={10}>
-                      <FormikControl
-                        control="input"
-                        name="DOB"
-                        placeholder="e.g 11/12/1987"
-                        label="Date of Birth"
-                      />
+                      <FormikControl control="date" name="DOB" label="Date of Birth" />
                     </Grid>
                     <Grid item container md={5} sm={10}>
                       <FormikControl
@@ -123,18 +118,9 @@ const PageTwo = ({ state, handleNext }) => {
                         placeholder="e.g Enter Your Age"
                       />
                     </Grid>
-                    {/* <Grid item container md={5} sm={10}> */}
-                    {/* <FormikControl
-                        control="input"
-                        name="medicalID"
-                        placeholder="Medical"
-                        label="Medical"
-                      /> */}
-                    {/* </Grid> */}
                   </Grid>
-
-                  <Grid item container justifyContent="space-around">
-                    <Grid item container md={11}>
+                  <Grid item container justifyContent="center">
+                    <Grid item container md={11} sm={10}>
                       <FormikControl
                         control="input"
                         name="hospital"

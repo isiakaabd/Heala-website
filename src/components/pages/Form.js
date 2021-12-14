@@ -194,17 +194,8 @@ const Forms = () => {
 
   return (
     <Fragment>
-      {/* <div className={classes.form}></div> */}
       <Box>
-        <Grid
-          item
-          container
-          direction="column"
-          // justifyContent="center"
-          gap={5}
-          // width="90%"
-          // margin="auto"
-        >
+        <Grid item container direction="column" gap={5}>
           <Grid item>
             <Typography textAlign="center" variant="h1">
               HCP Verification

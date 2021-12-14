@@ -51,6 +51,7 @@ const BecomePartner = () => {
   const y = `${step}` >= 2 ? "red" : "";
   const w = `${step}` >= 3 ? "red" : "";
 
+
   return (
     <>
       <Grid container direction="column" gap={5} width="90%" margin="auto">

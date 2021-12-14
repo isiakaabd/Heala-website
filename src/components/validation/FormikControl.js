@@ -1,7 +1,6 @@
 import React from "react";
-import Input from "./Input";
-import Selects from "./Select";
-import Checkbox from "./Checkbox";
+import { Input, Selects, Checkbox, Calendars } from "components/validation";
+
 import PropTypes from "prop-types";
 
 const FormikControl = (props) => {
@@ -14,6 +13,8 @@ const FormikControl = (props) => {
       return <Selects {...rest} />;
     case "checkbox":
       return <Checkbox {...rest} />;
+    case "date":
+      return <Calendars {...rest} />;
     default:
       return null;
   }
