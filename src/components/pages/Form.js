@@ -149,14 +149,12 @@ const Forms = () => {
     onSubmitProps.resetForm();
   };
   const checkbox2 = [
-    { key: "select an option", value: " " },
     { key: "create", value: "create" },
     { key: "update", value: "update" },
     { key: "read", value: "read" },
     { key: "delete", value: "delete" },
   ];
   const options = [
-    { key: "select an option", value: " " },
     { key: "create", value: "create" },
     { key: "update", value: "update" },
     { key: "read", value: "read" },
@@ -463,7 +461,7 @@ const Forms = () => {
                                 <FormikControl
                                   control="select"
                                   name="LicenseType"
-                                  placeholder="Select Name"
+                                  placeholder="Select License Type"
                                   label="Type"
                                   options={options}
                                 />
@@ -550,7 +548,7 @@ const Forms = () => {
                                 <FormikControl
                                   control="select"
                                   name="graduationYear"
-                                  placeholder="Select Name"
+                                  placeholder="Choose Graduation year"
                                   label="Graduation Year"
                                   options={options}
                                 />

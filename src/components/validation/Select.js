@@ -19,32 +19,44 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-const Selects = (props) => {
-  const classes = useStyles();
-  const { name, label, options, ...rest } = props;
 
+export const Formiks = ({ value, name, onChange, children, label, options, ...rest }) => {
+  const classes = useStyles();
   return (
-    <FormControl fullWidth sx={{ width: "100%" }}>
+    <FormControl fullWidth>
       <FormLabel className={classes.FormLabel}>{label}</FormLabel>
-      <Field
-        id={name}
-        name={name}
-        type="select"
-        as={Select}
-        placeholder="tt"
-        className={classes.input}
-        {...rest}
-      >
-        {options.map((option) => {
-          return (
-            <MenuItem key={option.key} value={option.value}>
-              {option.key}
-            </MenuItem>
-          );
-        })}
-      </Field>
+      <Select name={name} displayEmpty value={value} onChange={onChange}>
+        {children}
+      </Select>
       <ErrorMessage name={name} component={TextError} />
     </FormControl>
+  );
+};
+
+Formiks.propTypes = {
+  options: PropTypes.array.isRequired,
+  value: PropTypes.string,
+  label: PropTypes.string,
+  onChange: PropTypes.func,
+  children: PropTypes.node.isRequired,
+  name: PropTypes.string,
+};
+
+const Selects = (props) => {
+  const classes = useStyles();
+  const { name, label, options, placeholder } = props;
+
+  return (
+    <>
+      <Field name={name} as={Formiks} label={label} className={classes.input}>
+        <MenuItem value="">{placeholder}</MenuItem>
+        {options.map((option) => (
+          <MenuItem key={option.key} value={option.key}>
+            {option.key}
+          </MenuItem>
+        ))}
+      </Field>
+    </>
   );
 };
 

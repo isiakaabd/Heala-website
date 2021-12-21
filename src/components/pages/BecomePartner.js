@@ -44,8 +44,9 @@ const BecomePartner = () => {
   const handleNext = useCallback(() => setStep(step + 1), [step]);
 
   const handlePrevious = useCallback(() => {
-    if (step === 1) return setStep(1);
-    else setStep(step - 1);
+    if (step === 1) {
+      location.assign("http://staging.heala.io/become-a-partner");
+    } else setStep(step - 1);
   }, [step]);
   const z = `${step}` >= 1 ? "red" : "";
   const y = `${step}` >= 2 ? "red" : "";

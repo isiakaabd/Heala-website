@@ -22,14 +22,12 @@ const PageTwo = ({ state, handleNext }) => {
   const classes = useStyles();
   const theme = useTheme();
   const options = [
-    { key: "select an option", value: " " },
-    { key: "create", value: "create" },
-    { key: "update", value: "update" },
-    { key: "read", value: "read" },
-    { key: "delete", value: "delete" },
+    { key: "Dentistry", value: "Dentistry" },
+    { key: "Pharmacist", value: "Pharmacist" },
+    { key: "Doctor", value: "Doctor" },
+    { key: "Nurse", value: "Nurse" },
   ];
   const gender = [
-    { key: "select an option", value: " " },
     { key: "Male", value: "Male" },
     { key: "Female", value: "Female" },
   ];
@@ -78,7 +76,7 @@ const PageTwo = ({ state, handleNext }) => {
                       <FormikControl
                         control="select"
                         name="Specialization"
-                        placeholder="e.g Dentistry"
+                        placeholder="Select Specialization"
                         label="Specialization"
                         options={options}
                       />
@@ -103,13 +101,13 @@ const PageTwo = ({ state, handleNext }) => {
                         name="sex"
                         label="Gender"
                         options={gender}
-                        placeholder="Select Plan"
+                        placeholder="Select Gender"
                       />
                     </Grid>
                   </Grid>
                   {/*  */}
 
-                  <Grid item container justifyContent="center">
+                  {/* <Grid item container justifyContent="center">
                     <Grid item container md={11} sm={10}>
                       <FormikControl
                         control="input"
@@ -118,7 +116,7 @@ const PageTwo = ({ state, handleNext }) => {
                         placeholder="e.g Enter Your Age"
                       />
                     </Grid>
-                  </Grid>
+                  </Grid> */}
                   <Grid item container justifyContent="center">
                     <Grid item container md={11} sm={10}>
                       <FormikControl
