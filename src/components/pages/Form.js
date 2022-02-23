@@ -188,12 +188,7 @@ const Forms = () => {
     });
   };
 
-  const options = [
-    { key: "create", value: "create" },
-    { key: "update", value: "update" },
-    { key: "read", value: "read" },
-    { key: "delete", value: "delete" },
-  ];
+  const options = [{ key: "MDCN", value: "MDCN" }];
   const initialValues = {
     degree: "",
     degreeImage: null,

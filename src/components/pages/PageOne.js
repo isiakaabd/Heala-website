@@ -23,6 +23,13 @@ const useStyles = makeStyles((theme) => ({
       width: "100%",
     },
   },
+  header: {
+    "&.MuiGrid-root": {
+      fontSize: "2rem",
+      lineHeight: "2.6rem",
+      color: "#010101",
+    },
+  },
 }));
 
 const PageOne = ({ handleNext }) => {
@@ -90,7 +97,9 @@ const PageOne = ({ handleNext }) => {
                     {error && <Typography variant="h3">{error.message}</Typography>}
                     <Grid item container justifyContent="center" rowSpacing={1}>
                       <Grid item container justifyContent="center" md={12} sm={10}>
-                        <Typography variant="h3">Create Your Account</Typography>
+                        <Typography variant="h3" className={classes.header}>
+                          Create Your Account
+                        </Typography>
                       </Grid>
                       <Grid item container md={12} sm={10}>
                         <LoginInput

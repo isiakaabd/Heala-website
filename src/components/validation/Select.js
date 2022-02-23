@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
   select: {
     fontWeight: 200,
-    color: theme.palette.common.lightGrey,
+    color: "#2D2F39",
     minHeight: 50,
     fontSize: "1.6rem !important",
   },

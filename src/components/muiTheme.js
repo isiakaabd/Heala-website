@@ -128,8 +128,10 @@ export const muiTheme = createTheme({
       },
     },
     FormLabel: {
-      fontSize: "1.6rem",
-      color: dark,
+      fontSize: "1.8rem",
+      color: "#2D2F39",
+      lineHeight: "2.3rem",
+      letterSpacing: ".008em",
     },
     input: {
       // ...theme
@@ -138,15 +140,17 @@ export const muiTheme = createTheme({
       border: "1px solid lightGrey",
       borderRadius: ".5rem",
       padding: "1rem",
-      fontSize: "1.6rem",
-      color: dark,
-      fontWeight: 600,
+      fontSize: "1.8rem",
+      color: "#2D2F39",
+      fontWeight: 500,
+      lineHeight: "2.3rem",
+      letterSpacing: ".008em",
       "&:focus": {
         outline: "none",
       },
 
       "&::placeholder": {
-        color: lightGrey,
+        color: "#2D2F39",
         fontWeight: 500,
       },
     },
