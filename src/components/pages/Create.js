@@ -18,18 +18,13 @@ const Create = ({ step, handleNext, state, handlePrevious, ...rest }) => {
       );
     case 2:
       return (
-        <Grid item container sx={{ justifyContent: "center" }}>
-          <PageTwo
-            state={state}
-            handleNext={handleNext}
-            handlePrevious={handlePrevious}
-            {...rest}
-          />
+        <Grid item container sx={{ justifyContent: "center", padding: "2rem 2rem" }}>
+          <PageTwo handleNext={handleNext} handlePrevious={handlePrevious} {...rest} />
         </Grid>
       );
     case 3:
       return (
-        <Grid item container sx={{ justifyContent: "center" }}>
+        <Grid item container sx={{ justifyContent: "center", padding: "2rem 2rem" }}>
           <Form handlePrevious={handlePrevious} />
           );
         </Grid>
