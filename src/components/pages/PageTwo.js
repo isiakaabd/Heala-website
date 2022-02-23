@@ -93,7 +93,24 @@ const PageTwo = ({ handleNext }) => {
     dob: Yup.string("Enter your DOB").required("DOB us Required"),
     phoneNumber: Yup.number("Enter your Phone Number").required("Phone Number is Required"),
   });
-
+  const selectOption = [
+    {
+      key: "House Officer",
+      value: "House Officer",
+    },
+    {
+      key: "Registrar",
+      value: "Registrar",
+    },
+    {
+      key: " Senior Registrar",
+      value: " Senior Registrar",
+    },
+    {
+      key: " Consultant",
+      value: " Consultant",
+    },
+  ];
   const [createDoctor] = useMutation(createDoctorProfile);
   const onSubmit = async (values) => {
     const {
@@ -195,6 +212,15 @@ const PageTwo = ({ handleNext }) => {
                         name="phoneNumber"
                         label="Phone Number"
                         placeholder="e.g Enter Your phone Number"
+                      />
+                    </Grid>
+                    <Grid item container justifyContent="space-around" gap={2}>
+                      <FormikControl
+                        control="select"
+                        name="level"
+                        label="Select Level"
+                        placeholder="select level"
+                        options={selectOption}
                       />
                     </Grid>
                     {/*  */}
