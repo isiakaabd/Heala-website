@@ -44,9 +44,8 @@ const BecomePartner = () => {
   const handleNext = useCallback(() => setStep(step + 1), [step]);
 
   const handlePrevious = useCallback(() => {
-    if (step === 1) {
-      location.assign("http://staging.heala.io/become-a-partner");
-    } else setStep(step - 1);
+    if (step === 1) return setStep(1);
+    else setStep(step - 1);
   }, [step]);
   const z = `${step}` >= 1 ? "red" : "";
   const y = `${step}` >= 2 ? "red" : "";
@@ -55,7 +54,7 @@ const BecomePartner = () => {
   return (
     <>
       <Grid container direction="column" gap={5} width="90%" margin="auto">
-        <Grid item container>
+        {/* <Grid item container>
           <PreviousButton step={step} handlePrevious={handlePrevious} />
         </Grid>
 
@@ -75,9 +74,9 @@ const BecomePartner = () => {
           </Grid>
           <Grid item>
             <Avatar sx={{ background: w }}>3</Avatar>
-            {/* <Divider light sx={{ background: y }} className={classes.width} /> */}
+   
           </Grid>
-        </Grid>
+        </Grid> */}
         <Create step={step} state={state} handleNext={handleNext} handlePrevious={handlePrevious} />
       </Grid>
     </>

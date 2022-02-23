@@ -1,27 +1,54 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import { muiTheme } from "components/muiTheme";
 import ScrollToView from "components/ScrollToView";
-import { Container } from "@mui/material";
 import BecomePartner from "components/pages/BecomePartner";
+import { setAccessToken } from "./accessToken";
+
+const sectionStyles = {
+  minHeight: "100vh",
+  width: "100%",
+  display: "flex",
+  alignItems: "center",
+  backgroundColor: "#fbfbfb",
+  justifyContent: "center",
+};
 
 const App = () => {
+  const [state, setstate] = useState(true);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setAccessToken(token);
+    setstate(false);
+  }, []);
   return (
     <ThemeProvider theme={muiTheme}>
       <Router>
-        <Container>
-          <div className="container">
-            <ScrollToView>
-              <Switch>
-                <section className="sectionStyles">
-                  <Route exact path={["/", "/partners/form"]} component={BecomePartner} />
-                </section>
-              </Switch>
-            </ScrollToView>
-          </div>
-        </Container>
+        <div
+          className="container"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            minHeight: "100vh",
+            alignItems: "center",
+          }}
+        >
+          <ScrollToView>
+            <Switch>
+              <section style={sectionStyles}>
+                <Route exact path={["/", "/partners/form"]} component={BecomePartner} />
+                {/* <Route
+                  exact
+                  path={"/"}
+                  component={BecomePartner}
+                /> */}
+              </section>
+            </Switch>
+          </ScrollToView>
+        </div>
+        {/* </Container> */}
       </Router>
     </ThemeProvider>
   );

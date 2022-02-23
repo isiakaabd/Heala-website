@@ -27,15 +27,17 @@ const Calendars = ({ label, name, ...rest }) => {
       <FormLabel component="legend" className={classes.FormLabel}>
         {label}
       </FormLabel>
-      <input
-        type="date"
-        name={name}
-        id={name}
-        className={classes.input}
-        {...rest}
-        autoComplete="off"
-        style={{ minHeight: "5rem" }}
-      />
+      <Grid container>
+        <input
+          type="date"
+          name={name}
+          id={name}
+          className={classes.input}
+          {...rest}
+          autoComplete="off"
+          style={{ minHeight: "5rem" }}
+        />
+      </Grid>
     </Grid>
   );
 };

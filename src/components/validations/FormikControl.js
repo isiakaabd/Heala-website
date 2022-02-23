@@ -1,6 +1,7 @@
 import React from "react";
 import Input from "./Input";
 import Selects from "./Select";
+import Checkboxs from "./Checkbox";
 import DateComponent from "./Date";
 import Textarea from "./Textarea";
 import PropTypes from "prop-types";
@@ -15,6 +16,8 @@ const FormikControl = ({ control, ...rest }) => {
       return <Textarea {...rest} />;
     case "select":
       return <Selects {...rest} />;
+    case "checkbox":
+      return <Checkboxs {...rest} />;
     case "date":
       return <DateComponent {...rest} />;
     case "file":

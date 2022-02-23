@@ -4,9 +4,12 @@ import { Grid, Typography } from "@mui/material";
 import CustomButton from "components/Utilities/CustomButton";
 import { useTheme } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
-
 import { Formik, Form } from "formik";
 import FormikControl from "components/validation/FormikControl";
+import { createDoctorProfile } from "components/graphQL/Mutation";
+import * as Yup from "yup";
+import { useMutation } from "@apollo/client";
+import { dateMoment } from "components/Utilities/Time";
 
 const useStyles = makeStyles((theme) => ({
   form: theme.mixins.toolbar,
@@ -18,14 +21,12 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-const PageTwo = ({ state, handleNext }) => {
+const PageTwo = ({ handleNext }) => {
   const classes = useStyles();
   const theme = useTheme();
   const options = [
-    { key: "Dentistry", value: "Dentistry" },
-    { key: "Pharmacist", value: "Pharmacist" },
-    { key: "Doctor", value: "Doctor" },
-    { key: "Nurse", value: "Nurse" },
+    { key: "Diagnostic", value: "diagnostic" },
+    { key: "Pharmacy", value: "pharmacy" },
   ];
   const gender = [
     { key: "Male", value: "Male" },
@@ -37,21 +38,90 @@ const PageTwo = ({ state, handleNext }) => {
     hover: theme.palette.success.light,
     active: theme.palette.primary.dark,
   };
+  const state = {
+    firstName: "",
+    lastName: "",
+    gender: "",
+    specialization: "",
+    dociId: localStorage.getItem("doctor_id"),
+    cadre: "",
+    image: null,
+    hospital: "",
+    providerId: "",
+    dob: "",
+    phoneNumber: "",
+  };
+  const validationSchema = Yup.object({
+    firstName: Yup.string("Enter your first Name").required("First Name is Required"),
+    lastName: Yup.string("Enter your last Name").required("lastName Name is Required"),
+    hospital: Yup.string("Enter your hospital").required("hospital Name is Required"),
+    dociId: Yup.string("Enter your dociId").required("dociId Name is Required"),
+    providerId: Yup.string("Enter your providerId"),
+    cadre: Yup.number("Enter your Cadre").required("Cadre is Required"),
+    specialization: Yup.string("Select your Specialization").required("Specialization is Required"),
+    gender: Yup.string("Select your gender").required("Gender is Required"),
+    image: Yup.string("Upload a single Image").required("Image is required"),
+    dob: Yup.string("Enter your DOB").required("DOB us Required"),
+    phoneNumber: Yup.number("Enter your Phone Number").required("Phone Number is Required"),
+  });
+
+  const [createDoctor] = useMutation(createDoctorProfile);
+  const onSubmit = async (values) => {
+    const {
+      dob,
+      firstName,
+      lastName,
+      gender,
+      specialization,
+      image,
+      cadre,
+      phoneNumber,
+      providerId,
+      dociId,
+      hospital,
+    } = values;
+    const correctDOB = dateMoment(dob);
+
+
+    console.log(values);
+    await createDoctor({
+      variables: {
+        firstName,
+        lastName,
+        gender,
+        specialization,
+        image,
+        cadre,
+        phoneNumber,
+        providerId,
+        dociId,
+        hospital,
+        dob: correctDOB,
+      },
+    });
+    handleNext();
+  };
   return (
-    <Grid item container direction="column" gap={5} paddingBottom={5}>
+    <Grid item container direction="column" md={8} gap={5} padding="3rem 0">
       <Grid item>
-        <Formik initialValues={state} validateOnChange={false} validateOnMount>
-          {(formik) => {
+        <Formik
+          initialValues={state}
+          validationSchema={validationSchema}
+          validateOnChange={false}
+          onSubmit={onSubmit}
+        >
+          {({ isSubmitting, setFieldValue, setValues, isValid, dirty, errors }) => {
+            console.log(errors);
+
             return (
               <Form>
-                <Grid container gap={3}>
+                <Grid container md={8} margin="auto" gap={3}>
                   <Grid item container justifyContent="space-around" gap={2}>
                     <Grid item container md={5} sm={10}>
                       <Grid item>
                         <Typography variant="h3">Create Profile</Typography>
                       </Grid>
                     </Grid>
-                    <Grid item container md={5} sm={10}></Grid>
                   </Grid>
                   <Grid item container justifyContent="space-around" gap={2}>
                     <Grid item container md={5} sm={10}>
@@ -75,7 +145,7 @@ const PageTwo = ({ state, handleNext }) => {
                     <Grid item container md={5} sm={10}>
                       <FormikControl
                         control="select"
-                        name="Specialization"
+                        name="specialization"
                         placeholder="Select Specialization"
                         label="Specialization"
                         options={options}
@@ -84,21 +154,43 @@ const PageTwo = ({ state, handleNext }) => {
                     <Grid item container md={5} sm={10}>
                       <FormikControl
                         control="input"
-                        name="phone"
+                        name="phoneNumber"
                         label="Phone Number"
                         placeholder="e.g Enter Your phone Number"
+                      />
+                    </Grid>
+                    <Grid item container md={5} sm={10}>
+                      <FormikControl
+                        control="input"
+                        name="cadre"
+                        placeholder="Enter Cadre"
+                        label="Cadre"
+                      />
+                    </Grid>
+                    <Grid item container md={5} sm={10}>
+                      <FormikControl
+                        control="input"
+                        name="providerId"
+                        label="providerId"
+                        placeholder="e.g Enter Your providerId"
                       />
                     </Grid>
                   </Grid>
                   {/*  */}
                   <Grid item container justifyContent="space-around" gap={2}>
                     <Grid item container md={5} sm={10}>
-                      <FormikControl control="date" name="DOB" label="Date of Birth" />
+                      <FormikControl
+                        control="date"
+                        name="dob"
+                        label="DOB"
+                        setFieldValue={setFieldValue}
+                        setValues={setValues}
+                      />
                     </Grid>
                     <Grid item container md={5} sm={10}>
                       <FormikControl
                         control="select"
-                        name="sex"
+                        name="gender"
                         label="Gender"
                         options={gender}
                         placeholder="Select Gender"
@@ -107,18 +199,8 @@ const PageTwo = ({ state, handleNext }) => {
                   </Grid>
                   {/*  */}
 
-                  {/* <Grid item container justifyContent="center">
-                    <Grid item container md={11} sm={10}>
-                      <FormikControl
-                        control="input"
-                        name="age"
-                        label="Age"
-                        placeholder="e.g Enter Your Age"
-                      />
-                    </Grid>
-                  </Grid> */}
-                  <Grid item container justifyContent="center">
-                    <Grid item container md={11} sm={10}>
+                  <Grid item container justifyContent="space-around" gap={2}>
+                    <Grid item container md={5} sm={10}>
                       <FormikControl
                         control="input"
                         name="hospital"
@@ -126,16 +208,44 @@ const PageTwo = ({ state, handleNext }) => {
                         placeholder="Hospital"
                       />
                     </Grid>
+                    <Grid item container md={5} sm={10}>
+                      <FormikControl
+                        control="input"
+                        name="dociId"
+                        label="HEeala-ID"
+                        placeholder="Heala ID"
+                        disabled
+                      />
+                    </Grid>
+                  </Grid>
+                  <Grid item container justifyContent="space-around" gap={2}>
+                    <Grid item container md={11} sm={10}>
+                      <FormikControl
+                        control="file"
+                        name="image"
+                        label="Upload Your Image"
+                        setFieldValue={setFieldValue}
+                      />
+                    </Grid>
+                    {/* <Grid item container md={5} sm={10}>
+                      <FormikControl
+                        control="input"
+                        name="dociId"
+                        label="HEeala-ID"
+                        placeholder="Heala ID"
+                        disabled
+                      />
+                    </Grid> */}
                   </Grid>
 
-                  <Grid item container md={2} sm={5} margin="auto">
+                  <Grid item container md={4} sm={5} margin="auto">
                     <CustomButton
                       variant="contained"
                       title="continue"
                       type={greenButton}
-                      onClick={handleNext}
                       className={classes.btn}
-                      // disabled={formik.isSubmitting || !(formik.dirty && formik.isValid)}
+                      isSubmitting={isSubmitting}
+                      disabled={!(dirty || isValid)}
                     />
                   </Grid>
                 </Grid>

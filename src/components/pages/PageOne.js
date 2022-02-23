@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Grid, Typography } from "@mui/material";
+import { Grid, InputAdornment, Typography, Checkbox } from "@mui/material";
 import { CustomButton } from "components/Utilities";
 import { useTheme } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 import { Formik, Form } from "formik";
-import FormikControl from "components/validation/FormikControl";
+import LoginInput from "components/validation/LoginInput";
+import * as Yup from "yup";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { Link } from "react-router-dom";
+import { signup } from "components/graphQL/Mutation";
+import { useMutation } from "@apollo/client";
 
 const useStyles = makeStyles((theme) => ({
   form: theme.mixins.toolbar,
@@ -18,59 +24,143 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PageOne = ({ state, handleNext }) => {
+const PageOne = ({ handleNext }) => {
   const classes = useStyles();
   const theme = useTheme();
+  const [showPassword, setShowPassword] = useState(false);
+  const label = { inputProps: { "aria-label": "Checkbox demo" } };
   const greenButton = {
     background: theme.palette.success.main,
     hover: theme.palette.success.light,
     active: theme.palette.primary.dark,
   };
+  const validationSchema = Yup.object({
+    email: Yup.string().email("Enter a valid email").required("Email Required"),
+    password: Yup.string("Select your role").required("Password Required").min(8),
+  });
+
+  const state = {
+    email: "",
+    password: "",
+  };
+  const [register, { data, error }] = useMutation(signup);
+  const onSubmit = async (values) => {
+    const { email, password } = values;
+    const { data } = await register({
+      variables: {
+        email,
+        password,
+      },
+    });
+    localStorage.setItem("doctor_id", data.signup.account.dociId);
+    handleNext();
+  };
 
   return (
-    <Grid item container direction="column" gap={5} sx={{ paddingBottom: "2rem" }}>
+    <Grid item container md={6} direction="column" sx={{ padding: "2rem", borderRadius: "5px" }}>
       <Grid item>
-        <Formik initialValues={state} validateOnChange={false} validateOnMount>
-          {(formik) => {
-            console.log(formik);
+        <Formik
+          initialValues={state}
+          validateOnChange={false}
+          validationSchema={validationSchema}
+          onSubmit={onSubmit}
+          validateOnMount
+        >
+          {({ isSubmitting, isValid, dirty }) => {
             return (
               <Form>
-                <Grid container item gap={3}>
-                  <Grid item container justifyContent="center" rowSpacing={2}>
-                    <Grid item container md={8} sm={10}>
+                <Grid container item gap={2}>
+                  {error && <Typography variant="h3">{error.message}</Typography>}
+                  <Grid item container justifyContent="center" rowSpacing={1}>
+                    <Grid item container justifyContent="center" md={8} sm={10}>
                       <Typography variant="h3">Create Account</Typography>
                     </Grid>
                     <Grid item container md={8} sm={10}>
-                      <Typography variant="body1">Account Info</Typography>
-                    </Grid>
-                    <Grid item container md={8} sm={10}>
-                      <FormikControl
-                        control="input"
-                        type="email"
+                      <LoginInput
+                        label="Email address"
                         name="email"
-                        label="Email"
-                        placeholder=" Enter your email"
+                        type="email"
+                        id="email"
+                        placeholder="Enter your email"
+                        hasStartIcon={false}
                       />
                     </Grid>
                     <Grid item container md={8} sm={10}>
-                      <FormikControl
-                        control="input"
+                      <LoginInput
+                        id="password"
+                        label="password"
                         name="password"
-                        type="password"
                         placeholder="Enter your password"
-                        label="Password"
+                        type={showPassword ? "text" : "password"}
+                        hasStartIcon={false}
+                        endAdornment={
+                          <InputAdornment
+                            position="end"
+                            onClick={() => setShowPassword((prev) => !prev)}
+                            style={{ cursor: "pointer" }}
+                          >
+                            {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                          </InputAdornment>
+                        }
                       />
+                    </Grid>
+                    <Grid
+                      item
+                      md={8}
+                      margin="auto"
+                      sm={10}
+                      container
+                      alignItems="center"
+                      justifyContent="space-between"
+                    >
+                      <Grid item container alignItems="center" sx={{ flex: 1 }}>
+                        <Grid item>
+                          <Checkbox
+                            {...label}
+                            defaultChecked
+                            sx={{ width: "inherit" }}
+                            color="success"
+                          />
+                        </Grid>
+                        <Grid item>
+                          <Typography variant="body1">Remember me</Typography>
+                        </Grid>
+                      </Grid>
+                      <Grid item>
+                        <Typography
+                          variant="body1"
+                          color="error"
+                          component={Link}
+                          to="forgot-password"
+                          className={classes.link}
+                        >
+                          Forgot password?
+                        </Typography>
+                      </Grid>
                     </Grid>
                   </Grid>
-                  <Grid item container md={2} sm={5} margin="auto">
+
+                  <Grid item container margin="auto" md={8} sm={10}>
                     <CustomButton
                       variant="contained"
                       title="continue"
                       type={greenButton}
-                      onClick={handleNext}
                       className={classes.btn}
-                      // disabled={formik.isSubmitting || !(formik.dirty && formik.isValid)}
+                      isSubmitting={isSubmitting}
+                      disabled={!(dirty || isValid)}
                     />
+                  </Grid>
+                  <Grid item container justifyContent="center" md={8} gap={1} sm={10} margin="auto">
+                    <Typography variant="body1">Dont have an account?</Typography>{" "}
+                    <Typography
+                      variant="body1"
+                      color="error"
+                      component={Link}
+                      to="forgot-password"
+                      className={classes.link}
+                    >
+                      Create One
+                    </Typography>
                   </Grid>
                 </Grid>
               </Form>
