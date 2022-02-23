@@ -22,7 +22,7 @@ const CustomButton = ({
     button: {
       "&.MuiButton-root": {
         ...theme.typography.btn,
-        backgroundColor: background,
+        backgroundColor: "red",
         color: textColor,
         width: width,
         borderRadius: borderRadius ? borderRadius : 10,

@@ -9,10 +9,11 @@ import { setAccessToken } from "./accessToken";
 
 const sectionStyles = {
   minHeight: "100vh",
+  maxWidth: "100vw",
   width: "100%",
   display: "flex",
   alignItems: "center",
-  backgroundColor: "#fbfbfb",
+  background: "linear-gradient(84deg, rgba(74, 106, 182, 1) 23%, rgba(126, 237, 186, 1) 72%)",
   justifyContent: "center",
 };
 

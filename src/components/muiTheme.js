@@ -10,7 +10,7 @@ const green = "#3EA584";
 
 const lightGreen = "#ECF6F3";
 const gold = "rgb(243, 173, 83)";
-const black = "#2D2F39";
+const black = "#3E5EA9";
 
 export const muiTheme = createTheme({
   palette: {
@@ -90,7 +90,7 @@ export const muiTheme = createTheme({
       fontSize: "1.5rem",
       textTransform: "none",
       height: "5rem",
-      borderRadius: 10,
+      borderRadius: 2,
       boxShadow: "0px 0px 4px -1px rgba(71,64,71,0.63)",
     },
 
