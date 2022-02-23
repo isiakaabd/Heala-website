@@ -82,8 +82,7 @@ const PageTwo = ({ handleNext }) => {
     } = values;
     const correctDOB = dateMoment(dob);
 
-    console.log(values);
-    await createDoctor({
+    const { data } = await createDoctor({
       variables: {
         firstName,
         lastName,
@@ -98,6 +97,8 @@ const PageTwo = ({ handleNext }) => {
         dob: correctDOB,
       },
     });
+    const { _id } = data.createDoctorProfile.profile;
+    localStorage.setItem("id", _id);
     handleNext();
   };
   return (

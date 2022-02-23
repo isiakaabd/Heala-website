@@ -1,44 +1,9 @@
 import React, { useState, useCallback } from "react";
-import { Grid, Typography, Avatar } from "@mui/material";
-import { makeStyles } from "@mui/styles";
-import { PreviousButton } from "components/Utilities";
+import { Grid } from "@mui/material";
+// import { PreviousButton } from "components/Utilities";
 import { Create } from "components/pages";
-import Divider from "@mui/material/Divider";
 
 const BecomePartner = () => {
-  const useStyles = makeStyles((theme) => ({
-    form: theme.mixins.toolbar,
-    subheading: {
-      [theme.breakpoints.down("sm")]: {
-        textAlign: "center",
-      },
-    },
-    width: {
-      width: "60%",
-      flexGrow: 2,
-      [theme.breakpoints.down("sm")]: {
-        width: "40%",
-      },
-    },
-  }));
-
-  const classes = useStyles();
-  const state = {
-    firstName: "",
-    lastName: "",
-    password: "",
-    email: "",
-    Specialization: "",
-    phone: "",
-    plan: "",
-    affliate: "",
-    DOB: "",
-    sex: "",
-    hospital: "",
-    age: "",
-    medicalID: "",
-  };
-
   const [step, setStep] = useState(1);
 
   const handleNext = useCallback(() => setStep(step + 1), [step]);
@@ -47,9 +12,9 @@ const BecomePartner = () => {
     if (step === 1) return setStep(1);
     else setStep(step - 1);
   }, [step]);
-  const z = `${step}` >= 1 ? "red" : "";
-  const y = `${step}` >= 2 ? "red" : "";
-  const w = `${step}` >= 3 ? "red" : "";
+  // const z = `${step}` >= 1 ? "red" : "";
+  // const y = `${step}` >= 2 ? "red" : "";
+  // const w = `${step}` >= 3 ? "red" : "";
 
   return (
     <>
@@ -77,7 +42,7 @@ const BecomePartner = () => {
    
           </Grid>
         </Grid> */}
-        <Create step={step} state={state} handleNext={handleNext} handlePrevious={handlePrevious} />
+        <Create step={step} handleNext={handleNext} handlePrevious={handlePrevious} />
       </Grid>
     </>
   );

@@ -44,7 +44,6 @@ Dates.propTypes = {
 };
 
 const DateComponent = (props) => {
-  console.log(props);
   const { name, label, ...rest } = props;
   const classes = useStyles();
   return (

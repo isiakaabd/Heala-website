@@ -28,7 +28,12 @@ const Create = ({ step, handleNext, state, handlePrevious, ...rest }) => {
         </Grid>
       );
     case 3:
-      return <Form handlePrevious={handlePrevious} />;
+      return (
+        <Grid item container sx={{ justifyContent: "center" }}>
+          <Form handlePrevious={handlePrevious} />
+          );
+        </Grid>
+      );
     default:
       <PageOne state={state} handleNext={handleNext} handlePrevious={handlePrevious} {...rest} />;
       break;

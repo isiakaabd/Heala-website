@@ -37,18 +37,14 @@ const App = () => {
         >
           <ScrollToView>
             <Switch>
-              <section style={sectionStyles}>
-                <Route exact path={["/", "/partners/form"]} component={BecomePartner} />
-                {/* <Route
-                  exact
-                  path={"/"}
-                  component={BecomePartner}
-                /> */}
-              </section>
+              {!state && (
+                <section style={sectionStyles}>
+                  <Route exact path={["/", "/partners/form"]} component={BecomePartner} />
+                </section>
+              )}
             </Switch>
           </ScrollToView>
         </div>
-        {/* </Container> */}
       </Router>
     </ThemeProvider>
   );

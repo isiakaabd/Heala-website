@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Grid, InputAdornment, Typography, Checkbox } from "@mui/material";
+import { Grid, InputAdornment, Typography } from "@mui/material";
 import { CustomButton } from "components/Utilities";
 import { useTheme } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
@@ -29,7 +29,6 @@ const PageOne = ({ handleNext }) => {
   const classes = useStyles();
   const theme = useTheme();
   const [showPassword, setShowPassword] = useState(false);
-  const label = { inputProps: { "aria-label": "Checkbox demo" } };
   const greenButton = {
     background: theme.palette.success.main,
     hover: theme.palette.success.light,
@@ -53,9 +52,10 @@ const PageOne = ({ handleNext }) => {
         password,
       },
     });
-    const { dociId, access_token } = data.signup.account;
+    const { dociId, email: emails, access_token } = data.signup.account;
     localStorage.setItem("doctor_id", dociId);
     localStorage.setItem("token", access_token);
+    localStorage.setItem("email", emails);
     setAccessToken(access_token);
     handleNext();
   };
@@ -108,7 +108,7 @@ const PageOne = ({ handleNext }) => {
                         }
                       />
                     </Grid>
-                    <Grid
+                    {/* <Grid
                       item
                       md={8}
                       margin="auto"
@@ -141,7 +141,7 @@ const PageOne = ({ handleNext }) => {
                           Forgot password?
                         </Typography>
                       </Grid>
-                    </Grid>
+                    </Grid> */}
                   </Grid>
 
                   <Grid item container margin="auto" md={8} sm={10}>
