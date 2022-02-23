@@ -12,6 +12,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { Link } from "react-router-dom";
 import { signup } from "components/graphQL/Mutation";
 import { useMutation } from "@apollo/client";
+import { setAccessToken } from "accessToken";
 
 const useStyles = makeStyles((theme) => ({
   form: theme.mixins.toolbar,
@@ -43,7 +44,7 @@ const PageOne = ({ handleNext }) => {
     email: "",
     password: "",
   };
-  const [register, { data, error }] = useMutation(signup);
+  const [register, { error }] = useMutation(signup);
   const onSubmit = async (values) => {
     const { email, password } = values;
     const { data } = await register({
@@ -52,7 +53,10 @@ const PageOne = ({ handleNext }) => {
         password,
       },
     });
-    localStorage.setItem("doctor_id", data.signup.account.dociId);
+    const { dociId, access_token } = data.signup.account;
+    localStorage.setItem("doctor_id", dociId);
+    localStorage.setItem("token", access_token);
+    setAccessToken(access_token);
     handleNext();
   };
 

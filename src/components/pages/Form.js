@@ -2,18 +2,16 @@ import React, { useState, Fragment } from "react";
 import FormLabel from "@mui/material/FormLabel";
 import { Grid, Typography, Box } from "@mui/material";
 import { Card, CustomButton } from "components/Utilities";
+import { createDoctorProfile } from "components/graphQL/Mutation";
+import * as Yup from "yup";
+import { useMutation } from "@apollo/client";
 import { ReactComponent as LicenseIcon } from "assets/images/licenses.svg";
-// import { ReactComponent as YearBookIcon } from "assets/images/yearbook.svg";
 import { ReactComponent as CalendarIcon } from "assets/images/calendar.svg";
-// import { ReactComponent as TimerIcon } from "assets/images/timer.svg";
-// import { ReactComponent as AlumniIcon } from "assets/images/alumni.svg";
 import { ReactComponent as ReferenceIcon } from "assets/images/reference.svg";
-// import { ReactComponent as QualificationIcon } from "assets/images/qualification.svg";
 import ErrorRoundedIcon from "@mui/icons-material/ErrorRounded";
 import { useTheme } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
-import Input from "@mui/material/Input";
-import Button from "@mui/material/Button";
+
 import { Formik, Form } from "formik";
 import FormikControl from "components/validation/FormikControl";
 
@@ -144,16 +142,10 @@ const Forms = () => {
   const classes = useStyles();
   const theme = useTheme();
   const onSubmit = (values, onSubmitProps) => {
-    onSubmitProps.setSubmitting(false);
     console.log(values);
     onSubmitProps.resetForm();
   };
-  const checkbox2 = [
-    { key: "create", value: "create" },
-    { key: "update", value: "update" },
-    { key: "read", value: "read" },
-    { key: "delete", value: "delete" },
-  ];
+
   const options = [
     { key: "create", value: "create" },
     { key: "update", value: "update" },
@@ -161,23 +153,48 @@ const Forms = () => {
     { key: "delete", value: "delete" },
   ];
   const initialValues = {
-    Name: "",
-    Date: "",
-    License: "",
-    Qualification: "",
-    LicenseType: "",
-    LicenseExpiryDate: "",
-    licenseImage: "",
-    graduationYear: "",
-    yearBookImage: "",
+    degree: "",
+    degreeImage: null,
+    license: "",
+    expiry: "",
+    licenseImage: null,
+    licenseType: "",
+    gYear: "",
+    gImage: null,
     FacebookName: "",
     InstagramName: "",
+    doctorName: "",
     referenceCode: "",
-    DoctorName: "",
-    DoctorInstitution: "",
-    Doctorposition: "",
-    DoctorEmail: "",
+    ExdoctorName: "",
+    doctorEmail: "",
+    doctorPosition: "",
+    doctorInstitution: "",
   };
+
+  const validationSchema = Yup.object({
+    degreeImage: Yup.string("Enter Degree Image ").required("Degree Image is Required"),
+    license: Yup.string("Enter license date ").required("license date is Required"),
+    expiry: Yup.string("Enter expiry date ").required("Expiry date is Required"),
+    licenseImage: Yup.string("Enter your license Image ").required("license Image is Required"),
+    gYear: Yup.string("Enter your Year Book ").required("Year is Required"),
+    licenseType: Yup.string("Enter your license Type ").required("license Type is Required"),
+    gImage: Yup.string("Enter your Year Book Image").required("Year Book Image is Required"),
+    InstagramName: Yup.string("Enter your Instagram Name").required("Instagram Name is Required"),
+    FacebookName: Yup.string("Enter your Facebook Name").required("Facebook Name is Required"),
+    degre: Yup.string("Enter your degree").required("Degree is Required"),
+    doctorInstitution: Yup.string("Enter your Doctor Institution").required(
+      "Doctor Institution is Required",
+    ),
+    doctorPosition: Yup.string("Enter your Doctor Position").required(
+      "Doctor Position is Required",
+    ),
+    doctorEmail: Yup.string("Enter your Doctor Email").required("Doctor Email is Required"),
+    ExdoctorName: Yup.string("Enter your External doctor Name").required(
+      " External doctor Name is Required",
+    ),
+    referenceCode: Yup.string("Enter your Reference Code").required("Reference Code is Required"),
+    doctorName: Yup.string("Select your Doctor Name").required("Doctor Name is Required"),
+  });
   const greenButton = {
     background: theme.palette.success.main,
     hover: theme.palette.success.light,
@@ -340,11 +357,13 @@ const Forms = () => {
             <Formik
               initialValues={initialValues}
               onSubmit={onSubmit}
-              //   validationSchema={validationSchema}
+              validationSchema={validationSchema}
               validateOnChange={false}
               validateOnMount
             >
-              {(formik) => {
+              {({ setValues, setFieldValue, isSubmitting, dirty, isValid, errors }) => {
+                console.log(errors);
+
                 return (
                   <Form>
                     {qualification ? (
@@ -364,20 +383,19 @@ const Forms = () => {
                           <Grid item container justifyContent="space-between" gap={3}>
                             <Grid item container md={5} sm={10}>
                               <FormikControl
-                                control="select"
-                                name="Name"
-                                placeholder="Select Name"
-                                label="Type"
-                                options={options}
+                                control="input"
+                                name="degree"
+                                placeholder=" BSc Surgery"
+                                label="Degree"
                               />
                             </Grid>
                             <Grid item container md={5} sm={10}>
                               <FormikControl
-                                control="select"
-                                placeholder="Choose Date"
-                                name="Date"
-                                label="Expiry Date"
-                                options={checkbox2}
+                                control="date"
+                                name="year"
+                                label="Year"
+                                setFieldValue={setFieldValue}
+                                setValues={setValues}
                               />
                             </Grid>
                           </Grid>
@@ -401,7 +419,14 @@ const Forms = () => {
                                   htmlFor="contained-button-file"
                                   style={{ textAlign: "center" }}
                                 >
-                                  <Input
+                                  <div style={{ display: "flex", justifyContent: "center" }}>
+                                    <FormikControl
+                                      control="file"
+                                      name="degreeImage"
+                                      setFieldValue={setFieldValue}
+                                    />
+                                  </div>
+                                  {/* <Input
                                     accept="image/*"
                                     id="contained-button-file"
                                     multiple
@@ -415,13 +440,13 @@ const Forms = () => {
                                     className={classes.uploadBtn}
                                   >
                                     Upload Photo
-                                  </Button>
+                                  </Button> */}
                                   <Grid marginTop="1.5rem">
                                     {" "}
                                     <Typography textAlign="center" variant="h6">
                                       Drag and Drop and Image or
                                     </Typography>
-                                    <Typography textAlign="center" variant="h6" color="error">
+                                    <Typography textAlign="left" variant="h6" color="error">
                                       Browse
                                     </Typography>
                                   </Grid>
@@ -451,7 +476,7 @@ const Forms = () => {
                             <Grid item container md={12} sm={10}>
                               <FormikControl
                                 control="input"
-                                name="License"
+                                name="license"
                                 placeholder="Enter license number"
                                 label="License Number"
                               />
@@ -460,7 +485,7 @@ const Forms = () => {
                               <Grid item container md={5} sm={10}>
                                 <FormikControl
                                   control="select"
-                                  name="LicenseType"
+                                  name="licenseType"
                                   placeholder="Select License Type"
                                   label="Type"
                                   options={options}
@@ -468,11 +493,11 @@ const Forms = () => {
                               </Grid>
                               <Grid item container md={5} sm={10}>
                                 <FormikControl
-                                  control="select"
-                                  placeholder="Choose Date"
-                                  name="LicenseExpiryDate"
+                                  control="date"
+                                  name="expire"
                                   label="Expiry Date"
-                                  options={checkbox2}
+                                  setFieldValue={setFieldValue}
+                                  setValues={setValues}
                                 />
                               </Grid>
                             </Grid>
@@ -496,7 +521,14 @@ const Forms = () => {
                                   htmlFor="contained-button-file"
                                   style={{ textAlign: "center" }}
                                 >
-                                  <Input
+                                  <div style={{ display: "flex", justifyContent: "center" }}>
+                                    <FormikControl
+                                      control="file"
+                                      name="licenseImage"
+                                      setFieldValue={setFieldValue}
+                                    />
+                                  </div>
+                                  {/* <Input
                                     accept="image/*"
                                     id="contained-button-file"
                                     multiple
@@ -510,7 +542,7 @@ const Forms = () => {
                                     className={classes.uploadBtn}
                                   >
                                     Upload Photo
-                                  </Button>
+                                  </Button> */}
                                   <Grid marginTop="1.5rem">
                                     {" "}
                                     <Typography textAlign="center" variant="h6">
@@ -546,11 +578,11 @@ const Forms = () => {
                             <Grid item container justifyContent="space-between">
                               <Grid item container md={5} sm={10}>
                                 <FormikControl
-                                  control="select"
-                                  name="graduationYear"
-                                  placeholder="Choose Graduation year"
-                                  label="Graduation Year"
-                                  options={options}
+                                  control="date"
+                                  name="gYear"
+                                  label="Graduation year"
+                                  setFieldValue={setFieldValue}
+                                  setValues={setValues}
                                 />
                               </Grid>
                             </Grid>
@@ -575,7 +607,14 @@ const Forms = () => {
                                   htmlFor="contained-button-file"
                                   style={{ textAlign: "center" }}
                                 >
-                                  <Input
+                                  <div style={{ display: "flex", justifyContent: "center" }}>
+                                    <FormikControl
+                                      control="file"
+                                      name="gImage"
+                                      setFieldValue={setFieldValue}
+                                    />
+                                  </div>
+                                  {/* <Input
                                     accept="image/*"
                                     id="contained-button-file"
                                     multiple
@@ -589,7 +628,7 @@ const Forms = () => {
                                     className={classes.uploadBtn}
                                   >
                                     Upload Photo
-                                  </Button>
+                                  </Button> */}
                                   <Grid marginTop="1.5rem">
                                     {" "}
                                     <Typography textAlign="center" variant="h6">
@@ -689,7 +728,7 @@ const Forms = () => {
                               <Grid item container md={5} sm={10}>
                                 <FormikControl
                                   control="input"
-                                  name="DoctorName"
+                                  name="ExdoctorName"
                                   placeholder="Enter Doctor's name"
                                   label="Doctor's name"
                                 />
@@ -697,7 +736,7 @@ const Forms = () => {
                               <Grid item container md={5} sm={10}>
                                 <FormikControl
                                   control="input"
-                                  name="DoctorInstitution"
+                                  name="doctorInstitution"
                                   label="Doctor's institution"
                                   placeholder="e.g Federal Teaching hospital Akure"
                                 />
@@ -707,7 +746,7 @@ const Forms = () => {
                               <Grid item container md={5} sm={10}>
                                 <FormikControl
                                   control="input"
-                                  name="Doctorposition"
+                                  name="doctorPosition"
                                   label="Doctor's Position"
                                   placeholder="e.g Dentist"
                                 />
@@ -715,7 +754,7 @@ const Forms = () => {
                               <Grid item container md={5} sm={10}>
                                 <FormikControl
                                   control="input"
-                                  name="DoctorEmail"
+                                  name="doctorEmail"
                                   label=" Doctor's Email"
                                   placeholder="Enter email"
                                 />
@@ -731,9 +770,9 @@ const Forms = () => {
                           variant="contained"
                           title=" Save Record"
                           type={greenButton}
-                          // onClick={handleDialogClose}
                           className={classes.btn}
-                          // disabled={formik.isSubmitting || !(formik.dirty && formik.isValid)}
+                          isSubmitting={isSubmitting}
+                          disabled={!(dirty || isValid)}
                         />
                       </Grid>
                     )}

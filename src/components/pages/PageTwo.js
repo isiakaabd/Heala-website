@@ -56,7 +56,7 @@ const PageTwo = ({ handleNext }) => {
     lastName: Yup.string("Enter your last Name").required("lastName Name is Required"),
     hospital: Yup.string("Enter your hospital").required("hospital Name is Required"),
     dociId: Yup.string("Enter your dociId").required("dociId Name is Required"),
-    providerId: Yup.string("Enter your providerId"),
+    providerId: Yup.string("Enter your providerId").required("providerId is Required"),
     cadre: Yup.number("Enter your Cadre").required("Cadre is Required"),
     specialization: Yup.string("Select your Specialization").required("Specialization is Required"),
     gender: Yup.string("Select your gender").required("Gender is Required"),
@@ -81,7 +81,6 @@ const PageTwo = ({ handleNext }) => {
       hospital,
     } = values;
     const correctDOB = dateMoment(dob);
-
 
     console.log(values);
     await createDoctor({
