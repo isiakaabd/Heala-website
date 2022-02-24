@@ -26,7 +26,7 @@ const App = () => {
   return (
     <ThemeProvider theme={muiTheme}>
       <Router>
-      <div className="secV"></div>
+        <div className="secV"></div>
 
         <div
           className="container"
@@ -37,8 +37,7 @@ const App = () => {
             alignItems: "center",
           }}
         >
-          
-          <ScrollToView style={{justifyContent:'center'}}>
+          <ScrollToView style={{ justifyContent: "center" }}>
             <Switch>
               {!state && (
                 <section style={sectionStyles}>
@@ -48,7 +47,6 @@ const App = () => {
             </Switch>
           </ScrollToView>
         </div>
-
       </Router>
     </ThemeProvider>
   );

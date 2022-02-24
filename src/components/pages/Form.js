@@ -1,6 +1,5 @@
-import React, { useState, Fragment } from "react";
-import FormLabel from "@mui/material/FormLabel";
-import { Grid, Typography, Avatar } from "@mui/material";
+import React, { useState } from "react";
+import { Grid, FormLabel, Typography, Avatar, Alert } from "@mui/material";
 import { Card, CustomButton } from "components/Utilities";
 import { createDoctorVerification } from "components/graphQL/Mutation";
 import * as Yup from "yup";
@@ -140,9 +139,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Forms = () => {
+  const [alert, setAlert] = useState({});
   const classes = useStyles();
   const theme = useTheme();
-  const [createVerification] = useMutation(createDoctorVerification);
+  const [createVerification, { error }] = useMutation(createDoctorVerification);
   const onSubmit = async (values, onSubmitProps) => {
     console.log(values);
     const {
@@ -162,10 +162,11 @@ const Forms = () => {
       doctorPosition,
       doctorInstitution,
     } = values;
+
     const year = dateMoment(gYear);
     const expires = dateMoment(expire);
     // onSubmitProps.resetForm();
-    await createVerification({
+    const { data } = await createVerification({
       variables: {
         degree, //
         image: degreeImage,
@@ -185,6 +186,18 @@ const Forms = () => {
         doctorInstitution, //
       },
     });
+    if (data) {
+      setAlert({
+        message: "Registration Successfull",
+        type: "success",
+      });
+    }
+    if (error) {
+      setAlert({
+        message: "something went wrong",
+        type: "error",
+      });
+    }
   };
 
   const options = [{ key: "MDCN", value: "MDCN" }];
@@ -202,7 +215,7 @@ const Forms = () => {
     doctorName: "",
     referenceCode: "",
     // ExdoctorName: "",
-    doctorEmail:'',
+    doctorEmail: "",
     doctorPosition: "",
     doctorInstitution: "",
   };
@@ -241,7 +254,6 @@ const Forms = () => {
 
   return (
     <Grid container gap={1}>
-
       <Grid container justifyContent="center" alignItems="center">
         <Avatar sx={{ background: "transparent", color: "white", width: 150, height: 150 }}>
           <HealaIcon />
@@ -255,8 +267,13 @@ const Forms = () => {
         sm={12}
         direction="column"
         gap={5}
-        sx={{ padding: "3rem", background: "white", borderRadius: "5px", zIndex: "999",          margin: 'auto',
-      }}
+        sx={{
+          padding: "3rem",
+          background: "white",
+          borderRadius: "5px",
+          zIndex: "999",
+          margin: "auto",
+        }}
       >
         <Grid item>
           <Typography textAlign="center" variant="h1">
@@ -285,9 +302,9 @@ const Forms = () => {
             className={
               qualification ? `${classes.parentGrid} ${classes.active}` : classes.parentGrid
             }
-            // onClick={() => {
-            //   setQualification(!qualification);
-            // }}
+            onClick={() => {
+              setQualification(!qualification);
+            }}
           >
             <Card title="Qualification" background={theme.palette.common.lightRed}>
               <Grid className={classes.iconWrapper}>
@@ -380,7 +397,9 @@ const Forms = () => {
             item
             md={3.5}
             xs={5.5}
-            className={externalReference ? `${classes.parentGrid} ${classes.active}` : classes.parentGrid}
+            className={
+              externalReference ? `${classes.parentGrid} ${classes.active}` : classes.parentGrid
+            }
             onClick={() => {
               setExternalReference(!externalReference);
             }}
@@ -399,6 +418,11 @@ const Forms = () => {
         </Grid>
 
         <Grid item>
+          {alert && Object.keys(alert).length > 0 && (
+            <Alert variant="filled" sx={{ textAlign: "center" }} severity={alert.type}>
+              {alert.message}
+            </Alert>
+          )}
           <Formik
             initialValues={initialValues}
             onSubmit={onSubmit}

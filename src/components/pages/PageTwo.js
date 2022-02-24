@@ -113,7 +113,7 @@ const PageTwo = ({ handleNext }) => {
       value: "Consultant",
     },
   ];
-  const [createDoctor] = useMutation(createDoctorProfile);
+  const [createDoctor, { error }] = useMutation(createDoctorProfile);
   const onSubmit = async (values) => {
     const {
       dob,
@@ -129,7 +129,7 @@ const PageTwo = ({ handleNext }) => {
     } = values;
     const correctDOB = dateMoment(dob);
 
-    const { data, error } = await createDoctor({
+    const { data } = await createDoctor({
       variables: {
         firstName,
         lastName,
@@ -155,7 +155,7 @@ const PageTwo = ({ handleNext }) => {
     }
     if (error) {
       setAlert({
-        message: error.message,
+        message: "something went wrong",
         type: "error",
       });
     }
@@ -183,7 +183,7 @@ const PageTwo = ({ handleNext }) => {
         }}
       >
         {alert && Object.keys(alert).length > 0 && (
-          <Alert variant="filled" severity={alert.type}>
+          <Alert variant="filled" sx={{ textAlign: "center" }} severity={alert.type}>
             {alert.message}
           </Alert>
         )}

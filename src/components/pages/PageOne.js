@@ -52,10 +52,11 @@ const PageOne = ({ handleNext }) => {
     email: "",
     password: "",
   };
-  const [register] = useMutation(signup);
+  const [register, { error }] = useMutation(signup);
+
   const onSubmit = async (values) => {
     const { email, password } = values;
-    const { data, error } = await register({
+    const { data } = await register({
       variables: {
         email,
         password,
@@ -63,7 +64,7 @@ const PageOne = ({ handleNext }) => {
     });
     if (error) {
       setAlert({
-        message: error.message,
+        message: "something went wrong",
         type: "error",
       });
     }

@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Circular Std",
     fontSize: "1.6rem",
     fontStyle: "normal",
-    fontWeight: 300 ,
+    fontWeight: 300,
     lineHeight: "2.4rem",
     letterSpacing: "0px",
     textAlign: "left",
