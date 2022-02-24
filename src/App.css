@@ -2,7 +2,12 @@ body {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
     linear-gradient(98.44deg, #3e5ea9 1.92%, #7eedba 122.04%);
 }
-
+body::-webkit-scrollbar {
+  width: 0 !important;
+}
+*::-webkit-scrollbar {
+  width: 0 !important;
+}
 /*ADD SELF HOST FONTS */
 @font-face {
   font-family: "Circular Std Medium";
@@ -70,6 +75,7 @@ body {
   /* background: linear-gradient(84deg, rgba(74, 106, 182, 1) 23%, rgba(126, 237, 186, 1) 72%); */
 }
 
+
 html,
 body {
   font-size: 62.5%;
@@ -82,17 +88,16 @@ body {
   height: 100%;
   justify-content: center;
   margin: auto !important;
-
 }
 .secV {
   background-image: url(./assets/images/vec.png);
-  opacity: 0.1;
+  opacity: 0.05;
   width: 100%;
-  height: 100vh;
+  height: 180%;
   position: absolute;
   z-index: 999;
   background-repeat: round;
-  min-height: 100vh !important;
+  /* min-height: 200vh !important; */
 }
 
 /* .secV1 {
