@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Grid, Typography, Avatar } from "@mui/material";
+import { Grid, Typography, Avatar, Alert } from "@mui/material";
 import CustomButton from "components/Utilities/CustomButton";
 import { ReactComponent as HealaIcon } from "assets/images/logo.svg";
 import { useTheme } from "@mui/material/styles";
@@ -65,7 +65,7 @@ const PageTwo = ({ handleNext }) => {
     { key: "Male", value: "Male" },
     { key: "Female", value: "Female" },
   ];
-
+  const [alert, setAlert] = useState({});
   const greenButton = {
     background: theme.palette.success.main,
     hover: theme.palette.success.light,
@@ -82,7 +82,6 @@ const PageTwo = ({ handleNext }) => {
     hospital: "",
     phoneNumber: "",
     level: "",
-
   };
   const validationSchema = Yup.object({
     firstName: Yup.string("Enter your first Name").required("First Name is Required"),
@@ -95,7 +94,6 @@ const PageTwo = ({ handleNext }) => {
     dob: Yup.string("Enter your DOB").required("DOB us Required"),
     phoneNumber: Yup.number("Enter your Phone Number").required("Phone Number is Required"),
     level: Yup.string("Enter your Level").required("Level is Required"),
-
   });
   const selectOption = [
     {
@@ -107,12 +105,12 @@ const PageTwo = ({ handleNext }) => {
       value: "Registrar",
     },
     {
-      key: " Senior Registrar",
-      value: " Senior Registrar",
+      key: "Senior Registrar",
+      value: "Senior Registrar",
     },
     {
-      key: " Consultant",
-      value: " Consultant",
+      key: "Consultant",
+      value: "Consultant",
     },
   ];
   const [createDoctor] = useMutation(createDoctorProfile);
@@ -127,11 +125,11 @@ const PageTwo = ({ handleNext }) => {
       phoneNumber,
       dociId,
       hospital,
-      level
+      level,
     } = values;
     const correctDOB = dateMoment(dob);
 
-    const { data } = await createDoctor({
+    const { data, error } = await createDoctor({
       variables: {
         firstName,
         lastName,
@@ -146,9 +144,21 @@ const PageTwo = ({ handleNext }) => {
         dob: correctDOB,
       },
     });
-    const { _id } = data.createDoctorProfile.profile;
-    localStorage.setItem("id", _id);
-    handleNext();
+    if (data) {
+      const { _id } = data.createDoctorProfile.profile;
+      localStorage.setItem("id", _id);
+      handleNext();
+      setAlert({
+        message: "Doctor Registration Successful",
+        type: "success",
+      });
+    }
+    if (error) {
+      setAlert({
+        message: error.message,
+        type: "error",
+      });
+    }
   };
   return (
     <Grid container justifyContent="center">
@@ -169,10 +179,14 @@ const PageTwo = ({ handleNext }) => {
           background: "white",
           borderRadius: "5px",
           zIndex: "999",
-          margin: 'auto',
-
+          margin: "auto",
         }}
       >
+        {alert && Object.keys(alert).length > 0 && (
+          <Alert variant="filled" severity={alert.type}>
+            {alert.message}
+          </Alert>
+        )}
         <Grid item>
           <Formik
             initialValues={state}
