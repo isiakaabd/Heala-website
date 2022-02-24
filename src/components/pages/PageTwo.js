@@ -113,7 +113,7 @@ const PageTwo = ({ handleNext }) => {
       value: "Consultant",
     },
   ];
-  const [createDoctor, { error }] = useMutation(createDoctorProfile);
+  const [createDoctor] = useMutation(createDoctorProfile);
   const onSubmit = async (values) => {
     const {
       dob,
@@ -128,23 +128,22 @@ const PageTwo = ({ handleNext }) => {
       level,
     } = values;
     const correctDOB = dateMoment(dob);
-
-    const { data } = await createDoctor({
-      variables: {
-        firstName,
-        lastName,
-        gender,
-        specialization,
-        image,
-        phoneNumber,
-        providerId: "61db6f8968b248001aec4fcb",
-        cadre: level,
-        dociId,
-        hospital,
-        dob: correctDOB,
-      },
-    });
-    if (data) {
+    try {
+      const { data } = await createDoctor({
+        variables: {
+          firstName,
+          lastName,
+          gender,
+          specialization,
+          image,
+          phoneNumber,
+          providerId: "61db6f8968b248001aec4fcb",
+          cadre: level,
+          dociId,
+          hospital,
+          dob: correctDOB,
+        },
+      });
       const { _id } = data.createDoctorProfile.profile;
       localStorage.setItem("id", _id);
       handleNext();
@@ -152,10 +151,9 @@ const PageTwo = ({ handleNext }) => {
         message: "Doctor Registration Successful",
         type: "success",
       });
-    }
-    if (error) {
+    } catch (err) {
       setAlert({
-        message: "something went wrong",
+        message: err.networkError.result.errors[0].message,
         type: "error",
       });
     }
@@ -183,7 +181,11 @@ const PageTwo = ({ handleNext }) => {
         }}
       >
         {alert && Object.keys(alert).length > 0 && (
-          <Alert variant="filled" sx={{ textAlign: "center" }} severity={alert.type}>
+          <Alert
+            variant="filled"
+            sx={{ textAlign: "center", marginBottom: "1rem" }}
+            severity={alert.type}
+          >
             {alert.message}
           </Alert>
         )}
@@ -309,8 +311,6 @@ const PageTwo = ({ handleNext }) => {
   );
 };
 PageTwo.propTypes = {
-  state: PropTypes.object.isRequired,
-  handlePrevious: PropTypes.func.isRequired,
   handleNext: PropTypes.func.isRequired,
 };
 export default PageTwo;

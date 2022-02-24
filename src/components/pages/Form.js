@@ -142,9 +142,8 @@ const Forms = () => {
   const [alert, setAlert] = useState({});
   const classes = useStyles();
   const theme = useTheme();
-  const [createVerification, { error }] = useMutation(createDoctorVerification);
-  const onSubmit = async (values, onSubmitProps) => {
-    console.log(values);
+  const [createVerification] = useMutation(createDoctorVerification);
+  const onSubmit = async (values) => {
     const {
       degree,
       degreeImage,
@@ -165,36 +164,31 @@ const Forms = () => {
 
     const year = dateMoment(gYear);
     const expires = dateMoment(expire);
-    // onSubmitProps.resetForm();
-    const { data } = await createVerification({
-      variables: {
-        degree, //
-        image: degreeImage,
-        number: license,
-        expiryDate: expires,
-        licenseImage, //
-        type: licenseType,
-        graduation: year, //
-        graduationImage: gImage,
-        facebook: FacebookName,
-        instagram: InstagramName,
-        doctorName: doctorName,
-        reference: referenceCode,
-        profileId: localStorage.getItem("id"),
-        doctorEmail,
-        doctorPosition, //
-        doctorInstitution, //
-      },
-    });
-    if (data) {
-      setAlert({
-        message: "Registration Successfull",
-        type: "success",
+
+    try {
+      await createVerification({
+        variables: {
+          degree, //
+          image: degreeImage,
+          number: license,
+          expiryDate: expires,
+          licenseImage, //
+          type: licenseType,
+          graduation: year, //
+          graduationImage: gImage,
+          facebook: FacebookName,
+          instagram: InstagramName,
+          doctorName: doctorName,
+          reference: referenceCode,
+          profileId: localStorage.getItem("id"),
+          doctorEmail,
+          doctorPosition, //
+          doctorInstitution, //
+        },
       });
-    }
-    if (error) {
+    } catch (err) {
       setAlert({
-        message: "something went wrong",
+        message: err.networkError.result.errors[0].message,
         type: "error",
       });
     }
