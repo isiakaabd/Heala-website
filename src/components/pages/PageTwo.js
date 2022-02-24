@@ -28,7 +28,7 @@ const PageTwo = ({ handleNext }) => {
   const options = [
     { key: "Internal medicine", value: "Internal medicine" },
     { key: "Family medicine", value: "Family medicine" },
-    { key: " Primary care", value: " Primary care" },
+    { key: "Primary care", value: "Primary care" },
     { key: "Pediatrics", value: "Pediatrics" },
     { key: "Emergency medicine", value: "Emergency medicine" },
     { key: "Obstetrics gynecology", value: "Obstetrics gynecology" },
@@ -81,6 +81,8 @@ const PageTwo = ({ handleNext }) => {
     image: null,
     hospital: "",
     phoneNumber: "",
+    level: "",
+
   };
   const validationSchema = Yup.object({
     firstName: Yup.string("Enter your first Name").required("First Name is Required"),
@@ -92,6 +94,8 @@ const PageTwo = ({ handleNext }) => {
     image: Yup.string("Upload a single Image").required("Image is required"),
     dob: Yup.string("Enter your DOB").required("DOB us Required"),
     phoneNumber: Yup.number("Enter your Phone Number").required("Phone Number is Required"),
+    level: Yup.string("Enter your Level").required("Level is Required"),
+
   });
   const selectOption = [
     {
@@ -123,6 +127,7 @@ const PageTwo = ({ handleNext }) => {
       phoneNumber,
       dociId,
       hospital,
+      level
     } = values;
     const correctDOB = dateMoment(dob);
 
@@ -135,7 +140,7 @@ const PageTwo = ({ handleNext }) => {
         image,
         phoneNumber,
         providerId: "61db6f8968b248001aec4fcb",
-        cadre: "5",
+        cadre: level,
         dociId,
         hospital,
         dob: correctDOB,
@@ -159,7 +164,14 @@ const PageTwo = ({ handleNext }) => {
         md={4}
         sm={12}
         gap={5}
-        sx={{ padding: "2rem", background: "white", borderRadius: "5px" }}
+        sx={{
+          padding: "2rem",
+          background: "white",
+          borderRadius: "5px",
+          zIndex: "999",
+          margin: 'auto',
+
+        }}
       >
         <Grid item>
           <Formik
@@ -181,20 +193,21 @@ const PageTwo = ({ handleNext }) => {
                         </Grid>
                       </Grid>
                     </Grid>
-                    <Grid item container justifyContent="space-around" gap={1}>
-                      <FormikControl
-                        control="input"
-                        name="lastName"
-                        label="Last Name"
-                        placeholder="Enter Your last Name"
-                      />
-                    </Grid>
+
                     <Grid item container justifyContent="space-around" gap={1}>
                       <FormikControl
                         control="input"
                         name="firstName"
                         placeholder="Enter your First Name"
                         label="First Name"
+                      />
+                    </Grid>
+                    <Grid item container justifyContent="space-around" gap={1}>
+                      <FormikControl
+                        control="input"
+                        name="lastName"
+                        label="Last Name"
+                        placeholder="Enter Your last Name"
                       />
                     </Grid>
                     <Grid item container justifyContent="space-around" gap={2}>
@@ -218,8 +231,8 @@ const PageTwo = ({ handleNext }) => {
                       <FormikControl
                         control="select"
                         name="level"
+                        placeholder="Select Level"
                         label="Select Level"
-                        placeholder="select level"
                         options={selectOption}
                       />
                     </Grid>

@@ -61,29 +61,29 @@ export const muiTheme = createTheme({
     },
     h3: {
       fontSize: "2.25rem",
-      fontWeight: 500,
+      fontWeight: 300 ,
     },
     h4: {
       fontSize: "1.85rem",
-      fontWeight: 500,
+      fontWeight: 300 ,
       "@media (max-width:600px)": {
         fontSize: "1.3rem",
       },
     },
     h5: {
       fontSize: "1.5rem",
-      fontWeight: 500,
+      fontWeight: 300 ,
     },
 
     body1: {
       fontSize: "1.6rem",
-      fontWeight: 500,
+      fontWeight: 300 ,
       lineHeight: 1.7,
       color: dark,
     },
     body2: {
       fontSize: "1.4rem",
-      fontWeight: 500,
+      fontWeight: 300 ,
       lineHeight: 1.85,
     },
     btn: {
@@ -142,7 +142,7 @@ export const muiTheme = createTheme({
       padding: "1rem",
       fontSize: "1.8rem",
       color: "#2D2F39",
-      fontWeight: 500,
+      fontWeight: 300 ,
       lineHeight: "2.3rem",
       letterSpacing: ".008em",
       "&:focus": {
@@ -151,7 +151,7 @@ export const muiTheme = createTheme({
 
       "&::placeholder": {
         color: "#2D2F39",
-        fontWeight: 500,
+        fontWeight: 300 ,
       },
     },
   },
