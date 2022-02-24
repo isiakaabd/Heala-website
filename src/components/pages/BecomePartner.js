@@ -11,7 +11,10 @@ const BecomePartner = () => {
   }, []);
 
   const handleNext = useCallback(() => {
+    setTimeout(() => {
     setStep(step + 1);
+      
+    }, 5000);
     localStorage.setItem("step", step + 1);
   }, [step]);
 

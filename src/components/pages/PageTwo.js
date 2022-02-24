@@ -103,12 +103,12 @@ const PageTwo = ({ handleNext }) => {
       value: "Registrar",
     },
     {
-      key: " Senior Registrar",
-      value: " Senior Registrar",
+      key: "Senior Registrar",
+      value: "Senior Registrar",
     },
     {
-      key: " Consultant",
-      value: " Consultant",
+      key: "Consultant",
+      value: "Consultant",
     },
   ];
   const [createDoctor] = useMutation(createDoctorProfile);
