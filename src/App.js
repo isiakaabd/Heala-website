@@ -13,7 +13,6 @@ const sectionStyles = {
   width: "100%",
   display: "flex",
   alignItems: "center",
-  background: "linear-gradient(84deg, rgba(74, 106, 182, 1) 23%, rgba(126, 237, 186, 1) 72%)",
   justifyContent: "center",
 };
 
@@ -27,6 +26,8 @@ const App = () => {
   return (
     <ThemeProvider theme={muiTheme}>
       <Router>
+      <div className="secV"></div>
+
         <div
           className="container"
           style={{
@@ -36,7 +37,8 @@ const App = () => {
             alignItems: "center",
           }}
         >
-          <ScrollToView>
+          
+          <ScrollToView style={{justifyContent:'center'}}>
             <Switch>
               {!state && (
                 <section style={sectionStyles}>
@@ -46,6 +48,7 @@ const App = () => {
             </Switch>
           </ScrollToView>
         </div>
+
       </Router>
     </ThemeProvider>
   );

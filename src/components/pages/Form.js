@@ -188,54 +188,45 @@ const Forms = () => {
     });
   };
 
-  const options = [
-    { key: "create", value: "create" },
-    { key: "update", value: "update" },
-    { key: "read", value: "read" },
-    { key: "delete", value: "delete" },
-  ];
+  const options = [{ key: "MDCN", value: "MDCN" }];
   const initialValues = {
     degree: "",
-    degreeImage: null,
+    degreeImage: "",
     license: "",
     expire: "",
-    licenseImage: null,
+    licenseImage: "",
     licenseType: "",
     gYear: "",
-    gImage: null,
+    gImage: "",
     FacebookName: "",
     InstagramName: "",
     doctorName: "",
     referenceCode: "",
     // ExdoctorName: "",
-    doctorEmail: localStorage.getItem("email"),
+    doctorEmail:'',
     doctorPosition: "",
     doctorInstitution: "",
   };
 
   const validationSchema = Yup.object({
-    degreeImage: Yup.string("Enter Degree Image ").required("Degree Image is Required"),
-    license: Yup.string("Enter license date ").required("license date is Required"),
-    expire: Yup.string("Enter expiry date ").required("Expiry date is Required"),
-    licenseImage: Yup.string("Enter your license Image ").required("license Image is Required"),
-    gYear: Yup.string("Enter your Year Book ").required("Year is Required"),
-    licenseType: Yup.string("Enter your license Type ").required("license Type is Required"),
-    gImage: Yup.string("Enter your Year Book Image").required("Year Book Image is Required"),
-    InstagramName: Yup.string("Enter your Instagram Name").required("Instagram Name is Required"),
-    FacebookName: Yup.string("Enter your Facebook Name").required("Facebook Name is Required"),
-    degree: Yup.string("Enter your degree").required("Degree is Required"),
-    doctorInstitution: Yup.string("Enter your Doctor Institution").required(
-      "Doctor Institution is Required",
-    ),
-    doctorPosition: Yup.string("Enter your Doctor Position").required(
-      "Doctor Position is Required",
-    ),
-    doctorEmail: Yup.string("Enter your Doctor Email").required("Doctor Email is Required"),
+    degreeImage: Yup.string("Enter Degree Image "),
+    license: Yup.string("Enter license date "),
+    expire: Yup.string("Enter expiry date "),
+    licenseImage: Yup.string("Enter your license Image "),
+    gYear: Yup.string("Enter your Year Book "),
+    licenseType: Yup.string("Enter your license Type "),
+    gImage: Yup.string("Enter your Year Book Image"),
+    InstagramName: Yup.string("Enter your Instagram Name"),
+    FacebookName: Yup.string("Enter your Facebook Name"),
+    degree: Yup.string("Enter your degree"),
+    doctorInstitution: Yup.string("Enter your Doctor Institution"),
+    doctorPosition: Yup.string("Enter your Doctor Position"),
+    doctorEmail: Yup.string("Enter your Doctor Email"),
     // ExdoctorName: Yup.string("Enter your External doctor Name").required(
     //   " External doctor Name is Required",
     // ),
-    referenceCode: Yup.string("Enter your Reference Code").required("Reference Code is Required"),
-    doctorName: Yup.string("Select your Doctor Name").required("Doctor Name is Required"),
+    referenceCode: Yup.string("Enter your Reference Code"),
+    doctorName: Yup.string("Select your Doctor Name"),
   });
   const greenButton = {
     background: theme.palette.success.main,
@@ -251,6 +242,7 @@ const Forms = () => {
 
   return (
     <Grid container gap={1}>
+
       <Grid container justifyContent="center" alignItems="center">
         <Avatar sx={{ background: "transparent", color: "white", width: 150, height: 150 }}>
           <HealaIcon />
@@ -264,7 +256,8 @@ const Forms = () => {
         sm={12}
         direction="column"
         gap={5}
-        sx={{ padding: "3rem", background: "white", borderRadius: "5px" }}
+        sx={{ padding: "3rem", background: "white", borderRadius: "5px", zIndex: "999",          margin: 'auto',
+      }}
       >
         <Grid item>
           <Typography textAlign="center" variant="h1">
@@ -293,9 +286,9 @@ const Forms = () => {
             className={
               qualification ? `${classes.parentGrid} ${classes.active}` : classes.parentGrid
             }
-            onClick={() => {
-              setQualification(!qualification);
-            }}
+            // onClick={() => {
+            //   setQualification(!qualification);
+            // }}
           >
             <Card title="Qualification" background={theme.palette.common.lightRed}>
               <Grid className={classes.iconWrapper}>
@@ -388,9 +381,7 @@ const Forms = () => {
             item
             md={3.5}
             xs={5.5}
-            className={
-              externalReference ? `${classes.parentGrid} ${classes.active}` : classes.parentGrid
-            }
+            className={externalReference ? `${classes.parentGrid} ${classes.active}` : classes.parentGrid}
             onClick={() => {
               setExternalReference(!externalReference);
             }}
@@ -460,7 +451,7 @@ const Forms = () => {
                         <Grid
                           container
                           sx={{
-                            height: "200px",
+                            height: "200 px",
                             border: "2px dashed #CCCCCC",
                           }}
                         >
@@ -562,7 +553,11 @@ const Forms = () => {
                         <FormLabel component="legend" className={classes.FormLabel}>
                           Upload Your License
                         </FormLabel>
-                        <Grid item container sx={{ height: "200px", border: "2px dashed #CCCCCC" }}>
+                        <Grid
+                          item
+                          container
+                          sx={{ height: "200 px", border: "2px dashed #CCCCCC" }}
+                        >
                           <Grid item container alignItems="center">
                             <Grid
                               container
@@ -630,7 +625,7 @@ const Forms = () => {
                           item
                           container
                           justifyContent="center"
-                          sx={{ height: "200px", border: "2px dashed #CCCCCC" }}
+                          sx={{ height: "200 px", border: "2px dashed #CCCCCC" }}
                         >
                           <Grid item container alignItems="center" justifyContent="center">
                             <Grid

@@ -23,6 +23,13 @@ const useStyles = makeStyles((theme) => ({
       width: "100%",
     },
   },
+  header: {
+    "&.MuiGrid-root": {
+      fontSize: "2rem",
+      lineHeight: "2.6rem",
+      color: "#010101",
+    },
+  },
 }));
 
 const PageOne = ({ handleNext }) => {
@@ -36,7 +43,8 @@ const PageOne = ({ handleNext }) => {
   };
   const validationSchema = Yup.object({
     email: Yup.string().email("Enter a valid email").required("Email Required"),
-    password: Yup.string("Select your role").required("Password Required").min(8),
+    password: Yup.string("Select your password").required("Password Required").min(8),
+    compassword: Yup.string().oneOf([Yup.ref("password"), null], "Passwords must match"),
   });
 
   const state = {
@@ -62,7 +70,8 @@ const PageOne = ({ handleNext }) => {
 
   return (
     <Grid container justifyContent="center">
-      <Grid container justifyContent="center" alignItems="center">
+      <Grid container  style={{    marginTop: '-10%',justifyContent:"center", alignItems:"center"
+}}>
         <Avatar sx={{ background: "transparent", color: "white", width: 150, height: 150 }}>
           <HealaIcon />
         </Avatar>
@@ -73,7 +82,15 @@ const PageOne = ({ handleNext }) => {
         md={6}
         xs={11}
         direction="column"
-        sx={{ padding: "2rem", background: "white", borderRadius: "5px" }}
+        sx={{
+          padding: "2rem",
+          background: "white",
+          borderRadius: "5px",
+          width: " 650px",
+          zIndex: "9999999",
+          margin: 'auto',
+
+        }}
       >
         <Grid item>
           <Formik
@@ -90,7 +107,9 @@ const PageOne = ({ handleNext }) => {
                     {error && <Typography variant="h3">{error.message}</Typography>}
                     <Grid item container justifyContent="center" rowSpacing={1}>
                       <Grid item container justifyContent="center" md={12} sm={10}>
-                        <Typography variant="h3">Create Your Account</Typography>
+                        <Typography variant="h3" className={classes.header}>
+                          Create Your Account
+                        </Typography>
                       </Grid>
                       <Grid item container md={12} sm={10}>
                         <LoginInput
@@ -108,6 +127,26 @@ const PageOne = ({ handleNext }) => {
                           label="password"
                           name="password"
                           placeholder="Enter your password"
+                          type={showPassword ? "text" : "password"}
+                          hasStartIcon={false}
+                          endAdornment={
+                            <InputAdornment
+                              position="end"
+                              onClick={() => setShowPassword((prev) => !prev)}
+                              style={{ cursor: "pointer" }}
+                            >
+                              {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                            </InputAdornment>
+                          }
+                        />
+                      </Grid>
+
+                      <Grid item container md={12} sm={10}>
+                        <LoginInput
+                          id="compassword"
+                          label="confirm password"
+                          name="compassword"
+                          placeholder="Enter your password again"
                           type={showPassword ? "text" : "password"}
                           hasStartIcon={false}
                           endAdornment={

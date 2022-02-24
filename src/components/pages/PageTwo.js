@@ -26,8 +26,40 @@ const PageTwo = ({ handleNext }) => {
   const classes = useStyles();
   const theme = useTheme();
   const options = [
-    { key: "Diagnostic", value: "diagnostic" },
-    { key: "Pharmacy", value: "pharmacy" },
+    { key: "Internal medicine", value: "Internal medicine" },
+    { key: "Family medicine", value: "Family medicine" },
+    { key: "Primary care", value: "Primary care" },
+    { key: "Pediatrics", value: "Pediatrics" },
+    { key: "Emergency medicine", value: "Emergency medicine" },
+    { key: "Obstetrics gynecology", value: "Obstetrics gynecology" },
+    { key: "Neurology", value: "Neurology" },
+    { key: "Geriatrics", value: "Geriatrics" },
+    { key: "Psychiatry", value: "Psychiatry" },
+    { key: "Anesthesiology", value: "Anesthesiology" },
+    { key: "Cardiology", value: "Cardiology" },
+    { key: "Dermatology", value: "Dermatology" },
+    { key: "Intensive medicine", value: "Intensive medicine" },
+    { key: "Endocrinology", value: "Endocrinology" },
+    { key: "Radiology", value: "Radiology" },
+    { key: "Otorhinolaryngology", value: "Otorhinolaryngology" },
+    { key: "Ophthalmology", value: "Ophthalmology" },
+    { key: "Oncology", value: "Oncology" },
+    { key: "General surgery", value: "General surgery" },
+    { key: "Gynaecology", value: "Gynaecology" },
+    { key: "Infectious disease", value: "Infectious disease" },
+    { key: "Rheumatology", value: "Rheumatology" },
+    { key: "Nephrology", value: "Nephrology" },
+    { key: "Infectious disease", value: "Infectious disease" },
+    { key: "Pulmonology", value: "Pulmonology" },
+    { key: "Gastroenterology", value: "Gastroenterology" },
+    { key: "Osteopathy", value: "Osteopathy" },
+    { key: "Clinical  physiology", value: "Clinical physiology" },
+    { key: "Allergology", value: "Allergology" },
+    { key: "Adolescent medicine ", value: "Adolescent medicine " },
+    { key: "Aviation medicine", value: "Aviation medicine" },
+    { key: "Child and adolescent psychiatry", value: "Child and adolescent psychiatry" },
+    { key: "occupational medicine ", value: "occupational medicine " },
+    { key: "Neonatology", value: "Neonatology" },
   ];
   const gender = [
     { key: "Male", value: "Male" },
@@ -49,6 +81,8 @@ const PageTwo = ({ handleNext }) => {
     image: null,
     hospital: "",
     phoneNumber: "",
+    level: "",
+
   };
   const validationSchema = Yup.object({
     firstName: Yup.string("Enter your first Name").required("First Name is Required"),
@@ -60,8 +94,27 @@ const PageTwo = ({ handleNext }) => {
     image: Yup.string("Upload a single Image").required("Image is required"),
     dob: Yup.string("Enter your DOB").required("DOB us Required"),
     phoneNumber: Yup.number("Enter your Phone Number").required("Phone Number is Required"),
-  });
+    level: Yup.string("Enter your Level").required("Level is Required"),
 
+  });
+  const selectOption = [
+    {
+      key: "House Officer",
+      value: "House Officer",
+    },
+    {
+      key: "Registrar",
+      value: "Registrar",
+    },
+    {
+      key: " Senior Registrar",
+      value: " Senior Registrar",
+    },
+    {
+      key: " Consultant",
+      value: " Consultant",
+    },
+  ];
   const [createDoctor] = useMutation(createDoctorProfile);
   const onSubmit = async (values) => {
     const {
@@ -74,6 +127,7 @@ const PageTwo = ({ handleNext }) => {
       phoneNumber,
       dociId,
       hospital,
+      level
     } = values;
     const correctDOB = dateMoment(dob);
 
@@ -86,7 +140,7 @@ const PageTwo = ({ handleNext }) => {
         image,
         phoneNumber,
         providerId: "61db6f8968b248001aec4fcb",
-        cadre: "5",
+        cadre: level,
         dociId,
         hospital,
         dob: correctDOB,
@@ -110,7 +164,14 @@ const PageTwo = ({ handleNext }) => {
         md={4}
         sm={12}
         gap={5}
-        sx={{ padding: "2rem", background: "white", borderRadius: "5px" }}
+        sx={{
+          padding: "2rem",
+          background: "white",
+          borderRadius: "5px",
+          zIndex: "999",
+          margin: 'auto',
+
+        }}
       >
         <Grid item>
           <Formik
@@ -132,20 +193,21 @@ const PageTwo = ({ handleNext }) => {
                         </Grid>
                       </Grid>
                     </Grid>
-                    <Grid item container justifyContent="space-around" gap={1}>
-                      <FormikControl
-                        control="input"
-                        name="lastName"
-                        label="Last Name"
-                        placeholder="Enter Your last Name"
-                      />
-                    </Grid>
+
                     <Grid item container justifyContent="space-around" gap={1}>
                       <FormikControl
                         control="input"
                         name="firstName"
                         placeholder="Enter your First Name"
                         label="First Name"
+                      />
+                    </Grid>
+                    <Grid item container justifyContent="space-around" gap={1}>
+                      <FormikControl
+                        control="input"
+                        name="lastName"
+                        label="Last Name"
+                        placeholder="Enter Your last Name"
                       />
                     </Grid>
                     <Grid item container justifyContent="space-around" gap={2}>
@@ -163,6 +225,15 @@ const PageTwo = ({ handleNext }) => {
                         name="phoneNumber"
                         label="Phone Number"
                         placeholder="e.g Enter Your phone Number"
+                      />
+                    </Grid>
+                    <Grid item container justifyContent="space-around" gap={2}>
+                      <FormikControl
+                        control="select"
+                        name="level"
+                        placeholder="Select Level"
+                        label="Select Level"
+                        options={selectOption}
                       />
                     </Grid>
                     {/*  */}
