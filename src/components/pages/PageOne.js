@@ -7,6 +7,7 @@ import { useTheme } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 import { Formik, Form } from "formik";
 import LoginInput from "components/validation/LoginInput";
+import { Alert } from "@mui/material";
 import * as Yup from "yup";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -46,32 +47,43 @@ const PageOne = ({ handleNext }) => {
     password: Yup.string("Select your password").required("Password Required").min(8),
     compassword: Yup.string().oneOf([Yup.ref("password"), null], "Passwords must match"),
   });
-
+  const [alert, setAlert] = useState({});
   const state = {
     email: "",
     password: "",
   };
-  const [register, { error }] = useMutation(signup);
+  const [register] = useMutation(signup);
   const onSubmit = async (values) => {
     const { email, password } = values;
-    const { data } = await register({
+    const { data, error } = await register({
       variables: {
         email,
         password,
       },
     });
-    const { dociId, email: emails, access_token } = data.signup.account;
-    localStorage.setItem("doctor_id", dociId);
-    localStorage.setItem("token", access_token);
-    localStorage.setItem("email", emails);
-    setAccessToken(access_token);
-    handleNext();
+    if (error) {
+      setAlert({
+        message: error.message,
+        type: "error",
+      });
+    }
+    if (data) {
+      const { dociId, email: emails, access_token } = data.signup.account;
+      localStorage.setItem("doctor_id", dociId);
+      localStorage.setItem("token", access_token);
+      localStorage.setItem("email", emails);
+      setAccessToken(access_token);
+      setAlert({
+        message: "Registration Successfull",
+        type: "success",
+      });
+      handleNext();
+    }
   };
 
   return (
     <Grid container justifyContent="center">
-      <Grid container  style={{    marginTop: '-10%',justifyContent:"center", alignItems:"center"
-}}>
+      <Grid container style={{ marginTop: "-10%", justifyContent: "center", alignItems: "center" }}>
         <Avatar sx={{ background: "transparent", color: "white", width: 150, height: 150 }}>
           <HealaIcon />
         </Avatar>
@@ -86,12 +98,16 @@ const PageOne = ({ handleNext }) => {
           padding: "2rem",
           background: "white",
           borderRadius: "5px",
-          width: " 650px",
+          width: "650px",
           zIndex: "9999999",
-          margin: 'auto',
-
+          margin: "auto",
         }}
       >
+        {alert && Object.keys(alert).length > 0 && (
+          <Alert sx={{ textAlign: "center" }} variant="filled" severity={alert.type}>
+            {alert.message}
+          </Alert>
+        )}
         <Grid item>
           <Formik
             initialValues={state}
@@ -104,7 +120,6 @@ const PageOne = ({ handleNext }) => {
               return (
                 <Form>
                   <Grid container item gap={2}>
-                    {error && <Typography variant="h3">{error.message}</Typography>}
                     <Grid item container justifyContent="center" rowSpacing={1}>
                       <Grid item container justifyContent="center" md={12} sm={10}>
                         <Typography variant="h3" className={classes.header}>
