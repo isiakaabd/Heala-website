@@ -140,6 +140,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Forms = () => {
+
   const classes = useStyles();
   const theme = useTheme();
   const [createVerification] = useMutation(createDoctorVerification);
@@ -186,7 +187,10 @@ const Forms = () => {
       },
     });
 
-    
+    setAlert({
+      message: "Registration Successfull",
+      type: "success",
+    });
   };
 
   const options = [{ key: "MDCN", value: "MDCN" }];
@@ -240,6 +244,8 @@ const Forms = () => {
   const [alumni, setAlumni] = useState(false);
   const [reference, setReference] = useState(false);
   const [externalReference, setExternalReference] = useState(false);
+  const [alert, setAlert] = useState({});
+
 
   return (
     <Grid container gap={1}>
