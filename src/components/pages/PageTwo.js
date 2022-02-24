@@ -183,7 +183,7 @@ const PageTwo = ({ handleNext }) => {
         {alert && Object.keys(alert).length > 0 && (
           <Alert
             variant="filled"
-            sx={{ textAlign: "center", marginBottom: "1rem" }}
+            sx={{ justifyContent: "center", alignItems: "center" }}
             severity={alert.type}
           >
             {alert.message}

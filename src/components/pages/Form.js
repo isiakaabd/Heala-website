@@ -413,7 +413,11 @@ const Forms = () => {
 
         <Grid item>
           {alert && Object.keys(alert).length > 0 && (
-            <Alert variant="filled" sx={{ textAlign: "center" }} severity={alert.type}>
+            <Alert
+              variant="filled"
+              sx={{ justifyContent: "center", alignItems: "center" }}
+              severity={alert.type}
+            >
               {alert.message}
             </Alert>
           )}

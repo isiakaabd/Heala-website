@@ -110,7 +110,11 @@ const PageOne = ({ handleNext }) => {
         }}
       >
         {alert && Object.keys(alert).length > 0 && (
-          <Alert sx={{ textAlign: "center" }} variant="filled" severity={alert.type}>
+          <Alert
+            sx={{ justifyContent: "center", alignItems: "center" }}
+            variant="filled"
+            severity={alert.type}
+          >
             {alert.message}
           </Alert>
         )}
