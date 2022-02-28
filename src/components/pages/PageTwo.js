@@ -169,7 +169,7 @@ const PageTwo = ({ handleNext }) => {
         item
         container
         direction="column"
-        md={4}
+        md={5}
         sm={12}
         gap={5}
         sx={{

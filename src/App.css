@@ -67,7 +67,6 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* background: linear-gradient(84deg, rgba(74, 106, 182, 1) 23%, rgba(126, 237, 186, 1) 72%); */
 }
 
 html,
@@ -82,7 +81,6 @@ body {
   height: 100%;
   justify-content: center;
   margin: auto !important;
-
 }
 .secV {
   background-image: url(./assets/images/vec.png);
@@ -90,7 +88,6 @@ body {
   width: 100%;
   height: 100vh;
   position: absolute;
-  z-index: 999;
   background-repeat: round;
   min-height: 100vh !important;
 }

@@ -89,7 +89,11 @@ const PageOne = ({ handleNext }) => {
 
   return (
     <Grid container justifyContent="center">
-      <Grid container style={{ marginTop: "-10%", justifyContent: "center", alignItems: "center" }}>
+      <Grid
+        item
+        container
+        style={{ marginTop: "-10%", justifyContent: "center", alignItems: "center" }}
+      >
         <Avatar sx={{ background: "transparent", color: "white", width: 150, height: 150 }}>
           <HealaIcon />
         </Avatar>
@@ -97,7 +101,7 @@ const PageOne = ({ handleNext }) => {
       <Grid
         item
         container
-        md={6}
+        md={5}
         xs={11}
         direction="column"
         sx={{
