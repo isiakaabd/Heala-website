@@ -4,7 +4,7 @@ import IconButton from "@mui/material/IconButton";
 import { makeStyles } from "@mui/styles";
 import { useTheme } from "@mui/material/styles";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -17,6 +17,12 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "2.5rem",
     },
   },
+  break: {
+    [theme.breakpoints.up("md")]: {
+      marginLeft: "-150%",
+    },
+    margin: 0,
+  },
 }));
 const PreviousButton = ({ handlePrevious }) => {
   const classes = useStyles();
@@ -24,12 +30,12 @@ const PreviousButton = ({ handlePrevious }) => {
 
   return (
     <Grid className={classes.container}>
-      <div style={{ display: "flex", alignItems: "center", marginLeft: "-150%" }}>
-        <IconButton onClick={handlePrevious}>
+      <Grid container alignItems="center" className={classes.break} onClick={handlePrevious}>
+        <IconButton>
           <KeyboardBackspaceIcon color={theme.palette.common.black} className={classes.icon} />
         </IconButton>
-        <p style={{ fontSize: "2rem", color: "white" }}>GoBack</p>
-      </div>
+        <Typography style={{ fontSize: "2rem", color: "white" }}>GoBack</Typography>
+      </Grid>
     </Grid>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Grid, FormLabel, Typography, Avatar, Alert } from "@mui/material";
+import PropTypes from "prop-types";
 import { Card, CustomButton } from "components/Utilities";
 import { createDoctorVerification } from "components/graphQL/Mutation";
 import * as Yup from "yup";
@@ -138,7 +139,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Forms = () => {
+const Forms = ({ handleNext }) => {
   const [alert, setAlert] = useState({});
   const classes = useStyles();
   const theme = useTheme();
@@ -186,7 +187,10 @@ const Forms = () => {
           doctorInstitution, //
         },
       });
+      handleNext();
     } catch (err) {
+      console.log(err);
+
       setAlert({
         message: err.networkError.result.errors[0].message,
         type: "error",
@@ -208,7 +212,6 @@ const Forms = () => {
     InstagramName: "",
     doctorName: "",
     referenceCode: "",
-    // ExdoctorName: "",
     doctorEmail: "",
     doctorPosition: "",
     doctorInstitution: "",
@@ -321,13 +324,7 @@ const Forms = () => {
               <LicenseIcon
                 // color="error"
                 fill={theme.palette.common.red}
-                // className={classes.cardIcon}
               />
-              {/* <CalendarIcon
-                  color="error"
-                  fill={theme.palette.common.red}
-                  className={classes.cardIcon}
-                /> */}
             </Card>
           </Grid>
           <Grid
@@ -829,3 +826,6 @@ const Forms = () => {
 };
 
 export default Forms;
+Forms.propTypes = {
+  handleNext: PropTypes.func.isRequired,
+};

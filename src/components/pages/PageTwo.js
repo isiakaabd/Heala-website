@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Grid, Typography, Avatar, Alert } from "@mui/material";
 import CustomButton from "components/Utilities/CustomButton";
@@ -22,9 +22,12 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-const PageTwo = ({ handleNext }) => {
+const PageTwo = ({ handleNext, setStep }) => {
   const classes = useStyles();
   const theme = useTheme();
+  useEffect(() => {
+    setStep(2);
+  }, [setStep]);
   const options = [
     { key: "Internal medicine", value: "Internal medicine" },
     { key: "Family medicine", value: "Family medicine" },
@@ -169,7 +172,7 @@ const PageTwo = ({ handleNext }) => {
         item
         container
         direction="column"
-        md={5}
+        md={4}
         sm={12}
         gap={5}
         sx={{
@@ -312,5 +315,6 @@ const PageTwo = ({ handleNext }) => {
 };
 PageTwo.propTypes = {
   handleNext: PropTypes.func.isRequired,
+  setStep: PropTypes.func,
 };
 export default PageTwo;

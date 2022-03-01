@@ -1,12 +1,12 @@
 import { createTheme } from "@mui/material/styles";
 
-const dark = "#4F4F4F";
+const dark = "#00000";
 const grey = "#757886";
 const red = "#ED3237";
 const lightRed = "#FEF8F7";
 const lightGrey = "#CCCCCC";
 const lighterGrey = "#F2F2F2";
-const green = "#3EA584";
+const green = "#7DA6C2";
 
 const lightGreen = "#ECF6F3";
 const gold = "rgb(243, 173, 83)";
@@ -50,7 +50,7 @@ export const muiTheme = createTheme({
     fontSize: 10,
     htmlFontSize: 10,
     h1: {
-      fontSize: "3rem",
+      fontSize: "4rem",
       color: dark,
       fontWeight: 700,
     },
@@ -82,9 +82,10 @@ export const muiTheme = createTheme({
       color: dark,
     },
     body2: {
-      fontSize: "1.4rem",
-      fontWeight: 300,
-      lineHeight: 1.85,
+      fontSize: "2rem",
+      fontWeight: 500,
+      lineHeight: 1.4,
+      letterSpacing: "-.5px",
     },
     btn: {
       fontSize: "1.5rem",
