@@ -8,12 +8,7 @@ const Create = ({ step, handleNext, state, handlePrevious, ...rest }) => {
     case 1:
       return (
         <Grid item container sx={{ justifyContent: "center" }}>
-          <PageOne
-      
-            handleNext={handleNext}
-            handlePrevious={handlePrevious}
-            {...rest}
-          />
+          <PageOne handleNext={handleNext} handlePrevious={handlePrevious} {...rest} />
         </Grid>
       );
     case 2:
