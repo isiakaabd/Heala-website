@@ -48,43 +48,52 @@ const PageOne = ({ handleNext }) => {
     compassword: Yup.string().oneOf([Yup.ref("password"), null], "Passwords must match"),
   });
   const [alert, setAlert] = useState({});
+  console.log(alert);
+
   const state = {
     email: "",
     password: "",
   };
-  const [register, { error }] = useMutation(signup);
+  const [register] = useMutation(signup);
 
-  const onSubmit = async (values) => {
+  const onSubmit = async (values, onsubmitProp) => {
     const { email, password } = values;
-    const { data } = await register({
-      variables: {
-        email,
-        password,
-      },
-    });
-    if (error) {
-      setAlert({
-        message: "something went wrong",
-        type: "error",
+    try {
+      const { data } = await register({
+        variables: {
+          email,
+          password,
+        },
       });
-    }
-    if (data) {
+
       const { dociId, email: emails, access_token } = data.signup.account;
       localStorage.setItem("doctor_id", dociId);
       localStorage.setItem("token", access_token);
       localStorage.setItem("email", emails);
       setAccessToken(access_token);
+
       setAlert({
         message: "Registration Successfull",
         type: "success",
       });
       handleNext();
+    } catch (err) {
+      setAlert({
+        message: err.networkError.result.errors[0].message,
+        type: "error",
+      });
     }
+
+    onsubmitProp.resetForm();
   };
 
   return (
     <Grid container justifyContent="center">
-      <Grid container style={{ marginTop: "-10%", justifyContent: "center", alignItems: "center" }}>
+      <Grid
+        item
+        container
+        style={{ marginTop: "-10%", justifyContent: "center", alignItems: "center" }}
+      >
         <Avatar sx={{ background: "transparent", color: "white", width: 150, height: 150 }}>
           <HealaIcon />
         </Avatar>
@@ -92,7 +101,7 @@ const PageOne = ({ handleNext }) => {
       <Grid
         item
         container
-        md={6}
+        md={5}
         xs={11}
         direction="column"
         sx={{
@@ -105,7 +114,11 @@ const PageOne = ({ handleNext }) => {
         }}
       >
         {alert && Object.keys(alert).length > 0 && (
-          <Alert sx={{ textAlign: "center" }} variant="filled" severity={alert.type}>
+          <Alert
+            sx={{ justifyContent: "center", alignItems: "center" }}
+            variant="filled"
+            severity={alert.type}
+          >
             {alert.message}
           </Alert>
         )}
@@ -201,7 +214,5 @@ const PageOne = ({ handleNext }) => {
 export default PageOne;
 
 PageOne.propTypes = {
-  state: PropTypes.object.isRequired,
-  handlePrevious: PropTypes.func.isRequired,
   handleNext: PropTypes.func.isRequired,
 };

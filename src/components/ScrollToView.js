@@ -7,7 +7,7 @@ const ScrollToView = (props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
-  return (<main>{props.children}</main>);
+  return <main style={{ width: "70%" }}>{props.children}</main>;
 };
 
 ScrollToView.propTypes = {

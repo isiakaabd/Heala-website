@@ -72,7 +72,6 @@ body::-webkit-scrollbar {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* background: linear-gradient(84deg, rgba(74, 106, 182, 1) 23%, rgba(126, 237, 186, 1) 72%); */
 }
 
 
@@ -95,7 +94,6 @@ body {
   width: 100%;
   height: 180%;
   position: absolute;
-  z-index: 999;
   background-repeat: round;
   /* min-height: 200vh !important; */
 }

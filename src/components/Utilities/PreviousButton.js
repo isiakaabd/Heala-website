@@ -24,9 +24,12 @@ const PreviousButton = ({ handlePrevious }) => {
 
   return (
     <Grid className={classes.container}>
-      <IconButton onClick={handlePrevious}>
-        <KeyboardBackspaceIcon color={theme.palette.common.black} className={classes.icon} />
-      </IconButton>
+      <div style={{ display: "flex", alignItems: "center", marginLeft: "-150%" }}>
+        <IconButton onClick={handlePrevious}>
+          <KeyboardBackspaceIcon color={theme.palette.common.black} className={classes.icon} />
+        </IconButton>
+        <p style={{ fontSize: "2rem", color: "white" }}>GoBack</p>
+      </div>
     </Grid>
   );
 };
