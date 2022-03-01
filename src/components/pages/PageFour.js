@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+
 import { Grid, Typography, Avatar } from "@mui/material";
 import { ReactComponent as HealaIcon } from "assets/images/logo.svg";
 import { ReactComponent as ConfirmIcon } from "assets/images/confirm.svg";
