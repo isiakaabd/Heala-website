@@ -94,9 +94,11 @@ const PageFour = () => {
         </Grid>
         <Grid item container xs={5} justifyContent="center">
           <CustomButton
+            component={Link}
             variant="contained"
             title="Go to website"
             type={greenButton}
+            to="https://heala.ng"
             className={classes.btn}
           />
         </Grid>

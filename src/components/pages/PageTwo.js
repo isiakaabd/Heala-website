@@ -183,15 +183,6 @@ const PageTwo = ({ handleNext, setStep }) => {
           margin: "auto",
         }}
       >
-        {alert && Object.keys(alert).length > 0 && (
-          <Alert
-            variant="filled"
-            sx={{ justifyContent: "center", alignItems: "center" }}
-            severity={alert.type}
-          >
-            {alert.message}
-          </Alert>
-        )}
         <Grid item>
           <Formik
             initialValues={state}
@@ -291,6 +282,18 @@ const PageTwo = ({ handleNext, setStep }) => {
                         label="Upload Your Image"
                         setFieldValue={setFieldValue}
                       />
+                    </Grid>
+
+                    <Grid item container>
+                      {alert && Object.keys(alert).length > 0 && (
+                        <Alert
+                          variant="filled"
+                          sx={{ justifyContent: "center", alignItems: "center" }}
+                          severity={alert.type}
+                        >
+                          {alert.message}
+                        </Alert>
+                      )}
                     </Grid>
 
                     <Grid item container md={12} sm={10} margin="auto">
