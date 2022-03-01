@@ -93,14 +93,20 @@ const PageFour = () => {
           </Grid>
         </Grid>
         <Grid item container xs={5} justifyContent="center">
-          <CustomButton
-            component={Link}
-            variant="contained"
-            title="Go to website"
-            type={greenButton}
-            to="https://heala.ng"
-            className={classes.btn}
-          />
+          <a
+            style={{ textDecoration: "none" }}
+            href="https://heala.ng"
+            rel="noreferrer"
+            target="_blank"
+          >
+            <CustomButton
+              variant="contained"
+              title="            Go to website
+"
+              type={greenButton}
+              className={classes.btn}
+            />
+          </a>
         </Grid>
       </Grid>
     </Grid>
