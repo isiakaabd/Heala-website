@@ -2,12 +2,12 @@ body {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
     linear-gradient(98.44deg, #3e5ea9 1.92%, #7eedba 122.04%);
 }
-/* body::-webkit-scrollbar {
+body::-webkit-scrollbar {
   width: 0 !important;
 }
 *::-webkit-scrollbar {
   width: 0 !important;
-} */
+}
 /*ADD SELF HOST FONTS */
 @font-face {
   font-family: "Circular Std Medium";
