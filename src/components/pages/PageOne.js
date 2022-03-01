@@ -103,6 +103,7 @@ const PageOne = ({ handleNext }) => {
         container
         md={5}
         xs={11}
+
         direction="column"
         sx={{
           padding: "2rem",
