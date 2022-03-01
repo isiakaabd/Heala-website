@@ -111,12 +111,21 @@ body {
 
 input::placeholder {
   color: #2d2f39 !important;
-  font-size: 16px !important;
   font-weight: 100 !important;
 }
+
+input::placeholder {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}
+
+input::placeholder {
+  font-weight: 400 !important;
+}
+
 h3 {
   font-style: normal;
-  font-weight: normal !important;
+  font-weight: 500 !important;
   font-size: 20px;
   line-height: 26px;
   display: flex;
