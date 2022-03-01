@@ -53,6 +53,9 @@ export const muiTheme = createTheme({
       fontSize: "4rem",
       color: dark,
       fontWeight: 700,
+      "@media (max-width:600px)": {
+        fontSize: "3rem",
+      },
     },
     h2: {
       fontSize: "2.5rem",

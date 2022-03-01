@@ -57,9 +57,11 @@ const PageFour = () => {
             <ConfirmIcon />
           </Avatar>
         </Grid>
-        <Grid item container gap={2} sx={{ border: "1px solid black" }}>
+        <Grid item container gap={2} sx={{ border: "0.7px solid black" }}>
           <Grid item container justifyContent="center">
-            <Typography variant="h1">Thank you for Signing up</Typography>
+            <Typography variant="h1" sx={{ textAlign: "center" }}>
+              Thank you for Signing up
+            </Typography>
           </Grid>
           <Grid item container justifyContent="center">
             <Typography variant="body2" sx={{ textAlign: "center" }}>
