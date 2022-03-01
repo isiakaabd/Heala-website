@@ -65,29 +65,29 @@ const PageFour = () => {
             <Typography variant="body2" sx={{ textAlign: "center" }}>
               Your account is currently being reviewed. We will send an email with the status of
               your verification in a few days. In the meantime, check out our{" "}
-              <Typography
-                variant="body2"
-                component={Link}
+              <a
+                target="_blank"
                 style={{
                   color: theme.palette.success.main,
                 }}
-                to="https://heala.ng/privacy-policy"
+                href="https://heala.ng/privacy-policy"
                 className={classes.link}
+                rel="noreferrer"
               >
                 Privacy policy
-              </Typography>{" "}
+              </a>{" "}
               and{" "}
-              <Typography
-                variant="body2"
-                component={Link}
+              <a
                 style={{
                   color: theme.palette.common.green,
                 }}
-                to="https://heala.ng/terms"
+                href="https://heala.ng/terms"
+                rel="noreferrer"
+                target="_blank"
                 className={classes.link}
               >
                 Terms{" "}
-              </Typography>
+              </a>
               for more information
             </Typography>
           </Grid>
