@@ -57,7 +57,7 @@ const PageFour = () => {
             <ConfirmIcon />
           </Avatar>
         </Grid>
-        <Grid item container gap={2} sx={{ border: "0.7px solid black" }}>
+        <Grid item container gap={2} sx={{ border: "0.2px solid black" }}>
           <Grid item container justifyContent="center">
             <Typography variant="h1" sx={{ textAlign: "center" }}>
               Thank you for Signing up
@@ -95,14 +95,20 @@ const PageFour = () => {
           </Grid>
         </Grid>
         <Grid item container xs={5} justifyContent="center">
-          <CustomButton
-            component={Link}
-            variant="contained"
-            title="Go to website"
-            type={greenButton}
-            to="https://heala.ng"
-            className={classes.btn}
-          />
+          <a
+            style={{ textDecoration: "none" }}
+            href="https://heala.ng"
+            rel="noreferrer"
+            target="_blank"
+          >
+            <CustomButton
+              variant="contained"
+              title="            Go to website
+"
+              type={greenButton}
+              className={classes.btn}
+            />
+          </a>
         </Grid>
       </Grid>
     </Grid>
