@@ -802,6 +802,11 @@ const Forms = () => {
                       </Grid>
                     </>
                   ) : null}
+                  {alert && Object.keys(alert).length > 0 && (
+                    <Alert variant="filled" sx={{ textAlign: "center" }} severity={alert.type}>
+                      {alert.message}
+                    </Alert>
+                  )}
 
                   <Grid item md={12} container sm={10}>
                     <CustomButton

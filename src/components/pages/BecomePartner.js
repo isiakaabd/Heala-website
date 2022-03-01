@@ -28,6 +28,7 @@ const BecomePartner = () => {
       {step === 1 ? (
         <Grid container alignSelf="flex-start">
           <PreviousButton step={step} handlePrevious={handlePrevious} />
+          
         </Grid>
       ) : null}
 

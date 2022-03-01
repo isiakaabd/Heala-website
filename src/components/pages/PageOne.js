@@ -108,7 +108,7 @@ const PageOne = ({ handleNext }) => {
         sx={{
           padding: "2rem",
           background: "white",
-          borderRadius: "5px",
+          borderRadius: "10px",
           width: "650px",
           zIndex: "9999999",
           margin: "auto",
