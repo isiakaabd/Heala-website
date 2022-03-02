@@ -143,7 +143,7 @@ const PageOne = ({ handleNext }) => {
                     <Grid item container justifyContent="center" rowSpacing={1}>
                       <Grid item container justifyContent="center" md={12} sm={10}>
                         <Typography variant="h3" className={classes.header}>
-                          Create Your Account
+                          CREATE YOUR ACCOUNT
                         </Typography>
                       </Grid>
                       <Grid item container md={12} sm={10}>

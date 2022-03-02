@@ -199,7 +199,7 @@ const PageTwo = ({ handleNext, setStep }) => {
                     <Grid item container justifyContent="space-around" gap={2}>
                       <Grid item container md={5} sm={10}>
                         <Grid item>
-                          <Typography variant="h3">Create Profile</Typography>
+                          <Typography variant="h3">CREATE PEOFILE</Typography>
                         </Grid>
                       </Grid>
                     </Grid>

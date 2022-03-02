@@ -67,7 +67,7 @@ const PageFour = () => {
             Your account is currently being reviewed. We will send an email with the status of your
             verification in a few days. In the meantime, check out our{" "}
             <a
-              target="_blank"
+              
               style={{
                 color: theme.palette.success.main,
               }}
@@ -84,7 +84,7 @@ const PageFour = () => {
               }}
               href="https://heala.ng/terms"
               rel="noreferrer"
-              target="_blank"
+              
               className={classes.link}
             >
               Terms{" "}
