@@ -67,13 +67,11 @@ const PageFour = () => {
             Your account is currently being reviewed. We will send an email with the status of your
             verification in a few days. In the meantime, check out our{" "}
             <a
-              target="_blank"
               style={{
                 color: theme.palette.success.main,
               }}
               href="https://heala.ng/privacy-policy"
               className={classes.link}
-              rel="noreferrer"
             >
               Privacy policy
             </a>{" "}
@@ -83,8 +81,6 @@ const PageFour = () => {
                 color: theme.palette.common.green,
               }}
               href="https://heala.ng/terms"
-              rel="noreferrer"
-              target="_blank"
               className={classes.link}
             >
               Terms{" "}
@@ -94,11 +90,10 @@ const PageFour = () => {
         </Grid>
 
         <Grid item container xs={5} justifyContent="center">
-          <a style={{ textDecoration: "none" }} href="https://heala.ng" rel="noreferrer">
+          <a style={{ textDecoration: "none" }} href="https://heala.ng">
             <CustomButton
               variant="contained"
-              title="            Go to website
-"
+              title="Go to website"
               type={greenButton}
               className={classes.btn}
             />
