@@ -41,23 +41,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   form: theme.mixins.toolbar,
-  uploadBtn: {
-    "&.MuiButton-root": {
-      ...theme.typography.btn,
-      background: "#f2f2f2",
-      boxShadow: "none",
-      color: theme.palette.common.black,
-
-      "&:hover": {
-        background: "#f2f3f3",
-        boxShadow: "none",
-      },
-
-      "&:active": {
-        boxShadow: "none",
-      },
-    },
-  },
 
   FormLabel: {
     "&.MuiFormLabel-root": {
@@ -116,7 +99,6 @@ const useStyles = makeStyles((theme) => ({
   btn: {
     "&.MuiButton-root": {
       ...theme.typography.btn,
-      background: theme.palette.common.black,
       width: "100%",
     },
   },
@@ -203,7 +185,7 @@ const Forms = ({ handleNext }) => {
     degree: "",
     degreeImage: "",
     license: "",
-    expire: "",
+    expires: "",
     licenseImage: "",
     licenseType: "",
     gYear: "",
@@ -490,21 +472,7 @@ const Forms = ({ handleNext }) => {
                                     setFieldValue={setFieldValue}
                                   />
                                 </div>
-                                {/* <Input
-                                    accept="image/*"
-                                    id="contained-button-file"
-                                    multiple
-                                    type="file"
-                                    name="Qualification"
-                                    style={{ display: "none" }}
-                                  />
-                                  <Button
-                                    variant="contained"
-                                    component="span"
-                                    className={classes.uploadBtn}
-                                  >
-                                    Upload Photo
-                                  </Button> */}
+
                                 <Grid marginTop="1.5rem">
                                   {" "}
                                   <Typography textAlign="center" variant="h6">

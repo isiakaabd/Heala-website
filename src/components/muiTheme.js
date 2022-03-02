@@ -91,10 +91,13 @@ export const muiTheme = createTheme({
       letterSpacing: "-.5px",
     },
     btn: {
-      fontSize: "1.5rem",
+      fontSize: "2rem",
       textTransform: "none",
       height: "5rem",
-      borderRadius: 2,
+      borderRadius: 30,
+      fontWeight: 500,
+      background:
+        "linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), linear-gradient(98.44deg, #3e5ea9 1.92%, #7eedba 122.04%)",
       boxShadow: "0px 0px 4px -1px rgba(71,64,71,0.63)",
     },
 

@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
       ...theme.typography.btn,
       background: "#f2f2f2",
       boxShadow: "none",
+      borderRadius: "5px",
       color: theme.palette.common.black,
 
       "&:hover": {

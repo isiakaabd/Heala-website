@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
   btn: {
     "&.MuiButton-root": {
       ...theme.typography.btn,
-      background: theme.palette.common.black,
       width: "100%",
     },
   },
@@ -93,8 +92,10 @@ const PageTwo = ({ handleNext, setStep }) => {
     dociId: Yup.string("Enter your dociId").required("dociId Name is Required"),
     specialization: Yup.string("Select your Specialization").required("Specialization is Required"),
     gender: Yup.string("Select your gender").required("Gender is Required"),
-    image: Yup.string("Upload a single Image").required("Image is required"),
-    dob: Yup.string("Enter your DOB").required("DOB us Required"),
+    image: Yup.string("Upload a single Image")
+      .required("Image is required")
+      .typeError("Image is required"),
+    dob: Yup.string("Enter your DOB").required("DOB is Required"),
     phoneNumber: Yup.number("Enter your Phone Number").required("Phone Number is Required"),
     level: Yup.string("Enter your Level").required("Level is Required"),
   });
@@ -191,8 +192,6 @@ const PageTwo = ({ handleNext, setStep }) => {
             onSubmit={onSubmit}
           >
             {({ isSubmitting, setFieldValue, setValues, isValid, dirty, errors }) => {
-              console.log(errors);
-
               return (
                 <Form>
                   <Grid container md={12} margin="auto" gap={1}>

@@ -200,7 +200,7 @@ const PageOne = ({ handleNext }) => {
                     <Grid item container margin="auto" md={12} sm={10}>
                       <CustomButton
                         variant="contained"
-                        title="continue"
+                        title="Create My Account"
                         type={greenButton}
                         className={classes.btn}
                         isSubmitting={isSubmitting}
