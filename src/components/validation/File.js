@@ -1,11 +1,11 @@
 import React, { useRef, useState } from "react";
 import { Field, ErrorMessage } from "formik";
 import { TextError } from "components/Utilities/TextError";
-import LinearWithValueLabel from "components/Utilities/LinearProgress";
 import PropTypes from "prop-types";
 import { FormControl, FormLabel, Grid, Avatar, Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import axios from "axios";
+import { Loader } from "components/Utilities";
 
 const useStyles = makeStyles((theme) => ({
   FormLabel: {
@@ -36,7 +36,6 @@ export const Formiks = ({ name, setFieldValue, onBlur }) => {
   const [preview, setPreview] = useState("");
   const [progress, setProgress] = useState();
   const classes = useStyles();
-
   const uploadImage = async (file) => {
     try {
       const form = new FormData();
@@ -44,10 +43,10 @@ export const Formiks = ({ name, setFieldValue, onBlur }) => {
       const data = await axios({
         method: "post",
         url: "https://api-staging.heala.io/rest/media/upload/",
-        data: form,
         headers: {
           "Content-Type": `multipart/form-data; boundary=${form._boundary}`,
         },
+        data: form,
         onUploadProgress: (data) => {
           //Set the progress value to show the progress bar
           setProgress(Math.round((100 * data.loaded) / data.total));
@@ -58,7 +57,6 @@ export const Formiks = ({ name, setFieldValue, onBlur }) => {
       console.error(error);
     }
   };
-
   const onChange = async (e) => {
     const file = e.target.files[0];
     const files = await uploadImage(file);
@@ -93,11 +91,7 @@ export const Formiks = ({ name, setFieldValue, onBlur }) => {
         </FormControl>
       </Grid>
       <Grid item>
-        {progress < 100 ? (
-          <LinearWithValueLabel progres={progress} />
-        ) : (
-          preview && <Avatar src={preview} />
-        )}
+        {progress < 100 ? <Loader progres={progress} /> : preview && <Avatar src={preview} />}
       </Grid>
     </Grid>
   );

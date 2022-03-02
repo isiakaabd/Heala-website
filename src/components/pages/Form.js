@@ -231,9 +231,6 @@ const Forms = ({ handleNext }) => {
     doctorInstitution: Yup.string("Enter your Doctor Institution"),
     doctorPosition: Yup.string("Enter your Doctor Position"),
     doctorEmail: Yup.string("Enter your Doctor Email"),
-    // ExdoctorName: Yup.string("Enter your External doctor Name").required(
-    //   " External doctor Name is Required",
-    // ),
     referenceCode: Yup.string("Enter your Reference Code"),
     doctorName: Yup.string("Select your Doctor Name"),
   });
@@ -423,7 +420,8 @@ const Forms = ({ handleNext }) => {
             onSubmit={onSubmit}
             validationSchema={validationSchema}
             validateOnChange={false}
-            validateOnMount
+            validateOnMount={false}
+            validateOnBlur={false}
           >
             {({ setValues, setFieldValue, isSubmitting, dirty, isValid, errors }) => {
               console.log(errors);
@@ -753,13 +751,13 @@ const Forms = ({ handleNext }) => {
                         sm={12}
                         direction="column"
                         justifyContent="space-between"
-                        gap={3}
+                        gap={2}
                         marginBottom={4}
                       >
                         <Typography variant="h2">External Reference</Typography>
-                        <Grid item container justifyContent="space-between" spacing={1}>
-                          <Grid item container justifyContent="space-between" gap={2}>
-                            <Grid item container md={5} sm={10}>
+                        <Grid item md={12}>
+                          <Grid item container marginBottom={2} justifyContent="space-between">
+                            <Grid item md={5} sm={10}>
                               <FormikControl
                                 control="input"
                                 name="doctorName"
@@ -767,7 +765,7 @@ const Forms = ({ handleNext }) => {
                                 label="Doctor's name"
                               />
                             </Grid>
-                            <Grid item container md={5} sm={10}>
+                            <Grid item md={5} sm={10}>
                               <FormikControl
                                 control="input"
                                 name="doctorInstitution"
@@ -776,7 +774,7 @@ const Forms = ({ handleNext }) => {
                               />
                             </Grid>
                           </Grid>
-                          <Grid item container justifyContent="space-between" gap={3}>
+                          <Grid item container justifyContent="space-between">
                             <Grid item container md={5} sm={10}>
                               <FormikControl
                                 control="input"
@@ -797,6 +795,28 @@ const Forms = ({ handleNext }) => {
                           </Grid>
                         </Grid>
                       </Grid>
+                      {/* <Grid
+                        item
+                        container
+                        md={12}
+                        sm={12}
+                        direction="column"
+                        justifyContent="space-between"
+                        gap={3}
+                        marginBottom={4}
+                      >
+                        <Typography variant="h2">Reference From Doctor on Heala</Typography>
+                        <Grid item container justifyContent="space-between" spacing={3}>
+                          <Grid item container md={12} sm={10}>
+                            <FormikControl
+                              control="input"
+                              name="referenceCode"
+                              placeholder="Enter reference code"
+                              label="Reference Code"
+                            />
+                          </Grid>
+                        </Grid>
+                      </Grid> */}
                     </>
                   ) : null}
                   {alert && Object.keys(alert).length > 0 && (

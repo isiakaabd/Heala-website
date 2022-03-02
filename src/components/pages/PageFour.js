@@ -1,5 +1,4 @@
 import React from "react";
-
 import { Grid, Typography, Avatar } from "@mui/material";
 import { ReactComponent as HealaIcon } from "assets/images/logo.svg";
 import { ReactComponent as ConfirmIcon } from "assets/images/confirm.svg";
@@ -57,50 +56,45 @@ const PageFour = () => {
             <ConfirmIcon />
           </Avatar>
         </Grid>
-        <Grid item container gap={2} sx={{ border: "0.2px solid black" }}>
-          <Grid item container justifyContent="center">
-            <Typography variant="h1" sx={{ textAlign: "center" }}>
-              Thank you for Signing up
-            </Typography>
-          </Grid>
-          <Grid item container justifyContent="center">
-            <Typography variant="body2" sx={{ textAlign: "center" }}>
-              Your account is currently being reviewed. We will send an email with the status of
-              your verification in a few days. In the meantime, check out our{" "}
-              <a
-                target="_blank"
-                style={{
-                  color: theme.palette.success.main,
-                }}
-                href="https://heala.ng/privacy-policy"
-                className={classes.link}
-                rel="noreferrer"
-              >
-                Privacy policy
-              </a>{" "}
-              and{" "}
-              <a
-                style={{
-                  color: theme.palette.common.green,
-                }}
-                href="https://heala.ng/terms"
-                rel="noreferrer"
-                target="_blank"
-                className={classes.link}
-              >
-                Terms{" "}
-              </a>
-              for more information
-            </Typography>
-          </Grid>
+
+        <Grid item container justifyContent="center">
+          <Typography variant="h1" sx={{ textAlign: "center" }}>
+            Thank you for Signing up
+          </Typography>
         </Grid>
+        <Grid item container justifyContent="center">
+          <Typography variant="body2" sx={{ textAlign: "center" }}>
+            Your account is currently being reviewed. We will send an email with the status of your
+            verification in a few days. In the meantime, check out our{" "}
+            <a
+              target="_blank"
+              style={{
+                color: theme.palette.success.main,
+              }}
+              href="https://heala.ng/privacy-policy"
+              className={classes.link}
+              rel="noreferrer"
+            >
+              Privacy policy
+            </a>{" "}
+            and{" "}
+            <a
+              style={{
+                color: theme.palette.common.green,
+              }}
+              href="https://heala.ng/terms"
+              rel="noreferrer"
+              target="_blank"
+              className={classes.link}
+            >
+              Terms{" "}
+            </a>
+            for more information
+          </Typography>
+        </Grid>
+
         <Grid item container xs={5} justifyContent="center">
-          <a
-            style={{ textDecoration: "none" }}
-            href="https://heala.ng"
-            rel="noreferrer"
-            target="_blank"
-          >
+          <a style={{ textDecoration: "none" }} href="https://heala.ng" rel="noreferrer">
             <CustomButton
               variant="contained"
               title="            Go to website
