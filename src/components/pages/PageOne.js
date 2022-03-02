@@ -136,7 +136,6 @@ const PageOne = ({ handleNext }) => {
             validateOnMount={false}
           >
             {({ isSubmitting, isValid, dirty, values }) => {
-              console.log(values);
               return (
                 <Form>
                   <Grid container item gap={2}>
