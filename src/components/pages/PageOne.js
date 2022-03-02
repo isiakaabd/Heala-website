@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Grid, InputAdornment, Typography, Avatar } from "@mui/material";
+import { Grid, InputAdornment, Alert, Typography, Avatar } from "@mui/material";
 import { ReactComponent as HealaIcon } from "assets/images/logo.svg";
 import { CustomButton } from "components/Utilities";
 import { useTheme } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 import { Formik, Form } from "formik";
 import LoginInput from "components/validation/LoginInput";
-import { Alert } from "@mui/material";
 import * as Yup from "yup";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -37,6 +36,7 @@ const PageOne = ({ handleNext }) => {
   const classes = useStyles();
   const theme = useTheme();
   const [showPassword, setShowPassword] = useState(false);
+  const [showPasswords, setShowPasswords] = useState(false);
   const greenButton = {
     background: theme.palette.success.main,
     hover: theme.palette.success.light,
@@ -45,14 +45,18 @@ const PageOne = ({ handleNext }) => {
   const validationSchema = Yup.object({
     email: Yup.string().email("Enter a valid email").required("Email Required"),
     password: Yup.string("Select your password").required("Password Required").min(8),
-    compassword: Yup.string().oneOf([Yup.ref("password"), null], "Passwords must match"),
+    confirmPassword: Yup.string()
+      .when("password", {
+        is: (val) => (val && val.length > 0 ? true : false),
+        then: Yup.string().oneOf([Yup.ref("password")], "password mismatch"),
+      })
+      .required("Please confirm Password"),
   });
   const [alert, setAlert] = useState({});
-  console.log(alert);
-
   const state = {
     email: "",
     password: "",
+    confirmPassword: "",
   };
   const [register] = useMutation(signup);
 
@@ -126,11 +130,13 @@ const PageOne = ({ handleNext }) => {
           <Formik
             initialValues={state}
             validateOnChange={false}
+            validateOnBlur={false}
             validationSchema={validationSchema}
             onSubmit={onSubmit}
-            validateOnMount
+            validateOnMount={false}
           >
-            {({ isSubmitting, isValid, dirty }) => {
+            {({ isSubmitting, isValid, dirty, values }) => {
+              console.log(values);
               return (
                 <Form>
                   <Grid container item gap={2}>
@@ -153,7 +159,7 @@ const PageOne = ({ handleNext }) => {
                       <Grid item container md={12} sm={10}>
                         <LoginInput
                           id="password"
-                          label="password"
+                          label="Password"
                           name="password"
                           placeholder="Enter your password"
                           type={showPassword ? "text" : "password"}
@@ -172,19 +178,19 @@ const PageOne = ({ handleNext }) => {
 
                       <Grid item container md={12} sm={10}>
                         <LoginInput
-                          id="compassword"
-                          label="confirm password"
-                          name="compassword"
+                          id="confirmPassword"
+                          label="Confirm Password"
+                          name="confirmPassword"
                           placeholder="Enter your password again"
-                          type={showPassword ? "text" : "password"}
+                          type={showPasswords ? "text" : "password"}
                           hasStartIcon={false}
                           endAdornment={
                             <InputAdornment
                               position="end"
-                              onClick={() => setShowPassword((prev) => !prev)}
+                              onClick={() => setShowPasswords((prev) => !prev)}
                               style={{ cursor: "pointer" }}
                             >
-                              {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                              {showPasswords ? <VisibilityOffIcon /> : <VisibilityIcon />}
                             </InputAdornment>
                           }
                         />

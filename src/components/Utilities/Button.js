@@ -1,6 +1,5 @@
 import React from "react";
-import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
+import { Button, Stack } from "@mui/material";
 import PropTypes from "prop-types";
 import { makeStyles } from "@mui/styles";
 
