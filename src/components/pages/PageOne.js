@@ -19,8 +19,8 @@ const useStyles = makeStyles((theme) => ({
   btn: {
     "&.MuiButton-root": {
       ...theme.typography.btn,
-      background: theme.palette.common.black,
       width: "100%",
+      fontSize : "1.5rem"
     },
   },
   header: {
@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "2rem",
       lineHeight: "2.6rem",
       color: "#010101",
+      fontWeight:"600",
     },
   },
 }));
@@ -141,7 +142,7 @@ const PageOne = ({ handleNext }) => {
                   <Grid container item gap={2}>
                     <Grid item container justifyContent="center" rowSpacing={1}>
                       <Grid item container justifyContent="center" md={12} sm={10}>
-                        <Typography variant="h3" className={classes.header}>
+                        <Typography variant="h5" className={classes.header}>
                           CREATE YOUR ACCOUNT
                         </Typography>
                       </Grid>

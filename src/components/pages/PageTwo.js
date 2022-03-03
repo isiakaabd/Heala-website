@@ -18,6 +18,8 @@ const useStyles = makeStyles((theme) => ({
     "&.MuiButton-root": {
       ...theme.typography.btn,
       width: "100%",
+      fontSize : "1.5rem"
+
     },
   },
 }));
@@ -200,7 +202,7 @@ const PageTwo = ({ handleNext, setStep }) => {
                     <Grid item container justifyContent="space-around" gap={2}>
                       <Grid item container md={5} sm={10}>
                         <Grid item>
-                          <Typography variant="h3">CREATE PROFILE</Typography>
+                          <Typography variant="h5">CREATE PROFILE</Typography>
                         </Grid>
                       </Grid>
                     </Grid>
