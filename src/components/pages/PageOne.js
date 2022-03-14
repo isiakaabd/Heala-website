@@ -97,7 +97,7 @@ const PageOne = ({ handleNext }) => {
       <Grid
         item
         container
-        style={{ marginTop: "-10%", justifyContent: "center", alignItems: "center" }}
+        style={{ marginTop: "-20%", justifyContent: "center", alignItems: "center" }}
       >
         <Avatar sx={{ background: "transparent", color: "white", width: 150, height: 150 }}>
           <HealaIcon />
@@ -110,10 +110,10 @@ const PageOne = ({ handleNext }) => {
         xs={11}
         direction="column"
         sx={{
-          padding: "2rem",
+          padding: "4rem 3rem 3rem",
           background: "white",
-          borderRadius: "10px",
-          width: "650px",
+          borderRadius: "5px",
+          width: "750px",
           zIndex: "9999999",
           margin: "auto",
         }}
@@ -139,9 +139,9 @@ const PageOne = ({ handleNext }) => {
             {({ isSubmitting, isValid, dirty, values }) => {
               return (
                 <Form>
-                  <Grid container item gap={2}>
+                  <Grid container item gap={4}>
                     <Grid item container justifyContent="center" rowSpacing={1}>
-                      <Grid item container justifyContent="center" md={12} sm={10}>
+                      <Grid item container justifyContent="center" md={12} sm={10} marginBottom="14px">
                         <Typography variant="h5" className={classes.header}>
                           CREATE YOUR ACCOUNT
                         </Typography>

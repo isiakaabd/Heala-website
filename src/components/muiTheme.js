@@ -79,7 +79,7 @@ export const muiTheme = createTheme({
     },
 
     body1: {
-      fontSize: "1.6rem",
+      fontSize: "1.4rem",
       fontWeight: 300,
       lineHeight: 1.7,
       color: dark,
@@ -97,7 +97,7 @@ export const muiTheme = createTheme({
       borderRadius: 30,
       fontWeight: 500,
       background:
-        "linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), linear-gradient(98.44deg, #3e5ea9 1.92%, #7eedba 122.04%)",
+        "linear-gradient(130deg, rgb(62, 94, 169) 0%, rgb(62, 94, 169) 34%, rgb(126, 237, 186) 100%)",
       boxShadow: "0px 0px 4px -1px rgba(71,64,71,0.63)",
     },
 
@@ -144,7 +144,6 @@ export const muiTheme = createTheme({
       // ...theme
       width: "100%",
       height: "5rem",
-      border: "1px solid lightGrey",
       borderRadius: ".5rem",
       padding: "1rem",
       fontSize: "1.8rem",

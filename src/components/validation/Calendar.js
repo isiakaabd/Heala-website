@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
   },
   label: {
-    fontSize: "1.6rem",
+    fontSize: "1.4rem",
     color: theme.palette.common.dark,
   },
   FormLabel: {
