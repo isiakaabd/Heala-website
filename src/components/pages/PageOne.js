@@ -44,8 +44,8 @@ const PageOne = ({ handleNext }) => {
     active: theme.palette.primary.dark,
   };
   const validationSchema = Yup.object({
-    email: Yup.string().email("Enter a valid email").required("Email Required"),
-    password: Yup.string("Select your password").required("Password Required").min(8),
+    email: Yup.string().trim().email("Enter a valid email").required("Email Required"),
+    password: Yup.string("Select your password").trim().required("Password Required").min(8),
     confirmPassword: Yup.string()
       .when("password", {
         is: (val) => (val && val.length > 0 ? true : false),
@@ -127,6 +127,7 @@ const PageOne = ({ handleNext }) => {
             {alert.message}
           </Alert>
         )}
+        
         <Grid item>
           <Formik
             initialValues={state}

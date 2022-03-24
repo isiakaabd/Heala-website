@@ -1,9 +1,7 @@
 body {
-
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-  linear-gradient(98.44deg, #3e5ea9 1.92%, #7eedba 122.04%) !important;
-
- }
+    linear-gradient(98.44deg, #3e5ea9 1.92%, #7eedba 122.04%) !important;
+}
 
 /*ADD SELF HOST FONTS */
 @font-face {
@@ -92,24 +90,16 @@ body {
   opacity: 0.05;
   width: 100%;
 
-
   height: 100.01%;
   position: absolute;
   background-repeat: round;
 }
 
 input::placeholder {
-  color: #2d2f39 !important;
-  font-weight: 100 !important;
-}
-
-input::placeholder {
+  color: #adadad !important;
+  font-weight: 300 !important;
   font-size: 14px !important;
-  font-weight: 400 !important;
-}
-
-input::placeholder {
-  font-weight: 400 !important;
+  font-family: 'Euclid Circular' !important;
 }
 
 h3 {
@@ -127,6 +117,9 @@ h3 {
 button {
   color: white !important;
 }
+button.MuiPickersDay-root {
+  color: black !important;
+}
 
 label {
   font-weight: 300 !important;
@@ -136,6 +129,7 @@ select option {
 }
 input {
   height: 6rem;
+  font-family: 'Euclid Circular' !important;
 }
 
 p.MuiTypography-root.MuiTypography-body1.MuiTypography-gutterBottom.css-1jfewiq-MuiTypography-root {
@@ -148,7 +142,10 @@ p.MuiTypography-root.MuiTypography-body1.MuiTypography-gutterBottom.css-1jfewiq-
   margin-bottom: 0.35em;
 }
 
-
-h5{
+h5 {
   font-weight: 500 !important;
+}
+
+input {
+  height: 6rem;
 }

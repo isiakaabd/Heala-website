@@ -204,21 +204,21 @@ const Forms = ({ handleNext }) => {
   };
 
   const validationSchema = Yup.object({
-    degreeImage: Yup.string("Enter Degree Image "),
-    license: Yup.string("Enter license date "),
-    expire: Yup.string("Enter expiry date "),
-    licenseImage: Yup.string("Enter your license Image "),
-    gYear: Yup.string("Enter your Year Book "),
-    licenseType: Yup.string("Enter your license Type "),
-    gImage: Yup.string("Enter your Year Book Image"),
-    InstagramName: Yup.string("Enter your Instagram Name"),
-    FacebookName: Yup.string("Enter your Facebook Name"),
-    degree: Yup.string("Enter your degree"),
-    doctorInstitution: Yup.string("Enter your Doctor Institution"),
-    doctorPosition: Yup.string("Enter your Doctor Position"),
-    doctorEmail: Yup.string("Enter your Doctor Email"),
-    referenceCode: Yup.string("Enter your Reference Code"),
-    doctorName: Yup.string("Select your Doctor Name"),
+    degreeImage: Yup.string("Enter Degree Image ").trim(),
+    license: Yup.string("Enter license date ").trim(),
+    expire: Yup.string("Enter expiry date ").trim(),
+    licenseImage: Yup.string("Enter your license Image ").trim(),
+    gYear: Yup.string("Enter your Year Book ").trim(),
+    licenseType: Yup.string("Enter your license Type ").trim(),
+    gImage: Yup.string("Enter your Year Book Image").trim(),
+    InstagramName: Yup.string("Enter your Instagram Name").trim(),
+    FacebookName: Yup.string("Enter your Facebook Name").trim(),
+    degree: Yup.string("Enter your degree").trim(),
+    doctorInstitution: Yup.string("Enter your Doctor Institution").trim(),
+    doctorPosition: Yup.string("Enter your Doctor Position").trim(),
+    doctorEmail: Yup.string("Enter your Doctor Email").trim(),
+    referenceCode: Yup.string("Enter your Reference Code").trim(),
+    doctorName: Yup.string("Select your Doctor Name").trim(),
   });
   const greenButton = {
     background: theme.palette.success.main,
@@ -427,6 +427,8 @@ const Forms = ({ handleNext }) => {
               {alert.message}
             </Alert>
           )}
+
+          
           <Formik
             initialValues={initialValues}
             onSubmit={onSubmit}

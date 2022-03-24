@@ -88,18 +88,18 @@ const PageTwo = ({ handleNext, setStep }) => {
     level: "",
   };
   const validationSchema = Yup.object({
-    firstName: Yup.string("Enter your first Name").required("First Name is Required"),
-    lastName: Yup.string("Enter your last Name").required("lastName Name is Required"),
-    hospital: Yup.string("Enter your hospital").required("hospital Name is Required"),
-    dociId: Yup.string("Enter your dociId").required("dociId Name is Required"),
-    specialization: Yup.string("Select your Specialization").required("Specialization is Required"),
+    firstName: Yup.string("Enter your first Name").required("First Name is Required").trim(),
+    lastName: Yup.string("Enter your last Name").required("lastName Name is Required").trim(),
+    hospital: Yup.string("Enter your hospital").required("hospital Name is Required").trim(),
+    dociId: Yup.string("Enter your dociId").required("dociId Name is Required").trim(),
+    specialization: Yup.string("Select your Specialization").required("Specialization is Required").trim(),
     gender: Yup.string("Select your gender").required("Gender is Required"),
     image: Yup.string("Upload a single Image")
       .required("Image is required")
       .typeError("Image is required"),
     dob: Yup.string("Enter your DOB").required("DOB is Required"),
     phoneNumber: Yup.number("Enter your Phone Number").required("Phone Number is Required"),
-    level: Yup.string("Enter your Level").required("Level is Required"),
+    level: Yup.string("Enter your Level").required("Level is Required").trim(),
   });
   const selectOption = [
     {
@@ -179,8 +179,9 @@ const PageTwo = ({ handleNext, setStep }) => {
         sm={12}
         gap={5}
         sx={{
-          padding: "2rem",
+          padding: "4rem 3rem 3rem",
           background: "white",
+          marginBottom: "5rem !important",
           borderRadius: "5px",
           zIndex: "999",
           margin: "auto",
@@ -199,8 +200,8 @@ const PageTwo = ({ handleNext, setStep }) => {
               return (
                 <Form>
                   <Grid container md={12} margin="auto" gap={1}>
-                    <Grid item container justifyContent="space-around" gap={2}>
-                      <Grid item container md={5} sm={10}>
+                    <Grid item container justifyContent="center" marginBottom="14px" gap={2}>
+                      <Grid item container justifyContent="center" md={5} sm={10}>
                         <Grid item>
                           <Typography variant="h5">CREATE PROFILE</Typography>
                         </Grid>
