@@ -13,6 +13,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { signup } from "components/graphQL/Mutation";
 import { useMutation } from "@apollo/client";
 import { setAccessToken } from "accessToken";
+import Success from "../Modal/Success";
 
 const useStyles = makeStyles((theme) => ({
   form: theme.mixins.toolbar,
@@ -20,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     "&.MuiButton-root": {
       ...theme.typography.btn,
       width: "100%",
-      fontSize : "1.5rem"
+      fontSize: "1.5rem",
     },
   },
   header: {
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "2rem",
       lineHeight: "2.6rem",
       color: "#010101",
-      fontWeight:"600",
+      fontWeight: "600",
     },
   },
 }));
@@ -44,8 +45,14 @@ const PageOne = ({ handleNext }) => {
     active: theme.palette.primary.dark,
   };
   const validationSchema = Yup.object({
-    email: Yup.string().trim().email("Enter a valid email").required("Email Required"),
-    password: Yup.string("Select your password").trim().required("Password Required").min(8),
+    email: Yup.string()
+      .trim()
+      .email("Enter a valid email")
+      .required("Email Required"),
+    password: Yup.string("Select your password")
+      .trim()
+      .required("Password Required")
+      .min(8),
     confirmPassword: Yup.string()
       .when("password", {
         is: (val) => (val && val.length > 0 ? true : false),
@@ -54,6 +61,8 @@ const PageOne = ({ handleNext }) => {
       .required("Please confirm Password"),
   });
   const [alert, setAlert] = useState({});
+  const [modal, setModal] = useState(false);
+
   const state = {
     email: "",
     password: "",
@@ -77,10 +86,12 @@ const PageOne = ({ handleNext }) => {
       localStorage.setItem("email", emails);
       setAccessToken(access_token);
 
-      setAlert({
-        message: "Registration Successfull",
-        type: "success",
-      });
+      // setAlert({
+      //   message: "Registration Successfull",
+      //   type: "success",
+      // });
+      setModal(true);
+
       handleNext();
     } catch (err) {
       setAlert({
@@ -93,129 +104,165 @@ const PageOne = ({ handleNext }) => {
   };
 
   return (
-    <Grid container justifyContent="center">
-      <Grid
-        item
-        container
-        style={{ marginTop: "-20%", justifyContent: "center", alignItems: "center" }}
-      >
-        <Avatar sx={{ background: "transparent", color: "white", width: 150, height: 150 }}>
-          <HealaIcon />
-        </Avatar>
-      </Grid>
-      <Grid
-        item
-        container
-        md={5}
-        xs={11}
-        direction="column"
-        sx={{
-          padding: "4rem 3rem 3rem",
-          background: "white",
-          borderRadius: "5px",
-          width: "750px",
-          zIndex: "9999999",
-          margin: "auto",
-        }}
-      >
-        {alert && Object.keys(alert).length > 0 && (
-          <Alert
-            sx={{ justifyContent: "center", alignItems: "center" }}
-            variant="filled"
-            severity={alert.type}
-          >
-            {alert.message}
-          </Alert>
-        )}
-        
-        <Grid item>
-          <Formik
-            initialValues={state}
-            validateOnChange={false}
-            validateOnBlur={false}
-            validationSchema={validationSchema}
-            onSubmit={onSubmit}
-            validateOnMount={false}
-          >
-            {({ isSubmitting, isValid, dirty, values }) => {
-              return (
-                <Form>
-                  <Grid container item gap={4}>
-                    <Grid item container justifyContent="center" rowSpacing={1}>
-                      <Grid item container justifyContent="center" md={12} sm={10} marginBottom="14px">
-                        <Typography variant="h5" className={classes.header}>
-                          CREATE YOUR ACCOUNT
-                        </Typography>
-                      </Grid>
-                      <Grid item container md={12} sm={10}>
-                        <LoginInput
-                          label="Email"
-                          name="email"
-                          type="email"
-                          id="email"
-                          placeholder="Enter your email"
-                          hasStartIcon={false}
-                        />
-                      </Grid>
-                      <Grid item container md={12} sm={10}>
-                        <LoginInput
-                          id="password"
-                          label="Password"
-                          name="password"
-                          placeholder="Enter your password"
-                          type={showPassword ? "text" : "password"}
-                          hasStartIcon={false}
-                          endAdornment={
-                            <InputAdornment
-                              position="end"
-                              onClick={() => setShowPassword((prev) => !prev)}
-                              style={{ cursor: "pointer" }}
-                            >
-                              {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                            </InputAdornment>
-                          }
-                        />
-                      </Grid>
-
-                      <Grid item container md={12} sm={10}>
-                        <LoginInput
-                          id="confirmPassword"
-                          label="Confirm Password"
-                          name="confirmPassword"
-                          placeholder="Enter your password again"
-                          type={showPasswords ? "text" : "password"}
-                          hasStartIcon={false}
-                          endAdornment={
-                            <InputAdornment
-                              position="end"
-                              onClick={() => setShowPasswords((prev) => !prev)}
-                              style={{ cursor: "pointer" }}
-                            >
-                              {showPasswords ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                            </InputAdornment>
-                          }
-                        />
-                      </Grid>
-                    </Grid>
-
-                    <Grid item container margin="auto" md={12} sm={10}>
-                      <CustomButton
-                        variant="contained"
-                        title="Create My Account"
-                        type={greenButton}
-                        className={classes.btn}
-                        isSubmitting={isSubmitting}
-                        disabled={!(dirty || isValid)}
-                      />
-                    </Grid>
-                  </Grid>
-                </Form>
-              );
+    <>
+      <Grid container justifyContent="center">
+        <Grid
+          item
+          container
+          style={{
+            marginTop: "-20%",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Avatar
+            sx={{
+              background: "transparent",
+              color: "white",
+              width: 150,
+              height: 150,
             }}
-          </Formik>
+          >
+            <HealaIcon />
+          </Avatar>
         </Grid>
-      </Grid>
-    </Grid>
+        <Grid
+          item
+          container
+          md={5}
+          xs={11}
+          direction="column"
+          sx={{
+            padding: "4rem 3rem 3rem",
+            background: "white",
+            borderRadius: "5px",
+            width: "750px",
+            zIndex: "999",
+            margin: "auto",
+          }}
+        >
+          {alert && Object.keys(alert).length > 0 && (
+            <Alert
+              sx={{ justifyContent: "center", alignItems: "center" }}
+              variant="filled"
+              severity={alert.type}
+            >
+              {alert.message}
+            </Alert>
+          )}
+
+          <Grid item>
+            <Formik
+              initialValues={state}
+              validateOnChange={false}
+              validateOnBlur={false}
+              validationSchema={validationSchema}
+              onSubmit={onSubmit}
+              validateOnMount={false}
+            >
+              {({ isSubmitting, isValid, dirty, values }) => {
+                return (
+                  <Form>
+                    <Grid container item gap={4}>
+                      <Grid
+                        item
+                        container
+                        justifyContent="center"
+                        rowSpacing={1}
+                      >
+                        <Grid
+                          item
+                          container
+                          justifyContent="center"
+                          md={12}
+                          sm={10}
+                          marginBottom="14px"
+                        >
+                          <Typography variant="h5" className={classes.header}>
+                            CREATE YOUR ACCOUNT
+                          </Typography>
+                        </Grid>
+                        <Grid item container md={12} sm={10}>
+                          <LoginInput
+                            label="Email"
+                            name="email"
+                            type="email"
+                            id="email"
+                            placeholder="Enter your email"
+                            hasStartIcon={false}
+                          />
+                        </Grid>
+                        <Grid item container md={12} sm={10}>
+                          <LoginInput
+                            id="password"
+                            label="Password"
+                            name="password"
+                            placeholder="Enter your password"
+                            type={showPassword ? "text" : "password"}
+                            hasStartIcon={false}
+                            endAdornment={
+                              <InputAdornment
+                                position="end"
+                                onClick={() => setShowPassword((prev) => !prev)}
+                                style={{ cursor: "pointer" }}
+                              >
+                                {showPassword ? (
+                                  <VisibilityOffIcon />
+                                ) : (
+                                  <VisibilityIcon />
+                                )}
+                              </InputAdornment>
+                            }
+                          />
+                        </Grid>
+
+                        <Grid item container md={12} sm={10}>
+                          <LoginInput
+                            id="confirmPassword"
+                            label="Confirm Password"
+                            name="confirmPassword"
+                            placeholder="Enter your password again"
+                            type={showPasswords ? "text" : "password"}
+                            hasStartIcon={false}
+                            endAdornment={
+                              <InputAdornment
+                                position="end"
+                                onClick={() =>
+                                  setShowPasswords((prev) => !prev)
+                                }
+                                style={{ cursor: "pointer" }}
+                              >
+                                {showPasswords ? (
+                                  <VisibilityOffIcon />
+                                ) : (
+                                  <VisibilityIcon />
+                                )}
+                              </InputAdornment>
+                            }
+                          />
+                        </Grid>
+                      </Grid>
+
+                      <Grid item container margin="auto" md={12} sm={10}>
+                        <CustomButton
+                          variant="contained"
+                          title="Create My Account"
+                          type={greenButton}
+                          className={classes.btn}
+                          isSubmitting={isSubmitting}
+                          disabled={!(dirty || isValid)}
+                        />
+                      </Grid>
+                    </Grid>
+                  </Form>
+                );
+              }}
+            </Formik>
+          </Grid>
+        </Grid>
+      </Grid>{" "}
+      <Success open={modal} title={'Successful'} confirmationMsg='Create Your Profile Now'/>{" "}
+    </>
   );
 };
 export default PageOne;

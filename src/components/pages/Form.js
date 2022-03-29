@@ -308,11 +308,11 @@ const Forms = ({ handleNext }) => {
             className={
               qualification ? `${classes.parentGrid} ${classes.active}` : classes.parentGrid
             }
-            onClick={() => {
-              setQualification(!qualification);
-            }}
+            // onClick={() => {
+            //   setQualification(!qualification);
+            // }}
           >
-            <Card title="Qualification" background={theme.palette.common.lightRed}>
+            <Card title="MBBS Qualification" background={theme.palette.common.lightRed}>
               <Grid className={classes.iconWrapper}>
                 <CalendarIcon
                   color="error"
