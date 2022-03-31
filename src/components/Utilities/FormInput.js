@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
     ...theme.typography.input,
   },
   label: {
-    fontSize: "1.6rem",
+    fontSize: "1.4rem",
     color: theme.palette.common.dark,
   },
 }));

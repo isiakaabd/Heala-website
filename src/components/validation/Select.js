@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 300,
     color: "#2D2F39",
     minHeight: 50,
-    fontSize: "1.6rem !important",
+    fontSize: "1.5rem !important",
   },
 }));
 

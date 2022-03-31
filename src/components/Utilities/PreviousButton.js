@@ -34,7 +34,7 @@ const PreviousButton = ({ handlePrevious }) => {
         <IconButton>
           <KeyboardBackspaceIcon color={theme.palette.common.black} className={classes.icon} />
         </IconButton>
-        <Typography style={{ fontSize: "2rem", color: "white" }}>GoBack</Typography>
+        <Typography style={{ fontSize: "2rem", color: "white" }}>Go Back</Typography>
       </Grid>
     </Grid>
   );

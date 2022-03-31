@@ -18,6 +18,26 @@ export const signup = gql`
     }
   }
 `;
+export const login = gql`
+  mutation login($email: EmailAddress!, $password: String!) {
+    login(data: { authType: "normal", email: $email, password: $password }) {
+      account {
+        _id
+        dociId
+        email
+        isEmailVerified
+        access_token
+        refresh_token
+        nextStep
+        isPasswordTemporary
+      }
+      errors {
+        field
+        message
+      }
+    }
+  }
+`;
 export const createDoctorProfile = gql`
   mutation createDoctorProfile(
     $firstName: String!
