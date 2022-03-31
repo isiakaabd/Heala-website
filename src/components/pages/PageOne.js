@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     "&.MuiButton-root": {
       ...theme.typography.btn,
       width: "100%",
-      fontSize : "1.5rem"
+      fontSize: "1.5rem",
     },
   },
   header: {
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "2rem",
       lineHeight: "2.6rem",
       color: "#010101",
-      fontWeight:"600",
+      fontWeight: "600",
     },
   },
 }));
@@ -78,7 +78,7 @@ const PageOne = ({ handleNext }) => {
       setAccessToken(access_token);
 
       setAlert({
-        message: "Registration Successfull",
+        message: "Registration Successful",
         type: "success",
       });
       handleNext();
@@ -87,6 +87,7 @@ const PageOne = ({ handleNext }) => {
         message: err.networkError.result.errors[0].message,
         type: "error",
       });
+      console.log(err.networkError.result.errors[0].message);
     }
 
     onsubmitProp.resetForm();
