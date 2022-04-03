@@ -44,7 +44,7 @@ export const Formiks = ({ name, setFieldValue, onBlur }) => {
       form.append("file", file);
       const data = await axios({
         method: "post",
-        url: "https://api-staging.heala.io/rest/media/upload/",
+        url: "https://api.heala.io/rest/media/upload/",
         headers: {
           "Content-Type": `multipart/form-data; boundary=${form._boundary}`,
         },
@@ -63,6 +63,7 @@ export const Formiks = ({ name, setFieldValue, onBlur }) => {
     const file = e.target.files[0];
     const files = await uploadImage(file);
     setPreview(files);
+    console.log(file, "fl");
 
     setFieldValue(name, files);
   };
