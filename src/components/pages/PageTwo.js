@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Grid, Typography, Avatar, Alert } from "@mui/material";
-import CustomButton from "components/Utilities/CustomButton";
+import { CustomButton } from "components/Utilities";
 import { ReactComponent as HealaIcon } from "assets/images/logo.svg";
 import { useTheme } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";

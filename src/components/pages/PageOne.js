@@ -49,6 +49,7 @@ const PageOne = ({ handleNext }) => {
     email: Yup.string().trim().email("Enter a valid email").required("Email Required"),
     password: Yup.string("Select your password").trim().required("Password Required").min(8),
     confirmPassword: Yup.string()
+      .trim()
       .when("password", {
         is: (val) => (val && val.length > 0 ? true : false),
         then: Yup.string().oneOf([Yup.ref("password")], "password mismatch"),
@@ -61,9 +62,7 @@ const PageOne = ({ handleNext }) => {
     const x = setTimeout(() => {
       setAlert({});
     }, 3000);
-    return () => {
-      clearTimeout(x);
-    };
+    return () => clearTimeout(x);
   }, [alert]);
 
   const state = {
@@ -92,26 +91,32 @@ const PageOne = ({ handleNext }) => {
       setModal(true);
       handleNext();
     } catch (err) {
-      console.log(err.networkError.result.errors[0].message);
-
       if (err.networkError.result.errors[0].message === "Email is already taken") {
-        const { data } = await Login({
-          variables: {
-            email,
-            password,
-          },
-        });
+        try {
+          const { data } = await Login({
+            variables: {
+              email,
+              password,
+            },
+          });
 
-        const { dociId, email: emails, access_token } = data.login.account;
-        localStorage.setItem("doctor_id", dociId);
-        localStorage.setItem("token", access_token);
-        localStorage.setItem("email", emails);
-        setAccessToken(access_token);
-        handleNext();
-        setModal(true);
+          const { dociId, email: emails, access_token } = data.login.account;
+          localStorage.setItem("doctor_id", dociId);
+          localStorage.setItem("token", access_token);
+          localStorage.setItem("email", emails);
+          setAccessToken(access_token);
+          handleNext();
+          setModal(true);
+        } catch (err) {
+          setAlert({
+            message: err.message,
+            type: "error",
+          });
+        }
       } else {
+        console.log(err.message);
         setAlert({
-          message: err.networkError.result.errors[0].message,
+          message: err.message,
           type: "error",
         });
       }
@@ -158,16 +163,6 @@ const PageOne = ({ handleNext }) => {
             margin: "auto",
           }}
         >
-          {alert && Object.keys(alert).length > 0 && (
-            <Alert
-              sx={{ justifyContent: "center", alignItems: "center" }}
-              variant="filled"
-              severity={alert.type}
-            >
-              {alert.message}
-            </Alert>
-          )}
-
           <Grid item>
             <Formik
               initialValues={state}
@@ -194,6 +189,20 @@ const PageOne = ({ handleNext }) => {
                             CREATE YOUR ACCOUNT
                           </Typography>
                         </Grid>
+                        {alert && Object.keys(alert).length > 0 && (
+                          <Alert
+                            sx={{
+                              justifyContent: "center",
+                              alignItems: "center",
+                              width: "100%",
+                            }}
+                            variant="filled"
+                            severity={alert.type}
+                          >
+                            {alert.message}
+                          </Alert>
+                        )}
+
                         <Grid item container md={12} sm={10}>
                           <LoginInput
                             label="Email"
