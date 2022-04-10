@@ -12,6 +12,7 @@ const Success = ({
   btnValue,
   onConfirm,
   onCancel,
+  step,
   ...rest
 }) => {
   return (

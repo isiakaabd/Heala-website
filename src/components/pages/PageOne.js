@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PageOne = ({ handleNext }) => {
+const PageOne = ({ handleNext2, handleNext, step }) => {
   const classes = useStyles();
   const theme = useTheme();
   const [showPassword, setShowPassword] = useState(false);
@@ -46,8 +46,14 @@ const PageOne = ({ handleNext }) => {
     active: theme.palette.primary.dark,
   };
   const validationSchema = Yup.object({
-    email: Yup.string().trim().email("Enter a valid email").required("Email Required"),
-    password: Yup.string("Select your password").trim().required("Password Required").min(8),
+    email: Yup.string()
+      .trim()
+      .email("Enter a valid email")
+      .required("Email Required"),
+    password: Yup.string("Select your password")
+      .trim()
+      .required("Password Required")
+      .min(8),
     confirmPassword: Yup.string()
       .trim()
       .when("password", {
@@ -89,9 +95,15 @@ const PageOne = ({ handleNext }) => {
       localStorage.setItem("email", emails);
       setAccessToken(access_token);
       setModal(true);
-      handleNext();
+
+      if (data) {
+        handleNext();
+        console.log('hhhh')
+      }
     } catch (err) {
-      if (err.networkError.result.errors[0].message === "Email is already taken") {
+      if (
+        err.networkError.result.errors[0].message === "Email is already taken"
+      ) {
         try {
           const { data } = await Login({
             variables: {
@@ -100,12 +112,19 @@ const PageOne = ({ handleNext }) => {
             },
           });
 
-          const { dociId, email: emails, access_token } = data.login.account;
+          const {
+            dociId,
+            email: emails,
+            access_token,
+            _id,
+          } = data.login.account;
           localStorage.setItem("doctor_id", dociId);
           localStorage.setItem("token", access_token);
           localStorage.setItem("email", emails);
+          localStorage.setItem("id", _id);
+
           setAccessToken(access_token);
-          handleNext();
+          handleNext2();
           setModal(true);
         } catch (err) {
           setAlert({
@@ -176,7 +195,12 @@ const PageOne = ({ handleNext }) => {
                 return (
                   <Form>
                     <Grid container item gap={4}>
-                      <Grid item container justifyContent="center" rowSpacing={1}>
+                      <Grid
+                        item
+                        container
+                        justifyContent="center"
+                        rowSpacing={1}
+                      >
                         <Grid
                           item
                           container
@@ -227,7 +251,11 @@ const PageOne = ({ handleNext }) => {
                                 onClick={() => setShowPassword((prev) => !prev)}
                                 style={{ cursor: "pointer" }}
                               >
-                                {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                                {showPassword ? (
+                                  <VisibilityOffIcon />
+                                ) : (
+                                  <VisibilityIcon />
+                                )}
                               </InputAdornment>
                             }
                           />
@@ -244,10 +272,16 @@ const PageOne = ({ handleNext }) => {
                             endAdornment={
                               <InputAdornment
                                 position="end"
-                                onClick={() => setShowPasswords((prev) => !prev)}
+                                onClick={() =>
+                                  setShowPasswords((prev) => !prev)
+                                }
                                 style={{ cursor: "pointer" }}
                               >
-                                {showPasswords ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                                {showPasswords ? (
+                                  <VisibilityOffIcon />
+                                ) : (
+                                  <VisibilityIcon />
+                                )}
                               </InputAdornment>
                             }
                           />
@@ -272,7 +306,14 @@ const PageOne = ({ handleNext }) => {
           </Grid>
         </Grid>
       </Grid>{" "}
-      <Success open={modal} title={"Successful"} confirmationMsg="Create Your Profile Now" />{" "}
+      <Success
+        open={modal}
+        step={step}
+        title={"Successful"}
+        confirmationMsg={
+          step == 3 ? "Verify your Doctor Profile" : "Create Your Profile Now"
+        }
+      />{" "}
     </>
   );
 };

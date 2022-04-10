@@ -11,6 +11,11 @@ const BecomePartner = () => {
     }, 3000);
   }, [step]);
 
+  const handleNext2 = useCallback(() => {
+    setStep(step + 2);
+
+  }, [step]);
+
   const handlePrevious = useCallback(() => {
     if (step === 1) return location.assign("https://heala.ng/doctors");
     else setStep(step - 1);
@@ -30,6 +35,7 @@ const BecomePartner = () => {
           handleNext={handleNext}
           handlePrevious={handlePrevious}
           setStep={setStep}
+          handleNext2={handleNext2}
         />
       </Grid>
     </Grid>

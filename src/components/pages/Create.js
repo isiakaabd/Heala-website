@@ -3,12 +3,12 @@ import { PageOne, PageTwo, Form, PageFour } from "components/pages";
 import PropTypes from "prop-types";
 import { Grid } from "@mui/material";
 import { withRouter } from "react-router-dom";
-const Create = ({ step, handleNext, setStep, ...rest }) => {
+const Create = ({ step, handleNext, setStep,handleNext2, ...rest }) => {
   switch (step) {
     case 1:
       return (
         <Grid item container sx={{ justifyContent: "center" }}>
-          <PageOne handleNext={handleNext} setStep={setStep} {...rest} />
+          <PageOne handleNext={handleNext} setStep={setStep} handleNext2={handleNext2} step={step} {...rest} />
         </Grid>
       );
     case 2:
