@@ -12,6 +12,7 @@ const Success = ({
   btnValue,
   onConfirm,
   onCancel,
+  step,
   ...rest
 }) => {
   return (
@@ -41,7 +42,8 @@ const Success = ({
 Success.propTypes = {
   open: PropTypes.bool.isRequired,
   handleDialogClose: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  step: PropTypes.string,
   confirmationMsg: PropTypes.string.isRequired,
   btnValue: PropTypes.string.isRequired,
   onConfirm: PropTypes.func,

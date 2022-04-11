@@ -4,11 +4,15 @@ import { PreviousButton } from "components/Utilities";
 import { Create } from "components/pages";
 
 const BecomePartner = () => {
-  const [step, setStep] = useState(3);
+  const [step, setStep] = useState(1);
   const handleNext = useCallback(() => {
     setTimeout(() => {
       setStep(step + 1);
     }, 3000);
+  }, [step]);
+
+  const handleNext2 = useCallback(() => {
+    setStep(step + 2);
   }, [step]);
 
   const handlePrevious = useCallback(() => {
@@ -30,6 +34,7 @@ const BecomePartner = () => {
           handleNext={handleNext}
           handlePrevious={handlePrevious}
           setStep={setStep}
+          handleNext2={handleNext2}
         />
       </Grid>
     </Grid>
