@@ -815,28 +815,6 @@ const Forms = ({ handleNext }) => {
                           </Grid>
                         </Grid>
                       </Grid>
-                      {/* <Grid
-                        item
-                        container
-                        md={12}
-                        sm={12}
-                        direction="column"
-                        justifyContent="space-between"
-                        gap={3}
-                        marginBottom={4}
-                      >
-                        <Typography variant="h2">Reference From Doctor on Heala</Typography>
-                        <Grid item container justifyContent="space-between" spacing={3}>
-                          <Grid item container md={12} sm={10}>
-                            <FormikControl
-                              control="input"
-                              name="referenceCode"
-                              placeholder="Enter reference code"
-                              label="Reference Code"
-                            />
-                          </Grid>
-                        </Grid>
-                      </Grid> */}
                     </>
                   ) : null}
                   {alert && Object.keys(alert).length > 0 && (

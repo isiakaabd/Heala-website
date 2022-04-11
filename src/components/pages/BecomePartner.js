@@ -4,7 +4,7 @@ import { PreviousButton } from "components/Utilities";
 import { Create } from "components/pages";
 
 const BecomePartner = () => {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(3);
   const handleNext = useCallback(() => {
     setTimeout(() => {
       setStep(step + 1);
