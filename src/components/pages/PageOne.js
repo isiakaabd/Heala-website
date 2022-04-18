@@ -56,11 +56,11 @@ const PageOne = ({ handleNext2, handleNext, step }) => {
       })
       .required("Please confirm Password"),
   });
-  const [alert, setAlert] = useState({});
+  const [alert, setAlert] = useState(null);
   const [modal, setModal] = useState(false);
   useEffect(() => {
     const x = setTimeout(() => {
-      setAlert({});
+      setAlert(null);
     }, 3000);
     return () => clearTimeout(x);
   }, [alert]);
@@ -71,8 +71,8 @@ const PageOne = ({ handleNext2, handleNext, step }) => {
     confirmPassword: "",
   };
   const [register] = useMutation(signup);
-  const [Login] = useMutation(login);
 
+  const [Login] = useMutation(login);
   const onSubmit = async (values, onsubmitProp) => {
     const { email, password } = values;
     try {
@@ -92,7 +92,6 @@ const PageOne = ({ handleNext2, handleNext, step }) => {
 
       if (data) {
         handleNext();
-        console.log("hhhh");
       }
     } catch (err) {
       if (err.networkError.result.errors[0].message === "Email is already taken") {
@@ -178,7 +177,7 @@ const PageOne = ({ handleNext2, handleNext, step }) => {
               onSubmit={onSubmit}
               validateOnMount={false}
             >
-              {({ isSubmitting, isValid, dirty, values }) => {
+              {({ isSubmitting, isValid, dirty }) => {
                 return (
                   <Form>
                     <Grid container item gap={4}>
@@ -195,7 +194,7 @@ const PageOne = ({ handleNext2, handleNext, step }) => {
                             CREATE YOUR ACCOUNT
                           </Typography>
                         </Grid>
-                        {alert && Object.keys(alert).length > 0 && (
+                        {alert && Object.keys(alert) !== null && (
                           <Alert
                             sx={{
                               justifyContent: "center",

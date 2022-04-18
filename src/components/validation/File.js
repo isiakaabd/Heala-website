@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
 export const Formiks = ({ name, setFieldValue, onBlur }) => {
   const [preview, setPreview] = useState("");
   const [progress, setProgress] = useState();
+  // const [start, setStart] = useState();
   const classes = useStyles();
   const uploadImage = async (file) => {
     try {
@@ -63,8 +64,6 @@ export const Formiks = ({ name, setFieldValue, onBlur }) => {
     const file = e.target.files[0];
     const files = await uploadImage(file);
     setPreview(files);
-    console.log(file, "fl");
-
     setFieldValue(name, files);
   };
   const fileRef = useRef(null);

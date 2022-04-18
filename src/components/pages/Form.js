@@ -129,7 +129,7 @@ const Forms = ({ handleNext }) => {
   const classes = useStyles();
   const theme = useTheme();
   const [createVerification] = useMutation(createDoctorVerification);
-  const onSubmit = async (values) => {
+  const onSubmit = async (values, onsubmitProp) => {
     const {
       degree,
       degreeImage,
@@ -152,7 +152,7 @@ const Forms = ({ handleNext }) => {
     const expires = dateMoment(expire);
 
     try {
-      await createVerification({
+      const { data } = await createVerification({
         variables: {
           degree, //
           image: degreeImage,
@@ -172,10 +172,10 @@ const Forms = ({ handleNext }) => {
           doctorInstitution, //
         },
       });
-      handleNext();
+      if (data) return handleNext();
+      onsubmitProp.resetForm();
     } catch (err) {
       console.log(err);
-
       setAlert({
         message: err.networkError.result.errors[0].message,
         type: "error",
@@ -436,8 +436,6 @@ const Forms = ({ handleNext }) => {
             validateOnBlur={false}
           >
             {({ setValues, setFieldValue, isSubmitting, dirty, isValid, errors }) => {
-              console.log(errors);
-
               return (
                 <Form>
                   {qualification ? (

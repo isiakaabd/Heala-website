@@ -5,6 +5,7 @@ import { Create } from "components/pages";
 
 const BecomePartner = () => {
   const [step, setStep] = useState(1);
+
   const handleNext = useCallback(() => {
     setTimeout(() => {
       setStep(step + 1);
@@ -41,4 +42,4 @@ const BecomePartner = () => {
   );
 };
 
-export default BecomePartner;
+export default React.memo(BecomePartner);
