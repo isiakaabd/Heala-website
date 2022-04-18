@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 export const Formiks = ({ name, setFieldValue, onBlur }) => {
   const [preview, setPreview] = useState("");
   const [progress, setProgress] = useState();
-  // const [start, setStart] = useState();
+  const [start, setStart] = useState(false);
   const classes = useStyles();
   const uploadImage = async (file) => {
     try {
@@ -62,9 +62,11 @@ export const Formiks = ({ name, setFieldValue, onBlur }) => {
   };
   const onChange = async (e) => {
     const file = e.target.files[0];
+    setStart(true);
     const files = await uploadImage(file);
     setPreview(files);
     setFieldValue(name, files);
+    setStart(false);
   };
   const fileRef = useRef(null);
   return (
@@ -93,7 +95,7 @@ export const Formiks = ({ name, setFieldValue, onBlur }) => {
         </FormControl>
       </Grid>
       <Grid item>
-        {progress < 100 ? <Loader progres={progress} /> : preview && <Avatar src={preview} />}
+        {start ? <Loader progres={progress} /> : preview && <Avatar src={preview} />}
       </Grid>
     </Grid>
   );
