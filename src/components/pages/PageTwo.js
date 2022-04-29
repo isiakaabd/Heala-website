@@ -1,17 +1,25 @@
 import React, { useState, useEffect } from "react";
+import * as Yup from "yup";
 import PropTypes from "prop-types";
+<<<<<<< HEAD
 import { Grid, Typography, Avatar, Alert } from "@mui/material";
 import { CustomButton } from "components/Utilities";
 import { ReactComponent as HealaIcon } from "assets/images/logo.svg";
 import { useTheme } from "@mui/material/styles";
+=======
+import { useSnackbar } from "notistack";
+>>>>>>> eb3ddc4f59091324663e8da74800f59ed8da5b0e
 import { makeStyles } from "@mui/styles";
+import { useMutation } from "@apollo/client";
+import { useTheme } from "@mui/material/styles";
+import { Grid, Typography, Avatar, Alert } from "@mui/material";
+
 import { Formik, Form } from "formik";
+import { CustomButton } from "components/Utilities";
+import { dateMoment } from "components/Utilities/Time";
 import FormikControl from "components/validation/FormikControl";
 import { createDoctorProfile } from "components/graphQL/Mutation";
-import * as Yup from "yup";
-import { useMutation } from "@apollo/client";
-import { dateMoment } from "components/Utilities/Time";
-import Success from "../Modal/Success";
+import { ReactComponent as HealaIcon } from "assets/images/logo.svg";
 
 const useStyles = makeStyles((theme) => ({
   form: theme.mixins.toolbar,
@@ -20,12 +28,17 @@ const useStyles = makeStyles((theme) => ({
       ...theme.typography.btn,
       width: "100%",
       fontSize: "1.5rem",
+      color: "#ffffff",
+    },
+    "&.MuiButtonBase-root": {
+      color: "#40424b !important",
     },
   },
 }));
 const PageTwo = ({ handleNext, setStep }) => {
   const classes = useStyles();
   const theme = useTheme();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   useEffect(() => {
     setStep(2);
   }, [setStep]);
@@ -86,17 +99,25 @@ const PageTwo = ({ handleNext, setStep }) => {
     gender: "",
     specialization: "",
     dociId: localStorage.getItem("doctor_id"),
-    dob: "",
+    dob: "01/01/1900",
     image: null,
     hospital: "",
     phoneNumber: "",
     level: "",
   };
   const validationSchema = Yup.object({
-    firstName: Yup.string("Enter your first Name").trim().required("First Name is Required"),
-    lastName: Yup.string("Enter your last Name").trim().required("lastName Name is Required"),
-    hospital: Yup.string("Enter your hospital").trim().required("hospital Name is Required"),
-    dociId: Yup.string("Enter your dociId").trim().required("dociId Name is Required"),
+    firstName: Yup.string("Enter your first Name")
+      .trim()
+      .required("First Name is Required"),
+    lastName: Yup.string("Enter your last Name")
+      .trim()
+      .required("lastName Name is Required"),
+    hospital: Yup.string("Enter your hospital")
+      .trim()
+      .required("hospital Name is Required"),
+    dociId: Yup.string("Enter your dociId")
+      .trim()
+      .required("dociId Name is Required"),
     specialization: Yup.string("Select your Specialization")
       .trim()
       .required("Specialization is Required"),
@@ -105,7 +126,9 @@ const PageTwo = ({ handleNext, setStep }) => {
       .required("Image is required")
       .typeError("Image is required"),
     dob: Yup.string("Enter your DOB").required("DOB is Required"),
-    phoneNumber: Yup.number("Enter your Phone Number").required("Phone Number is Required"),
+    phoneNumber: Yup.number("Enter your Phone Number").required(
+      "Phone Number is Required"
+    ),
     level: Yup.string("Enter your Level").trim().required("Level is Required"),
   });
   const selectOption = [
@@ -159,11 +182,20 @@ const PageTwo = ({ handleNext, setStep }) => {
       });
       const { _id } = data.createDoctorProfile.profile;
       localStorage.setItem("id", _id);
+      enqueueSnackbar(
+        <Typography style={{ fontSize: "1.2rem" }}>
+          Doctor Registeration successsful
+        </Typography>,
+        {
+          variant: "success",
+          preventDuplicate: true,
+          anchorOrigin: {
+            horizontal: "center",
+            vertical: "top",
+          },
+        }
+      );
       handleNext();
-      // setAlert({
-      //   message: "Doctor Registration Successful",
-      //   type: "success",
-      // });
       setModal(true);
     } catch (err) {
       setAlert({
@@ -216,15 +248,32 @@ const PageTwo = ({ handleNext, setStep }) => {
                 return (
                   <Form>
                     <Grid container md={12} margin="auto" gap={1}>
-                      <Grid item container justifyContent="center" marginBottom="14px" gap={2}>
-                        <Grid item container justifyContent="center" md={5} sm={10}>
+                      <Grid
+                        item
+                        container
+                        justifyContent="center"
+                        marginBottom="14px"
+                        gap={2}
+                      >
+                        <Grid
+                          item
+                          container
+                          justifyContent="center"
+                          md={5}
+                          sm={10}
+                        >
                           <Grid item>
                             <Typography variant="h5">CREATE PROFILE</Typography>
                           </Grid>
                         </Grid>
                       </Grid>
 
-                      <Grid item container justifyContent="space-around" gap={1}>
+                      <Grid
+                        item
+                        container
+                        justifyContent="space-around"
+                        gap={1}
+                      >
                         <FormikControl
                           control="input"
                           name="firstName"
@@ -232,7 +281,12 @@ const PageTwo = ({ handleNext, setStep }) => {
                           label="First Name"
                         />
                       </Grid>
-                      <Grid item container justifyContent="space-around" gap={1}>
+                      <Grid
+                        item
+                        container
+                        justifyContent="space-around"
+                        gap={1}
+                      >
                         <FormikControl
                           control="input"
                           name="lastName"
@@ -240,7 +294,12 @@ const PageTwo = ({ handleNext, setStep }) => {
                           placeholder="Enter Your last Name"
                         />
                       </Grid>
-                      <Grid item container justifyContent="space-around" gap={2}>
+                      <Grid
+                        item
+                        container
+                        justifyContent="space-around"
+                        gap={2}
+                      >
                         <FormikControl
                           control="select"
                           name="specialization"
@@ -249,7 +308,12 @@ const PageTwo = ({ handleNext, setStep }) => {
                           options={options}
                         />
                       </Grid>
-                      <Grid item container justifyContent="space-around" gap={2}>
+                      <Grid
+                        item
+                        container
+                        justifyContent="space-around"
+                        gap={2}
+                      >
                         <FormikControl
                           control="input"
                           name="phoneNumber"
@@ -257,7 +321,12 @@ const PageTwo = ({ handleNext, setStep }) => {
                           placeholder="e.g Enter Your phone Number"
                         />
                       </Grid>
-                      <Grid item container justifyContent="space-around" gap={2}>
+                      <Grid
+                        item
+                        container
+                        justifyContent="space-around"
+                        gap={2}
+                      >
                         <FormikControl
                           control="select"
                           name="level"
@@ -267,7 +336,12 @@ const PageTwo = ({ handleNext, setStep }) => {
                         />
                       </Grid>
                       {/*  */}
-                      <Grid item container justifyContent="space-around" gap={2}>
+                      <Grid
+                        item
+                        container
+                        justifyContent="space-around"
+                        gap={2}
+                      >
                         <FormikControl
                           control="date"
                           name="dob"
@@ -276,7 +350,12 @@ const PageTwo = ({ handleNext, setStep }) => {
                           setValues={setValues}
                         />
                       </Grid>
-                      <Grid item container justifyContent="space-around" gap={2}>
+                      <Grid
+                        item
+                        container
+                        justifyContent="space-around"
+                        gap={2}
+                      >
                         <FormikControl
                           control="select"
                           name="gender"
@@ -287,7 +366,12 @@ const PageTwo = ({ handleNext, setStep }) => {
                       </Grid>
                       {/*  */}
 
-                      <Grid item container justifyContent="space-around" gap={2}>
+                      <Grid
+                        item
+                        container
+                        justifyContent="space-around"
+                        gap={2}
+                      >
                         <FormikControl
                           control="input"
                           name="hospital"
@@ -337,7 +421,11 @@ const PageTwo = ({ handleNext, setStep }) => {
           </Grid>
         </Grid>
       </Grid>
-      <Success open={modal} title={"Successful"} confirmationMsg="Verify your Doctor Profile" />{" "}
+      {/* <Success
+        open={modal}
+        title={"Successful"}
+        confirmationMsg="Verify your Doctor Profile"
+      />{" "} */}
     </>
   );
 };

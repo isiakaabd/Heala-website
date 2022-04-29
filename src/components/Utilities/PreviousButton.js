@@ -10,6 +10,8 @@ const useStyles = makeStyles((theme) => ({
   container: {
     "&.MuiGrid-root": {
       padding: "3rem 0 0 0",
+      position: "relative",
+      zIndex: 50,
     },
   },
   icon: {
@@ -29,12 +31,19 @@ const PreviousButton = ({ handlePrevious }) => {
   const theme = useTheme();
 
   return (
-    <Grid className={classes.container}>
-      <Grid container alignItems="center" className={classes.break} onClick={handlePrevious}>
+    <Grid className={classes.container} onClick={handlePrevious}>
+      <Grid container alignItems="center" className={classes.break}>
         <IconButton>
-          <KeyboardBackspaceIcon color={theme.palette.common.black} className={classes.icon} />
+          <KeyboardBackspaceIcon
+            color={theme.palette.common.black}
+            className={classes.icon}
+          />
         </IconButton>
-        <Typography style={{ fontSize: "2rem", color: "white" }}>Go Back</Typography>
+        <Typography
+          style={{ fontSize: "2rem", color: "white", cursor: "pointer" }}
+        >
+          Go Back
+        </Typography>
       </Grid>
     </Grid>
   );

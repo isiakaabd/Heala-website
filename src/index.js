@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import { Provider } from "react-redux";
 import { store } from "store";
+import { SnackbarProvider } from "notistack";
 import {
   ApolloClient,
   ApolloProvider,
@@ -41,10 +42,12 @@ const client = new ApolloClient({
 });
 
 ReactDOM.render(
-  <Provider store={store}>
-    <ApolloProvider client={client}>
-      <App />
-    </ApolloProvider>
-  </Provider>,
-  document.getElementById("root"),
+  <SnackbarProvider maxSnack={3}>
+    <Provider store={store}>
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
+    </Provider>
+  </SnackbarProvider>,
+  document.getElementById("root")
 );

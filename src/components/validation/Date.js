@@ -16,6 +16,11 @@ const useStyles = makeStyles((theme) => ({
       ...theme.typography.FormLabel,
     },
   },
+  btn: {
+    "&.MuiButtonBase-root": {
+      color: "#40424b !important",
+    },
+  },
 }));
 
 const Dates = ({ name, value, setFieldValue, onBlur }) => {
@@ -26,7 +31,9 @@ const Dates = ({ name, value, setFieldValue, onBlur }) => {
         onChange={(value) => setFieldValue(name, value)}
         value={value}
         onBlur={onBlur}
-        renderInput={(params) => <TextField {...params} sx={{ padding: "-12px" }} />}
+        renderInput={(params) => (
+          <TextField {...params} sx={{ padding: "-12px" }} />
+        )}
       />
     </LocalizationProvider>
   );

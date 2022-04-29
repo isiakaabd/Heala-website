@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import { Grid, InputAdornment, Alert, Typography, Avatar } from "@mui/material";
-import { ReactComponent as HealaIcon } from "assets/images/logo.svg";
-import { CustomButton } from "components/Utilities";
-import { useTheme } from "@mui/material/styles";
-import { makeStyles } from "@mui/styles";
-import { Formik, Form } from "formik";
-import LoginInput from "components/validation/LoginInput";
 import * as Yup from "yup";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { signup, login } from "components/graphQL/Mutation";
-
+import PropTypes from "prop-types";
+import { Formik, Form } from "formik";
+import { useSnackbar } from "notistack";
+import { makeStyles } from "@mui/styles";
 import { useMutation } from "@apollo/client";
+import { useTheme } from "@mui/material/styles";
+import { Grid, InputAdornment, Alert, Typography, Avatar } from "@mui/material";
+
+//import Success from "../Modal/Success";
 import { setAccessToken } from "accessToken";
-import Success from "../Modal/Success";
+import { CustomButton } from "components/Utilities";
+import LoginInput from "components/validation/LoginInput";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import { signup, login } from "components/graphQL/Mutation";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { ReactComponent as HealaIcon } from "assets/images/logo.svg";
 
 const useStyles = makeStyles((theme) => ({
   form: theme.mixins.toolbar,
@@ -38,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
 const PageOne = ({ handleNext2, handleNext, step }) => {
   const classes = useStyles();
   const theme = useTheme();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswords, setShowPasswords] = useState(false);
   const greenButton = {
@@ -46,8 +48,14 @@ const PageOne = ({ handleNext2, handleNext, step }) => {
     active: theme.palette.primary.dark,
   };
   const validationSchema = Yup.object({
-    email: Yup.string().trim().email("Enter a valid email").required("Email Required"),
-    password: Yup.string("Select your password").trim().required("Password Required").min(8),
+    email: Yup.string()
+      .trim()
+      .email("Enter a valid email")
+      .required("Email Required"),
+    password: Yup.string("Select your password")
+      .trim()
+      .required("Password Required")
+      .min(8),
     confirmPassword: Yup.string()
       .trim()
       .when("password", {
@@ -88,6 +96,7 @@ const PageOne = ({ handleNext2, handleNext, step }) => {
       localStorage.setItem("token", access_token);
       localStorage.setItem("email", emails);
       setAccessToken(access_token);
+<<<<<<< HEAD
       setModal(true);
 
       if (data) {
@@ -104,6 +113,43 @@ const PageOne = ({ handleNext2, handleNext, step }) => {
           });
 
           const { dociId, email: emails, access_token, _id } = data.login.account;
+=======
+      enqueueSnackbar(
+        <Typography style={{ fontSize: "1.2rem" }}>
+          Registeration successsful
+        </Typography>,
+        {
+          variant: "success",
+          preventDuplicate: true,
+          anchorOrigin: {
+            horizontal: "center",
+            vertical: "top",
+          },
+        }
+      );
+
+      if (data) {
+        handleNext();
+      }
+    } catch (err) {
+      if (
+        err.networkError.result.errors[0].message === "Email is already taken"
+      ) {
+        try {
+          const { data } = await Login({
+            variables: {
+              email,
+              password,
+            },
+          });
+
+          const {
+            dociId,
+            email: emails,
+            access_token,
+            _id,
+          } = data.login.account;
+>>>>>>> eb3ddc4f59091324663e8da74800f59ed8da5b0e
           localStorage.setItem("doctor_id", dociId);
           localStorage.setItem("token", access_token);
           localStorage.setItem("email", emails);
@@ -111,7 +157,24 @@ const PageOne = ({ handleNext2, handleNext, step }) => {
 
           setAccessToken(access_token);
           handleNext2();
+<<<<<<< HEAD
           setModal(true);
+=======
+          enqueueSnackbar(
+            <Typography style={{ fontSize: "1.2rem" }}>
+              Registeration successsful
+            </Typography>,
+            {
+              variant: "success",
+              preventDuplicate: true,
+              anchorOrigin: {
+                horizontal: "center",
+                vertical: "top",
+              },
+            }
+          );
+          //setModal(true);
+>>>>>>> eb3ddc4f59091324663e8da74800f59ed8da5b0e
         } catch (err) {
           setAlert({
             message: err.message,
@@ -181,7 +244,12 @@ const PageOne = ({ handleNext2, handleNext, step }) => {
                 return (
                   <Form>
                     <Grid container item gap={4}>
-                      <Grid item container justifyContent="center" rowSpacing={1}>
+                      <Grid
+                        item
+                        container
+                        justifyContent="center"
+                        rowSpacing={1}
+                      >
                         <Grid
                           item
                           container
@@ -232,7 +300,11 @@ const PageOne = ({ handleNext2, handleNext, step }) => {
                                 onClick={() => setShowPassword((prev) => !prev)}
                                 style={{ cursor: "pointer" }}
                               >
-                                {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                                {showPassword ? (
+                                  <VisibilityOffIcon />
+                                ) : (
+                                  <VisibilityIcon />
+                                )}
                               </InputAdornment>
                             }
                           />
@@ -249,10 +321,16 @@ const PageOne = ({ handleNext2, handleNext, step }) => {
                             endAdornment={
                               <InputAdornment
                                 position="end"
-                                onClick={() => setShowPasswords((prev) => !prev)}
+                                onClick={() =>
+                                  setShowPasswords((prev) => !prev)
+                                }
                                 style={{ cursor: "pointer" }}
                               >
-                                {showPasswords ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                                {showPasswords ? (
+                                  <VisibilityOffIcon />
+                                ) : (
+                                  <VisibilityIcon />
+                                )}
                               </InputAdornment>
                             }
                           />
@@ -276,6 +354,7 @@ const PageOne = ({ handleNext2, handleNext, step }) => {
             </Formik>
           </Grid>
         </Grid>
+<<<<<<< HEAD
       </Grid>{" "}
       <Success
         open={modal}
@@ -283,6 +362,9 @@ const PageOne = ({ handleNext2, handleNext, step }) => {
         title={"Successful"}
         confirmationMsg={step == 3 ? "Verify your Doctor Profile" : "Create Your Profile Now"}
       />
+=======
+      </Grid>
+>>>>>>> eb3ddc4f59091324663e8da74800f59ed8da5b0e
     </>
   );
 };

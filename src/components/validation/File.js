@@ -1,11 +1,18 @@
 import React, { useRef, useState } from "react";
+import PropTypes from "prop-types";
+import { makeStyles } from "@mui/styles";
 import { Field, ErrorMessage } from "formik";
 import { TextError } from "components/Utilities/TextError";
-import PropTypes from "prop-types";
-import { FormControl, FormLabel, Grid, Avatar, Button } from "@mui/material";
-import { makeStyles } from "@mui/styles";
-import axios from "axios";
+import {
+  FormControl,
+  FormLabel,
+  Grid,
+  Avatar,
+  Button,
+  Typography,
+} from "@mui/material";
 import { Loader } from "components/Utilities";
+import { compressAndUploadImage, uploadImage } from "../../helpers/helperFuncs";
 
 const useStyles = makeStyles((theme) => ({
   FormLabel: {
@@ -37,66 +44,93 @@ const useStyles = makeStyles((theme) => ({
 export const Formiks = ({ name, setFieldValue, onBlur }) => {
   const [preview, setPreview] = useState("");
   const [progress, setProgress] = useState();
+<<<<<<< HEAD
   const [start, setStart] = useState(false);
+=======
+  const [isCompressing, setIsCompressing] = React.useState(false);
+>>>>>>> eb3ddc4f59091324663e8da74800f59ed8da5b0e
   const classes = useStyles();
-  const uploadImage = async (file) => {
-    try {
-      const form = new FormData();
-      form.append("file", file);
-      const data = await axios({
-        method: "post",
-        url: "https://api.heala.io/rest/media/upload/",
-        headers: {
-          "Content-Type": `multipart/form-data; boundary=${form._boundary}`,
-        },
-        data: form,
-        onUploadProgress: (data) => {
-          //Set the progress value to show the progress bar
-          setProgress(Math.round((100 * data.loaded) / data.total));
-        },
-      });
-      return data.data.data.mediaUrl; //data.data.mediaUrl
-    } catch (error) {
-      console.error(error);
-    }
-  };
+
   const onChange = async (e) => {
     const file = e.target.files[0];
+<<<<<<< HEAD
     setStart(true);
     const files = await uploadImage(file);
     setPreview(files);
     setFieldValue(name, files);
     setStart(false);
+=======
+    console.log("fired!!!");
+    compressAndUploadImage(
+      file,
+      uploadImage,
+      setPreview,
+      name,
+      setFieldValue,
+      setProgress,
+      setIsCompressing
+    );
+>>>>>>> eb3ddc4f59091324663e8da74800f59ed8da5b0e
   };
+
   const fileRef = useRef(null);
   return (
     <Grid container spacing={2} alignItems="center">
-      <Grid item>
-        <FormControl fullWidth>
-          <Grid item container>
-            <input
-              accept="image/*"
-              onChange={onChange}
-              type="file"
-              name={name}
-              onBlur={onBlur}
-              hidden
-              ref={fileRef}
-            />
-            <Button
-              variant="contained"
-              onClick={() => fileRef.current.click()}
-              component="span"
-              className={classes.uploadBtn}
-            >
-              Upload Photo
-            </Button>
+      {progress < 100 || isCompressing ? (
+        <Grid
+          container
+          item
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Typography display={"inline"}>
+            {isCompressing ? "Compressing image" : "Uploading image"}
+          </Typography>
+          <Loader />
+        </Grid>
+      ) : (
+        <>
+          <Grid item>
+            <FormControl fullWidth>
+              <Grid item container>
+                <input
+                  accept="image/*"
+                  onChange={onChange}
+                  type="file"
+                  name={name}
+                  onBlur={onBlur}
+                  hidden
+                  ref={fileRef}
+                />
+                <Button
+                  variant="contained"
+                  onClick={() => fileRef.current.click()}
+                  component="span"
+                  className={classes.uploadBtn}
+                >
+                  Upload Photo
+                </Button>
+              </Grid>
+            </FormControl>
           </Grid>
+          <Grid item>
+            {progress < 100 ? (
+              <Loader progres={progress} />
+            ) : (
+              preview && <Avatar src={preview} />
+            )}
+          </Grid>
+<<<<<<< HEAD
         </FormControl>
       </Grid>
       <Grid item>
         {start ? <Loader progres={progress} /> : preview && <Avatar src={preview} />}
       </Grid>
+=======
+        </>
+      )}
+>>>>>>> eb3ddc4f59091324663e8da74800f59ed8da5b0e
     </Grid>
   );
 };
