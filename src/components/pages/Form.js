@@ -473,9 +473,6 @@ const Forms = ({ handleNext }) => {
             validateOnMount={false}
             validateOnBlur={false}
           >
-<<<<<<< HEAD
-            {({ setValues, setFieldValue, isSubmitting, dirty, isValid, errors }) => {
-=======
             {({
               setValues,
               setFieldValue,
@@ -486,7 +483,6 @@ const Forms = ({ handleNext }) => {
             }) => {
               /* console.log(errors); */
 
->>>>>>> eb3ddc4f59091324663e8da74800f59ed8da5b0e
               return (
                 <Form>
                   {qualification ? (

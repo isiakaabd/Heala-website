@@ -44,22 +44,11 @@ const useStyles = makeStyles((theme) => ({
 export const Formiks = ({ name, setFieldValue, onBlur }) => {
   const [preview, setPreview] = useState("");
   const [progress, setProgress] = useState();
-<<<<<<< HEAD
-  const [start, setStart] = useState(false);
-=======
   const [isCompressing, setIsCompressing] = React.useState(false);
->>>>>>> eb3ddc4f59091324663e8da74800f59ed8da5b0e
   const classes = useStyles();
 
   const onChange = async (e) => {
     const file = e.target.files[0];
-<<<<<<< HEAD
-    setStart(true);
-    const files = await uploadImage(file);
-    setPreview(files);
-    setFieldValue(name, files);
-    setStart(false);
-=======
     console.log("fired!!!");
     compressAndUploadImage(
       file,
@@ -70,7 +59,6 @@ export const Formiks = ({ name, setFieldValue, onBlur }) => {
       setProgress,
       setIsCompressing
     );
->>>>>>> eb3ddc4f59091324663e8da74800f59ed8da5b0e
   };
 
   const fileRef = useRef(null);
@@ -121,16 +109,8 @@ export const Formiks = ({ name, setFieldValue, onBlur }) => {
               preview && <Avatar src={preview} />
             )}
           </Grid>
-<<<<<<< HEAD
-        </FormControl>
-      </Grid>
-      <Grid item>
-        {start ? <Loader progres={progress} /> : preview && <Avatar src={preview} />}
-      </Grid>
-=======
         </>
       )}
->>>>>>> eb3ddc4f59091324663e8da74800f59ed8da5b0e
     </Grid>
   );
 };

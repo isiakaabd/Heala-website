@@ -96,24 +96,6 @@ const PageOne = ({ handleNext2, handleNext, step }) => {
       localStorage.setItem("token", access_token);
       localStorage.setItem("email", emails);
       setAccessToken(access_token);
-<<<<<<< HEAD
-      setModal(true);
-
-      if (data) {
-        handleNext();
-      }
-    } catch (err) {
-      if (err.networkError.result.errors[0].message === "Email is already taken") {
-        try {
-          const { data } = await Login({
-            variables: {
-              email,
-              password,
-            },
-          });
-
-          const { dociId, email: emails, access_token, _id } = data.login.account;
-=======
       enqueueSnackbar(
         <Typography style={{ fontSize: "1.2rem" }}>
           Registeration successsful
@@ -149,7 +131,6 @@ const PageOne = ({ handleNext2, handleNext, step }) => {
             access_token,
             _id,
           } = data.login.account;
->>>>>>> eb3ddc4f59091324663e8da74800f59ed8da5b0e
           localStorage.setItem("doctor_id", dociId);
           localStorage.setItem("token", access_token);
           localStorage.setItem("email", emails);
@@ -157,9 +138,6 @@ const PageOne = ({ handleNext2, handleNext, step }) => {
 
           setAccessToken(access_token);
           handleNext2();
-<<<<<<< HEAD
-          setModal(true);
-=======
           enqueueSnackbar(
             <Typography style={{ fontSize: "1.2rem" }}>
               Registeration successsful
@@ -174,7 +152,6 @@ const PageOne = ({ handleNext2, handleNext, step }) => {
             }
           );
           //setModal(true);
->>>>>>> eb3ddc4f59091324663e8da74800f59ed8da5b0e
         } catch (err) {
           setAlert({
             message: err.message,
@@ -354,17 +331,7 @@ const PageOne = ({ handleNext2, handleNext, step }) => {
             </Formik>
           </Grid>
         </Grid>
-<<<<<<< HEAD
-      </Grid>{" "}
-      <Success
-        open={modal}
-        step={step}
-        title={"Successful"}
-        confirmationMsg={step == 3 ? "Verify your Doctor Profile" : "Create Your Profile Now"}
-      />
-=======
       </Grid>
->>>>>>> eb3ddc4f59091324663e8da74800f59ed8da5b0e
     </>
   );
 };

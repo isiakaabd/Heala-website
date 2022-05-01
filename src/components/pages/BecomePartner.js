@@ -8,13 +8,6 @@ const BecomePartner = () => {
   const pageTop = React.useRef();
   const [step, setStep] = useState(1);
 
-<<<<<<< HEAD
-  const handleNext = useCallback(() => {
-    setTimeout(() => {
-      setStep(step + 1);
-    }, 3000);
-  }, [step]);
-=======
   const increment = useCallback(
     (count) => () => {
       setStep(step + count);
@@ -22,7 +15,6 @@ const BecomePartner = () => {
     },
     [step]
   );
->>>>>>> eb3ddc4f59091324663e8da74800f59ed8da5b0e
 
   const handleNext2 = useCallback(() => {
     setStep(step + 2);
@@ -42,16 +34,6 @@ const BecomePartner = () => {
           </Grid>
         ) : null}
 
-<<<<<<< HEAD
-      <Grid item container direction="column" gap={5} margin="auto">
-        <Create
-          step={step}
-          handleNext={handleNext}
-          handlePrevious={handlePrevious}
-          setStep={setStep}
-          handleNext2={handleNext2}
-        />
-=======
         <Grid item container direction="column" gap={5} margin="auto">
           <Create
             step={step}
@@ -61,7 +43,6 @@ const BecomePartner = () => {
             handleNext2={increment(2)}
           />
         </Grid>
->>>>>>> eb3ddc4f59091324663e8da74800f59ed8da5b0e
       </Grid>
     </div>
   );

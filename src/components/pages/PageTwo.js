@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from "react";
 import * as Yup from "yup";
 import PropTypes from "prop-types";
-<<<<<<< HEAD
-import { Grid, Typography, Avatar, Alert } from "@mui/material";
-import { CustomButton } from "components/Utilities";
-import { ReactComponent as HealaIcon } from "assets/images/logo.svg";
-import { useTheme } from "@mui/material/styles";
-=======
 import { useSnackbar } from "notistack";
->>>>>>> eb3ddc4f59091324663e8da74800f59ed8da5b0e
 import { makeStyles } from "@mui/styles";
 import { useMutation } from "@apollo/client";
 import { useTheme } from "@mui/material/styles";
