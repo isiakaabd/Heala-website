@@ -8,7 +8,7 @@ export const compressAndUploadImage = (
   name,
   setFieldValue,
   setProgress,
-  isCompressing
+  isCompressing,
 ) => {
   console.log("fired!!!");
   const uploadFile = (file) => {

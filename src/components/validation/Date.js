@@ -1,10 +1,8 @@
 import React from "react";
 import { Field, ErrorMessage } from "formik";
 import { TextError } from "components/Utilities/TextError";
-import TextField from "@mui/material/TextField";
-import FormLabel from "@mui/material/FormLabel";
+import { TextField, Grid, FormLabel } from "@mui/material";
 import PropTypes from "prop-types";
-import { Grid } from "@mui/material";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { makeStyles } from "@mui/styles";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
@@ -31,9 +29,7 @@ const Dates = ({ name, value, setFieldValue, onBlur }) => {
         onChange={(value) => setFieldValue(name, value)}
         value={value}
         onBlur={onBlur}
-        renderInput={(params) => (
-          <TextField {...params} sx={{ padding: "-12px" }} />
-        )}
+        renderInput={(params) => <TextField {...params} sx={{ padding: "-12px" }} />}
       />
     </LocalizationProvider>
   );

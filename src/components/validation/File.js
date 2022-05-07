@@ -3,14 +3,7 @@ import PropTypes from "prop-types";
 import { makeStyles } from "@mui/styles";
 import { Field, ErrorMessage } from "formik";
 import { TextError } from "components/Utilities/TextError";
-import {
-  FormControl,
-  FormLabel,
-  Grid,
-  Avatar,
-  Button,
-  Typography,
-} from "@mui/material";
+import { FormControl, FormLabel, Grid, Avatar, Button, Typography } from "@mui/material";
 import { Loader } from "components/Utilities";
 import { compressAndUploadImage, uploadImage } from "../../helpers/helperFuncs";
 
@@ -57,7 +50,7 @@ export const Formiks = ({ name, setFieldValue, onBlur }) => {
       name,
       setFieldValue,
       setProgress,
-      setIsCompressing
+      setIsCompressing,
     );
   };
 
@@ -65,13 +58,7 @@ export const Formiks = ({ name, setFieldValue, onBlur }) => {
   return (
     <Grid container spacing={2} alignItems="center">
       {progress < 100 || isCompressing ? (
-        <Grid
-          container
-          item
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-        >
+        <Grid container item direction="row" justifyContent="center" alignItems="center">
           <Typography display={"inline"}>
             {isCompressing ? "Compressing image" : "Uploading image"}
           </Typography>
@@ -103,11 +90,7 @@ export const Formiks = ({ name, setFieldValue, onBlur }) => {
             </FormControl>
           </Grid>
           <Grid item>
-            {progress < 100 ? (
-              <Loader progres={progress} />
-            ) : (
-              preview && <Avatar src={preview} />
-            )}
+            {progress < 100 ? <Loader progres={progress} /> : preview && <Avatar src={preview} />}
           </Grid>
         </>
       )}

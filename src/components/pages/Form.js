@@ -246,7 +246,7 @@ const Forms = ({ handleNext }) => {
         datas &&
           datas.map((i) => {
             return { key: i.name, value: i._id };
-          })
+          }),
       );
     }
   }, [da]);
@@ -285,11 +285,7 @@ const Forms = ({ handleNext }) => {
           <Typography textAlign="center" variant="h1">
             Doctor Verification
           </Typography>
-          <Typography
-            variant="body1"
-            textAlign="center"
-            style={{ lineHeight: 1.85 }}
-          >
+          <Typography variant="body1" textAlign="center" style={{ lineHeight: 1.85 }}>
             Select at least 2 verification method
           </Typography>
           <Typography variant="h6" textAlign="center" color="green">
@@ -310,18 +306,13 @@ const Forms = ({ handleNext }) => {
             md={3.5}
             xs={5.5}
             className={
-              qualification
-                ? `${classes.parentGrid} ${classes.active}`
-                : classes.parentGrid
+              qualification ? `${classes.parentGrid} ${classes.active}` : classes.parentGrid
             }
             // onClick={() => {
             //   setQualification(!qualification);
             // }}
           >
-            <Card
-              title="MBBS Qualification"
-              background={theme.palette.common.lightRed}
-            >
+            <Card title="MBBS Qualification" background={theme.palette.common.lightRed}>
               <Grid className={classes.iconWrapper}>
                 <CalendarIcon
                   color="error"
@@ -335,11 +326,7 @@ const Forms = ({ handleNext }) => {
             item
             md={3.5}
             xs={5.5}
-            className={
-              license
-                ? `${classes.parentGrid} ${classes.active}`
-                : classes.parentGrid
-            }
+            className={license ? `${classes.parentGrid} ${classes.active}` : classes.parentGrid}
             onClick={() => setLicense(!license)}
           >
             <Card title="License" background={theme.palette.common.lightRed}>
@@ -353,11 +340,7 @@ const Forms = ({ handleNext }) => {
             item
             md={3.5}
             xs={5.5}
-            className={
-              yearBook
-                ? `${classes.parentGrid} ${classes.active}`
-                : classes.parentGrid
-            }
+            className={yearBook ? `${classes.parentGrid} ${classes.active}` : classes.parentGrid}
             onClick={() => {
               setYearBook(!yearBook);
             }}
@@ -376,19 +359,12 @@ const Forms = ({ handleNext }) => {
             md={3.5}
             xs={5.5}
             item
-            className={
-              alumni
-                ? `${classes.parentGrid} ${classes.active}`
-                : classes.parentGrid
-            }
+            className={alumni ? `${classes.parentGrid} ${classes.active}` : classes.parentGrid}
             onClick={() => {
               setAlumni(!alumni);
             }}
           >
-            <Card
-              title="Alumni Association"
-              background={theme.palette.common.lightRed}
-            >
+            <Card title="Alumni Association" background={theme.palette.common.lightRed}>
               {/* <Grid item className={classes.iconWrapper}> */}
               <CalendarIcon
                 color="error"
@@ -403,19 +379,12 @@ const Forms = ({ handleNext }) => {
             item
             md={3.5}
             xs={5.5}
-            className={
-              reference
-                ? `${classes.parentGrid} ${classes.active}`
-                : classes.parentGrid
-            }
+            className={reference ? `${classes.parentGrid} ${classes.active}` : classes.parentGrid}
             onClick={() => {
               setReference(!reference);
             }}
           >
-            <Card
-              title="Heala Reference"
-              background={theme.palette.common.lightRed}
-            >
+            <Card title="Heala Reference" background={theme.palette.common.lightRed}>
               <CalendarIcon
                 color="error"
                 fill={theme.palette.common.red}
@@ -429,18 +398,13 @@ const Forms = ({ handleNext }) => {
             md={3.5}
             xs={5.5}
             className={
-              externalReference
-                ? `${classes.parentGrid} ${classes.active}`
-                : classes.parentGrid
+              externalReference ? `${classes.parentGrid} ${classes.active}` : classes.parentGrid
             }
             onClick={() => {
               setExternalReference(!externalReference);
             }}
           >
-            <Card
-              title="External Reference"
-              background={theme.palette.common.lightRed}
-            >
+            <Card title="External Reference" background={theme.palette.common.lightRed}>
               <ReferenceIcon color="error" className={classes.cardIcon} />
             </Card>
           </Grid>
@@ -449,8 +413,7 @@ const Forms = ({ handleNext }) => {
         <Grid item className={classes.infoBadge} gap={2}>
           <ErrorRoundedIcon />
           <Typography variant="h6">
-            This will contain the status message regarding the verification
-            process of the HCP
+            This will contain the status message regarding the verification process of the HCP
           </Typography>
         </Grid>
 
@@ -473,14 +436,7 @@ const Forms = ({ handleNext }) => {
             validateOnMount={false}
             validateOnBlur={false}
           >
-            {({
-              setValues,
-              setFieldValue,
-              isSubmitting,
-              dirty,
-              isValid,
-              errors,
-            }) => {
+            {({ setValues, setFieldValue, isSubmitting, dirty, isValid, errors }) => {
               /* console.log(errors); */
 
               return (
@@ -499,12 +455,7 @@ const Forms = ({ handleNext }) => {
                       >
                         <Typography variant="h2">Qualification</Typography>
 
-                        <Grid
-                          item
-                          container
-                          justifyContent="space-between"
-                          gap={1}
-                        >
+                        <Grid item container justifyContent="space-between" gap={1}>
                           <Grid item container md={5} sm={10}>
                             <FormikControl
                               control="input"
@@ -523,10 +474,7 @@ const Forms = ({ handleNext }) => {
                             />
                           </Grid>
                         </Grid>
-                        <FormLabel
-                          component="legend"
-                          className={classes.FormLabel}
-                        >
+                        <FormLabel component="legend" className={classes.FormLabel}>
                           Upload Your Qualification
                         </FormLabel>
                         <DragAndDrop
@@ -552,12 +500,7 @@ const Forms = ({ handleNext }) => {
                         marginBottom={4}
                       >
                         <Typography variant="h2">License</Typography>
-                        <Grid
-                          item
-                          container
-                          justifyContent="space-between"
-                          spacing={3}
-                        >
+                        <Grid item container justifyContent="space-between" spacing={3}>
                           <Grid item container md={12} sm={10}>
                             <FormikControl
                               control="input"
@@ -566,12 +509,7 @@ const Forms = ({ handleNext }) => {
                               label="License Number"
                             />
                           </Grid>
-                          <Grid
-                            item
-                            container
-                            justifyContent="space-between"
-                            gap={2}
-                          >
+                          <Grid item container justifyContent="space-between" gap={2}>
                             <Grid item container md={5} sm={10}>
                               <FormikControl
                                 control="select"
@@ -592,10 +530,7 @@ const Forms = ({ handleNext }) => {
                             </Grid>
                           </Grid>
                         </Grid>
-                        <FormLabel
-                          component="legend"
-                          className={classes.FormLabel}
-                        >
+                        <FormLabel component="legend" className={classes.FormLabel}>
                           Upload Your License
                         </FormLabel>
                         <DragAndDrop
@@ -621,12 +556,7 @@ const Forms = ({ handleNext }) => {
                         marginBottom={4}
                       >
                         <Typography variant="h2">Year Book</Typography>
-                        <Grid
-                          item
-                          container
-                          justifyContent="space-between"
-                          spacing={3}
-                        >
+                        <Grid item container justifyContent="space-between" spacing={3}>
                           <Grid item container justifyContent="start">
                             <FormikControl
                               control="date"
@@ -637,17 +567,10 @@ const Forms = ({ handleNext }) => {
                             />
                           </Grid>
                         </Grid>
-                        <FormLabel
-                          component="legend"
-                          className={classes.FormLabel}
-                        >
+                        <FormLabel component="legend" className={classes.FormLabel}>
                           Upload Your Yearbook
                         </FormLabel>
-                        <DragAndDrop
-                          name="gImage"
-                          setFieldValue={setFieldValue}
-                          maxFiles={1}
-                        />
+                        <DragAndDrop name="gImage" setFieldValue={setFieldValue} maxFiles={1} />
                       </Grid>
                     </>
                   ) : null}
@@ -666,12 +589,7 @@ const Forms = ({ handleNext }) => {
                         marginBottom={4}
                       >
                         <Typography variant="h2">Alumni Association</Typography>
-                        <Grid
-                          item
-                          container
-                          justifyContent="space-between"
-                          gap={3}
-                        >
+                        <Grid item container justifyContent="space-between" gap={3}>
                           <Grid item container sm={10} md={12}>
                             <FormikControl
                               control="input"
@@ -705,15 +623,8 @@ const Forms = ({ handleNext }) => {
                         gap={3}
                         marginBottom={4}
                       >
-                        <Typography variant="h2">
-                          Reference From Doctor on Heala
-                        </Typography>
-                        <Grid
-                          item
-                          container
-                          justifyContent="space-between"
-                          spacing={3}
-                        >
+                        <Typography variant="h2">Reference From Doctor on Heala</Typography>
+                        <Grid item container justifyContent="space-between" spacing={3}>
                           <Grid item container md={12} sm={10}>
                             <FormikControl
                               control="select"
@@ -743,12 +654,7 @@ const Forms = ({ handleNext }) => {
                       >
                         <Typography variant="h2">External Reference</Typography>
                         <Grid item md={12}>
-                          <Grid
-                            item
-                            container
-                            marginBottom={2}
-                            justifyContent="space-between"
-                          >
+                          <Grid item container marginBottom={2} justifyContent="space-between">
                             <Grid item md={5} sm={10}>
                               <FormikControl
                                 control="input"
@@ -790,11 +696,7 @@ const Forms = ({ handleNext }) => {
                     </>
                   ) : null}
                   {alert && Object.keys(alert).length > 0 && (
-                    <Alert
-                      variant="filled"
-                      sx={{ textAlign: "center" }}
-                      severity={alert.type}
-                    >
+                    <Alert variant="filled" sx={{ textAlign: "center" }} severity={alert.type}>
                       {alert.message}
                     </Alert>
                   )}

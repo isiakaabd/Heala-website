@@ -49,5 +49,5 @@ ReactDOM.render(
       </ApolloProvider>
     </Provider>
   </SnackbarProvider>,
-  document.getElementById("root")
+  document.getElementById("root"),
 );

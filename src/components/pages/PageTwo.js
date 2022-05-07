@@ -6,7 +6,6 @@ import { makeStyles } from "@mui/styles";
 import { useMutation } from "@apollo/client";
 import { useTheme } from "@mui/material/styles";
 import { Grid, Typography, Avatar, Alert } from "@mui/material";
-
 import { Formik, Form } from "formik";
 import { CustomButton } from "components/Utilities";
 import { dateMoment } from "components/Utilities/Time";
@@ -31,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 const PageTwo = ({ handleNext, setStep }) => {
   const classes = useStyles();
   const theme = useTheme();
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {
     setStep(2);
   }, [setStep]);
@@ -79,7 +78,7 @@ const PageTwo = ({ handleNext, setStep }) => {
     { key: "Female", value: "Female" },
   ];
   const [alert, setAlert] = useState({});
-  const [modal, setModal] = useState(false);
+  const [setModal] = useState(false);
 
   const greenButton = {
     background: theme.palette.success.main,
@@ -99,18 +98,10 @@ const PageTwo = ({ handleNext, setStep }) => {
     level: "",
   };
   const validationSchema = Yup.object({
-    firstName: Yup.string("Enter your first Name")
-      .trim()
-      .required("First Name is Required"),
-    lastName: Yup.string("Enter your last Name")
-      .trim()
-      .required("lastName Name is Required"),
-    hospital: Yup.string("Enter your hospital")
-      .trim()
-      .required("hospital Name is Required"),
-    dociId: Yup.string("Enter your dociId")
-      .trim()
-      .required("dociId Name is Required"),
+    firstName: Yup.string("Enter your first Name").trim().required("First Name is Required"),
+    lastName: Yup.string("Enter your last Name").trim().required("lastName Name is Required"),
+    hospital: Yup.string("Enter your hospital").trim().required("hospital Name is Required"),
+    dociId: Yup.string("Enter your dociId").trim().required("dociId Name is Required"),
     specialization: Yup.string("Select your Specialization")
       .trim()
       .required("Specialization is Required"),
@@ -119,9 +110,7 @@ const PageTwo = ({ handleNext, setStep }) => {
       .required("Image is required")
       .typeError("Image is required"),
     dob: Yup.string("Enter your DOB").required("DOB is Required"),
-    phoneNumber: Yup.number("Enter your Phone Number").required(
-      "Phone Number is Required"
-    ),
+    phoneNumber: Yup.number("Enter your Phone Number").required("Phone Number is Required"),
     level: Yup.string("Enter your Level").trim().required("Level is Required"),
   });
   const selectOption = [
@@ -176,9 +165,7 @@ const PageTwo = ({ handleNext, setStep }) => {
       const { _id } = data.createDoctorProfile.profile;
       localStorage.setItem("id", _id);
       enqueueSnackbar(
-        <Typography style={{ fontSize: "1.2rem" }}>
-          Doctor Registeration successsful
-        </Typography>,
+        <Typography style={{ fontSize: "1.2rem" }}>Doctor Registeration successsful</Typography>,
         {
           variant: "success",
           preventDuplicate: true,
@@ -186,7 +173,7 @@ const PageTwo = ({ handleNext, setStep }) => {
             horizontal: "center",
             vertical: "top",
           },
-        }
+        },
       );
       handleNext();
       setModal(true);
@@ -241,32 +228,15 @@ const PageTwo = ({ handleNext, setStep }) => {
                 return (
                   <Form>
                     <Grid container md={12} margin="auto" gap={1}>
-                      <Grid
-                        item
-                        container
-                        justifyContent="center"
-                        marginBottom="14px"
-                        gap={2}
-                      >
-                        <Grid
-                          item
-                          container
-                          justifyContent="center"
-                          md={5}
-                          sm={10}
-                        >
+                      <Grid item container justifyContent="center" marginBottom="14px" gap={2}>
+                        <Grid item container justifyContent="center" md={5} sm={10}>
                           <Grid item>
                             <Typography variant="h5">CREATE PROFILE</Typography>
                           </Grid>
                         </Grid>
                       </Grid>
 
-                      <Grid
-                        item
-                        container
-                        justifyContent="space-around"
-                        gap={1}
-                      >
+                      <Grid item container justifyContent="space-around" gap={1}>
                         <FormikControl
                           control="input"
                           name="firstName"
@@ -274,12 +244,7 @@ const PageTwo = ({ handleNext, setStep }) => {
                           label="First Name"
                         />
                       </Grid>
-                      <Grid
-                        item
-                        container
-                        justifyContent="space-around"
-                        gap={1}
-                      >
+                      <Grid item container justifyContent="space-around" gap={1}>
                         <FormikControl
                           control="input"
                           name="lastName"
@@ -287,12 +252,7 @@ const PageTwo = ({ handleNext, setStep }) => {
                           placeholder="Enter Your last Name"
                         />
                       </Grid>
-                      <Grid
-                        item
-                        container
-                        justifyContent="space-around"
-                        gap={2}
-                      >
+                      <Grid item container justifyContent="space-around" gap={2}>
                         <FormikControl
                           control="select"
                           name="specialization"
@@ -301,12 +261,7 @@ const PageTwo = ({ handleNext, setStep }) => {
                           options={options}
                         />
                       </Grid>
-                      <Grid
-                        item
-                        container
-                        justifyContent="space-around"
-                        gap={2}
-                      >
+                      <Grid item container justifyContent="space-around" gap={2}>
                         <FormikControl
                           control="input"
                           name="phoneNumber"
@@ -314,12 +269,7 @@ const PageTwo = ({ handleNext, setStep }) => {
                           placeholder="e.g Enter Your phone Number"
                         />
                       </Grid>
-                      <Grid
-                        item
-                        container
-                        justifyContent="space-around"
-                        gap={2}
-                      >
+                      <Grid item container justifyContent="space-around" gap={2}>
                         <FormikControl
                           control="select"
                           name="level"
@@ -329,12 +279,7 @@ const PageTwo = ({ handleNext, setStep }) => {
                         />
                       </Grid>
                       {/*  */}
-                      <Grid
-                        item
-                        container
-                        justifyContent="space-around"
-                        gap={2}
-                      >
+                      <Grid item container justifyContent="space-around" gap={2}>
                         <FormikControl
                           control="date"
                           name="dob"
@@ -343,12 +288,7 @@ const PageTwo = ({ handleNext, setStep }) => {
                           setValues={setValues}
                         />
                       </Grid>
-                      <Grid
-                        item
-                        container
-                        justifyContent="space-around"
-                        gap={2}
-                      >
+                      <Grid item container justifyContent="space-around" gap={2}>
                         <FormikControl
                           control="select"
                           name="gender"
@@ -359,12 +299,7 @@ const PageTwo = ({ handleNext, setStep }) => {
                       </Grid>
                       {/*  */}
 
-                      <Grid
-                        item
-                        container
-                        justifyContent="space-around"
-                        gap={2}
-                      >
+                      <Grid item container justifyContent="space-around" gap={2}>
                         <FormikControl
                           control="input"
                           name="hospital"

@@ -34,14 +34,9 @@ const PreviousButton = ({ handlePrevious }) => {
     <Grid className={classes.container} onClick={handlePrevious}>
       <Grid container alignItems="center" className={classes.break}>
         <IconButton>
-          <KeyboardBackspaceIcon
-            color={theme.palette.common.black}
-            className={classes.icon}
-          />
+          <KeyboardBackspaceIcon color={theme.palette.common.black} className={classes.icon} />
         </IconButton>
-        <Typography
-          style={{ fontSize: "2rem", color: "white", cursor: "pointer" }}
-        >
+        <Typography style={{ fontSize: "2rem", color: "white", cursor: "pointer" }}>
           Go Back
         </Typography>
       </Grid>
