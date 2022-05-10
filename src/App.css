@@ -115,7 +115,7 @@ h3 {
 }
 
 button {
-  color: white !important;
+  color: white ;
 }
 button.MuiPickersDay-root {
   color: black !important;

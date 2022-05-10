@@ -2,7 +2,14 @@ import { gql } from "@apollo/client";
 
 export const signup = gql`
   mutation signup($email: EmailAddress!, $password: String!) {
-    signup(data: { authType: "normal", email: $email, password: $password, role: "doctor" }) {
+    signup(
+      data: {
+        authType: "normal"
+        email: $email
+        password: $password
+        role: "doctor"
+      }
+    ) {
       account {
         dociId
         access_token
@@ -18,6 +25,7 @@ export const signup = gql`
     }
   }
 `;
+
 export const login = gql`
   mutation login($email: EmailAddress!, $password: String!) {
     login(data: { authType: "normal", email: $email, password: $password }) {
@@ -26,10 +34,12 @@ export const login = gql`
         dociId
         email
         isEmailVerified
+        isActive
         access_token
         refresh_token
         nextStep
         isPasswordTemporary
+        role
       }
       errors {
         field
@@ -38,6 +48,7 @@ export const login = gql`
     }
   }
 `;
+
 export const createDoctorProfile = gql`
   mutation createDoctorProfile(
     $firstName: String!
@@ -115,9 +126,17 @@ export const createDoctorVerification = gql`
     createVerification(
       data: {
         qualification: { degree: $degree, year: $year, image: $image }
-        license: { number: $number, type: $type, expiry_date: $expiryDate, image: $licenseImage }
+        license: {
+          number: $number
+          type: $type
+          expiry_date: $expiryDate
+          image: $licenseImage
+        }
         yearbook: { graduation_year: $graduation, image: $graduationImage }
-        alumni_association: { facebook_group_name: $facebook, instagram_handle: $instagram }
+        alumni_association: {
+          facebook_group_name: $facebook
+          instagram_handle: $instagram
+        }
         reference: { reference_code: $reference }
         external_reference: {
           doctor_name: $doctorName
@@ -145,6 +164,14 @@ export const createDoctorVerification = gql`
         field
         message
       }
+    }
+  }
+`;
+
+export const createLogout = gql`
+  mutation logout($user: String!) {
+    logout(data: { user: $user, deviceId: "247382891" }) {
+      result
     }
   }
 `;

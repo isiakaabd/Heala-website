@@ -4,6 +4,7 @@ import { TextError } from "components/Utilities/TextError";
 import { FormControl, FormLabel, Select, MenuItem, Grid } from "@mui/material";
 import PropTypes from "prop-types";
 import { makeStyles } from "@mui/styles";
+import { RequiredIcon } from "components/Typography";
 
 const useStyles = makeStyles((theme) => ({
   FormLabel: {
@@ -47,11 +48,14 @@ Formiks.propTypes = {
 };
 
 const Selects = (props) => {
-  const { name, label, options, placeholder } = props;
+  const { name, label, options, placeholder, isRequired } = props;
   const classes = useStyles();
   return (
     <Grid container direction="column" gap={1}>
-      <FormLabel className={classes.FormLabel}>{label}</FormLabel>
+      <FormLabel className={classes.FormLabel}>
+        {label}
+        {isRequired && <RequiredIcon />}
+      </FormLabel>
       <Field name={name} as={Formiks} label={label}>
         <MenuItem value="">{placeholder}</MenuItem>
         {options.map((option) => (

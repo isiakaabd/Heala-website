@@ -17,11 +17,13 @@ const sectionStyles = {
 
 const App = () => {
   const [state, setstate] = useState(true);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     setAccessToken(token);
     setstate(false);
   }, []);
+
   return (
     <ThemeProvider theme={muiTheme}>
       <Router>
@@ -33,6 +35,7 @@ const App = () => {
             display: "flex",
             justifyContent: "center",
             minHeight: "100vh",
+            width: "100%",
             alignItems: "center",
           }}
         >
@@ -40,7 +43,11 @@ const App = () => {
             <Switch>
               {!state && (
                 <section style={sectionStyles}>
-                  <Route exact path={["/", "/partners/form"]} component={BecomePartner} />
+                  <Route
+                    exact
+                    path={["/", "/partners/form"]}
+                    component={BecomePartner}
+                  />
                 </section>
               )}
             </Switch>

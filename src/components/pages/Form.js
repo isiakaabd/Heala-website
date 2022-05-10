@@ -1,237 +1,75 @@
 import React, { useEffect, useState } from "react";
-import { Grid, FormLabel, Typography, Avatar, Alert } from "@mui/material";
 import PropTypes from "prop-types";
-import { Card, CustomButton } from "components/Utilities";
-import { createDoctorVerification } from "components/graphQL/Mutation";
-import * as Yup from "yup";
+import { Formik, Form } from "formik";
+import { useSnackbar } from "notistack";
+import { useQuery } from "@apollo/client";
 import { useMutation } from "@apollo/client";
-import { dateMoment } from "components/Utilities/Time";
+import Checkbox from "@mui/material/Checkbox";
+import { useTheme } from "@mui/material/styles";
+import { Grid, FormLabel, Typography } from "@mui/material";
+
+import { useStyles } from "styles/formStyles";
+import DragAndDrop from "components/DragAndDrop";
+import { Card, CustomButton } from "components/Utilities";
+import { TextError } from "components/Utilities/TextError";
+import { getUsertypess } from "components/graphQL/UseQuery";
+import { FormValidationSchema } from "helpers/formValidation";
+import ErrorRoundedIcon from "@mui/icons-material/ErrorRounded";
+import FormikControl from "components/validation/FormikControl";
+import { createDoctorVerification } from "components/graphQL/Mutation";
 import { ReactComponent as LicenseIcon } from "assets/images/licenses.svg";
-import { ReactComponent as HealaIcon } from "assets/images/logo.svg";
 import { ReactComponent as CalendarIcon } from "assets/images/calendar.svg";
 import { ReactComponent as ReferenceIcon } from "assets/images/reference.svg";
-import ErrorRoundedIcon from "@mui/icons-material/ErrorRounded";
-import { useTheme } from "@mui/material/styles";
-import { makeStyles } from "@mui/styles";
-import { useQuery } from "@apollo/client";
-import { getUsertypess } from "components/graphQL/UseQuery";
-import { Formik, Form } from "formik";
-import FormikControl from "components/validation/FormikControl";
-import DragAndDrop from "components/DragAndDrop";
-
-const useStyles = makeStyles((theme) => ({
-  cardContainer: {
-    "&.MuiCard-root": {
-      width: "100%",
-      height: "15.8rem",
-      display: "flex",
-      justifyContent: "center",
-      flexDirection: "column",
-      alignItems: "center",
-      background: "white",
-      marginRight: "5rem",
-      "&:hover": {
-        boxShadow: "-1px 0px 10px -2px rgba(0,0,0,0.15)",
-        cursor: "pointer",
-      },
-      "&:active": {
-        background: "#fafafa",
-      },
-      "& .MuiCardContent-root .MuiTypography-h5": {
-        textDecoration: "none !important",
-        textTransform: "uppercase",
-      },
-    },
-  },
-  form: theme.mixins.toolbar,
-
-  FormLabel: {
-    "&.MuiFormLabel-root": {
-      ...theme.typography.FormLabel,
-    },
-  },
-  iconWrapper: {
-    width: 50,
-    height: 50,
-    borderRadius: "50%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  cardGrid: {
-    justifyContent: "center",
-    alignItems: "center",
-    height: "25.8rem",
-  },
-  flexContainer: {
-    justifyContent: "space-between",
-    alignItems: "center",
-    margin: "auto",
-    width: "100%",
-
-    padding: "2rem 4rem",
-    "&:first-child": {
-      borderBottom: ".5px solid #F8F8F8",
-    },
-  },
-  lightGreen: {
-    color: theme.palette.common.green,
-  },
-
-  lightRed: {
-    color: theme.palette.common.red,
-  },
-  mainContainer: {
-    flexDirection: "column",
-    width: "100%",
-    background: "white",
-    borderRadius: "2rem",
-    boxShadow: "-1px 0px 10px -2px rgba(0,0,0,0.15)",
-  },
-  infoBadge: {
-    "&.MuiGrid-item": {
-      padding: ".2rem 2rem",
-      borderRadius: "1.5rem",
-      display: "flex",
-      alignItems: "center",
-      color: theme.palette.common.red,
-      background: theme.palette.common.lightRed,
-      border: `2px dashed ${theme.palette.common.red}`,
-    },
-  },
-  btn: {
-    "&.MuiButton-root": {
-      ...theme.typography.btn,
-      width: "100%",
-      fontSize: "1.5rem",
-    },
-  },
-  parentGrid: {
-    textDecoration: "none",
-    color: theme.palette.primary.main,
-    "&.MuiGrid-item": {
-      ...theme.typography.cardParentGrid,
-    },
-  },
-  cardIcon: {
-    "&.MuiSvgIcon-root": {
-      fontSize: "3rem",
-    },
-  },
-  active: {
-    "&> *": {
-      background: "#ECF6F3 !important",
-    },
-  },
-}));
+import {
+  getSelectedCertification,
+  onPageThreeSubmit,
+  showErrorMsg,
+} from "helpers/helperFuncs";
+import {
+  requirementValues,
+  step3FromInitialValues,
+} from "../../helpers/mockData";
 
 const Forms = ({ handleNext }) => {
-  const [alert, setAlert] = useState({});
+  const { enqueueSnackbar } = useSnackbar();
   const classes = useStyles();
   const theme = useTheme();
   const [createVerification] = useMutation(createDoctorVerification);
-  const onSubmit = async (values, onsubmitProp) => {
-    const {
-      degree,
-      degreeImage,
-      license,
-      expire,
-      licenseImage,
-      licenseType,
-      gYear,
-      gImage,
-      FacebookName,
-      InstagramName,
-      doctorName,
-      referenceCode,
-      doctorEmail,
-      doctorPosition,
-      doctorInstitution,
-    } = values;
+  const [dateNow, setDateNow] = React.useState("");
+  const [checked, setChecked] = React.useState(false);
 
-    const year = dateMoment(gYear);
-    const expires = dateMoment(expire);
+  React.useEffect(() => {
+    setDateNow(Date.now());
+  }, []);
 
-    try {
-      const { data } = await createVerification({
-        variables: {
-          degree, //
-          image: degreeImage,
-          number: license,
-          expiryDate: expires,
-          licenseImage, //
-          type: licenseType,
-          graduation: year, //
-          graduationImage: gImage,
-          facebook: FacebookName,
-          instagram: InstagramName,
-          doctorName: doctorName,
-          reference: referenceCode,
-          profileId: localStorage.getItem("id"),
-          doctorEmail,
-          doctorPosition, //
-          doctorInstitution, //
-        },
-      });
-      if (data) return handleNext();
-      onsubmitProp.resetForm();
-    } catch (err) {
-      console.log(err);
-      setAlert({
-        message: err.networkError.result.errors[0].message,
-        type: "error",
-      });
-    }
-  };
-
-  const options = [{ key: "MDCN", value: "MDCN" }];
-  const initialValues = {
-    degree: "",
-    degreeImage: "",
-    license: "",
-    expires: "",
-    licenseImage: "",
-    licenseType: "",
-    gYear: "",
-    gImage: "",
-    FacebookName: "",
-    InstagramName: "",
-    doctorName: "",
-    referenceCode: "",
-    doctorEmail: "",
-    doctorPosition: "",
-    doctorInstitution: "",
-  };
-
-  const validationSchema = Yup.object({
-    degreeImage: Yup.string("Enter Degree Image ").trim(),
-    license: Yup.string("Enter license date ").trim(),
-    expire: Yup.string("Enter expiry date ").trim(),
-    licenseImage: Yup.string("Enter your license Image ").trim(),
-    gYear: Yup.string("Enter your Year Book ").trim(),
-    licenseType: Yup.string("Enter your license Type ").trim(),
-    gImage: Yup.string("Enter your Year Book Image").trim(),
-    InstagramName: Yup.string("Enter your Instagram Name").trim(),
-    FacebookName: Yup.string("Enter your Facebook Name").trim(),
-    degree: Yup.string("Enter your degree").trim(),
-    doctorInstitution: Yup.string("Enter your Doctor Institution").trim(),
-    doctorPosition: Yup.string("Enter your Doctor Position").trim(),
-    doctorEmail: Yup.string("Enter your Doctor Email").trim(),
-    referenceCode: Yup.string("Enter your Reference Code").trim(),
-    doctorName: Yup.string("Select your Doctor Name").trim(),
-  });
   const greenButton = {
     background: theme.palette.success.main,
     hover: theme.palette.success.light,
     active: theme.palette.primary.dark,
   };
-  const [qualification] = useState(true);
-  const [license, setLicense] = useState(false);
+
+  const options = [{ key: "MDCN", value: "MDCN" }];
+
+  const [qualification, setQualification] = useState(false);
+  const [license] = useState(true);
   const [yearBook, setYearBook] = useState(false);
   const [alumni, setAlumni] = useState(false);
   const [reference, setReference] = useState(false);
   const [externalReference, setExternalReference] = useState(false);
   const [dropDown, setDropDown] = useState([]);
+  const [selectedCert, setSelectedCert] = useState([]);
+
+  React.useEffect(() => {
+    const selectedCertifications = getSelectedCertification({
+      qualification: qualification,
+      license: license,
+      yearBook: yearBook,
+      alumni: alumni,
+      reference: reference,
+      externalReference: externalReference,
+    });
+    setSelectedCert(selectedCertifications);
+  }, [qualification, license, yearBook, alumni, reference, externalReference]);
 
   const { data: da } = useQuery(getUsertypess, {
     variables: {
@@ -253,19 +91,6 @@ const Forms = ({ handleNext }) => {
 
   return (
     <Grid container gap={1}>
-      <Grid container justifyContent="center" alignItems="center">
-        <Avatar
-          sx={{
-            background: "transparent",
-            color: "white",
-            width: 150,
-            height: 150,
-          }}
-        >
-          <HealaIcon />
-        </Avatar>
-      </Grid>
-
       <Grid
         item
         container
@@ -304,6 +129,37 @@ const Forms = ({ handleNext }) => {
           spacing={3}
           sx={{ width: "100%", margin: "auto" }}
         >
+          {/* ========= LICENSE QUALIFICATION CARD ========= */}
+          <Grid
+            item
+            md={3.5}
+            xs={5.5}
+            className={
+              license
+                ? `${classes.parentGrid} ${classes.active}`
+                : classes.parentGrid
+            }
+          >
+            {license && (
+              <Checkbox
+                defaultChecked
+                color="success"
+                size="large"
+                sx={{ position: "absolute", top: "0" }}
+              />
+            )}
+            <Card
+              title="Medical License"
+              background={theme.palette.common.lightRed}
+            >
+              <LicenseIcon
+                // color="error"
+                fill={theme.palette.common.red}
+              />
+            </Card>
+          </Grid>
+
+          {/* ========= MBBS QUALIFICATION CARD ========= */}
           <Grid
             item
             container
@@ -314,10 +170,18 @@ const Forms = ({ handleNext }) => {
                 ? `${classes.parentGrid} ${classes.active}`
                 : classes.parentGrid
             }
-            // onClick={() => {
-            //   setQualification(!qualification);
-            // }}
+            onClick={() => {
+              setQualification(!qualification);
+            }}
           >
+            {qualification && (
+              <Checkbox
+                defaultChecked
+                color="success"
+                size="large"
+                sx={{ position: "absolute", top: "0" }}
+              />
+            )}
             <Card
               title="MBBS Qualification"
               background={theme.palette.common.lightRed}
@@ -331,24 +195,8 @@ const Forms = ({ handleNext }) => {
               </Grid>
             </Card>
           </Grid>
-          <Grid
-            item
-            md={3.5}
-            xs={5.5}
-            className={
-              license
-                ? `${classes.parentGrid} ${classes.active}`
-                : classes.parentGrid
-            }
-            onClick={() => setLicense(!license)}
-          >
-            <Card title="License" background={theme.palette.common.lightRed}>
-              <LicenseIcon
-                // color="error"
-                fill={theme.palette.common.red}
-              />
-            </Card>
-          </Grid>
+
+          {/* ========= YEAR BOOK CARD ========= */}
           <Grid
             item
             md={3.5}
@@ -362,6 +210,14 @@ const Forms = ({ handleNext }) => {
               setYearBook(!yearBook);
             }}
           >
+            {yearBook && (
+              <Checkbox
+                defaultChecked
+                color="success"
+                size="large"
+                sx={{ position: "absolute", top: "0" }}
+              />
+            )}
             <Card title="Year Book" background={theme.palette.common.lightRed}>
               <CalendarIcon
                 color="error"
@@ -370,8 +226,7 @@ const Forms = ({ handleNext }) => {
               />
             </Card>
           </Grid>
-
-          {/* second container */}
+          {/* ========= ALUMNI ASSOCIATION CARD ========= */}
           <Grid
             md={3.5}
             xs={5.5}
@@ -385,6 +240,14 @@ const Forms = ({ handleNext }) => {
               setAlumni(!alumni);
             }}
           >
+            {alumni && (
+              <Checkbox
+                defaultChecked
+                color="success"
+                size="large"
+                sx={{ position: "absolute", top: "0" }}
+              />
+            )}
             <Card
               title="Alumni Association"
               background={theme.palette.common.lightRed}
@@ -399,6 +262,7 @@ const Forms = ({ handleNext }) => {
             </Card>
           </Grid>
           {/* 2b */}
+          {/* ========= HEALA REFERENCE CARD ========= */}
           <Grid
             item
             md={3.5}
@@ -412,6 +276,14 @@ const Forms = ({ handleNext }) => {
               setReference(!reference);
             }}
           >
+            {reference && (
+              <Checkbox
+                defaultChecked
+                color="success"
+                size="large"
+                sx={{ position: "absolute", top: "0" }}
+              />
+            )}
             <Card
               title="Heala Reference"
               background={theme.palette.common.lightRed}
@@ -423,7 +295,7 @@ const Forms = ({ handleNext }) => {
               />
             </Card>
           </Grid>
-          {/* 3b */}
+          {/* ========= EXTERNAL REFERENCE CARD ========= */}
           <Grid
             item
             md={3.5}
@@ -437,6 +309,14 @@ const Forms = ({ handleNext }) => {
               setExternalReference(!externalReference);
             }}
           >
+            {externalReference && (
+              <Checkbox
+                defaultChecked
+                color="success"
+                size="large"
+                sx={{ position: "absolute", top: "0" }}
+              />
+            )}
             <Card
               title="External Reference"
               background={theme.palette.common.lightRed}
@@ -454,91 +334,32 @@ const Forms = ({ handleNext }) => {
           </Typography>
         </Grid>
 
+        {/* ========= FORM SECTION ========= */}
         <Grid item>
-          {alert && Object.keys(alert).length > 0 && (
-            <Alert
-              variant="filled"
-              sx={{ justifyContent: "center", alignItems: "center" }}
-              severity={alert.type}
-            >
-              {alert.message}
-            </Alert>
-          )}
-
           <Formik
-            initialValues={initialValues}
-            onSubmit={onSubmit}
-            validationSchema={validationSchema}
+            initialValues={step3FromInitialValues}
+            onSubmit={(values, onsubmitProp) =>
+              onPageThreeSubmit(
+                values,
+                selectedCert,
+                enqueueSnackbar,
+                Typography,
+                requirementValues,
+                createVerification,
+                handleNext,
+                onsubmitProp,
+                checked
+              )
+            }
+            validationSchema={FormValidationSchema}
             validateOnChange={false}
             validateOnMount={false}
             validateOnBlur={false}
           >
-            {({
-              setValues,
-              setFieldValue,
-              isSubmitting,
-              dirty,
-              isValid,
-              errors,
-            }) => {
-              /* console.log(errors); */
-
+            {({ setValues, setFieldValue, isSubmitting, dirty, isValid }) => {
               return (
                 <Form>
-                  {qualification ? (
-                    <>
-                      <Grid
-                        item
-                        container
-                        md={12}
-                        sm={12}
-                        direction="column"
-                        justifyContent="space-between"
-                        gap={1}
-                        marginBottom={4}
-                      >
-                        <Typography variant="h2">Qualification</Typography>
-
-                        <Grid
-                          item
-                          container
-                          justifyContent="space-between"
-                          gap={1}
-                        >
-                          <Grid item container md={5} sm={10}>
-                            <FormikControl
-                              control="input"
-                              name="degree"
-                              placeholder="BSc Surgery"
-                              label="Degree"
-                            />
-                          </Grid>
-                          <Grid item container md={5} sm={10}>
-                            <FormikControl
-                              control="date"
-                              name="year"
-                              label="Year"
-                              setFieldValue={setFieldValue}
-                              setValues={setValues}
-                            />
-                          </Grid>
-                        </Grid>
-                        <FormLabel
-                          component="legend"
-                          className={classes.FormLabel}
-                        >
-                          Upload Your Qualification
-                        </FormLabel>
-                        <DragAndDrop
-                          name="degreeImage"
-                          setFieldValue={setFieldValue}
-                          maxFiles={1}
-                        />
-                      </Grid>
-                    </>
-                  ) : null}
-
-                  {/*  */}
+                  {/* ========= LICENSE FORM ========= */}
                   {license ? (
                     <>
                       <Grid
@@ -551,7 +372,9 @@ const Forms = ({ handleNext }) => {
                         gap={3}
                         marginBottom={4}
                       >
-                        <Typography variant="h2">License</Typography>
+                        <Typography variant="h2">
+                          Medical License (MDCN)
+                        </Typography>
                         <Grid
                           item
                           container
@@ -588,6 +411,7 @@ const Forms = ({ handleNext }) => {
                                 label="Expiry Date"
                                 setFieldValue={setFieldValue}
                                 setValues={setValues}
+                                startDate={dateNow}
                               />
                             </Grid>
                           </Grid>
@@ -607,7 +431,64 @@ const Forms = ({ handleNext }) => {
                     </>
                   ) : null}
 
-                  {/* yearbook */}
+                  {/* ========= MBBS QUALIFICATION FORM ========= */}
+                  {qualification ? (
+                    <>
+                      <Grid
+                        item
+                        container
+                        md={12}
+                        sm={12}
+                        direction="column"
+                        justifyContent="space-between"
+                        gap={1}
+                        marginBottom={4}
+                      >
+                        <Typography variant="h2">
+                          Medical Qualification (MBBS)
+                        </Typography>
+
+                        <Grid
+                          item
+                          container
+                          justifyContent="space-between"
+                          gap={1}
+                        >
+                          <Grid item container md={5} sm={10}>
+                            <FormikControl
+                              control="input"
+                              name="degree"
+                              placeholder="BSc Surgery"
+                              label="Degree"
+                            />
+                          </Grid>
+                          <Grid item container md={5} sm={10}>
+                            <FormikControl
+                              control="date"
+                              name="year"
+                              label="Year"
+                              setFieldValue={setFieldValue}
+                              setValues={setValues}
+                              endDate={dateNow}
+                            />
+                          </Grid>
+                        </Grid>
+                        <FormLabel
+                          component="legend"
+                          className={classes.FormLabel}
+                        >
+                          Upload Your Qualification
+                        </FormLabel>
+                        <DragAndDrop
+                          name="degreeImage"
+                          setFieldValue={setFieldValue}
+                          maxFiles={1}
+                        />
+                      </Grid>
+                    </>
+                  ) : null}
+
+                  {/* ========= YEARBOOK FORM ========= */}
                   {yearBook ? (
                     <>
                       <Grid
@@ -634,6 +515,7 @@ const Forms = ({ handleNext }) => {
                               label="Graduation year"
                               setFieldValue={setFieldValue}
                               setValues={setValues}
+                              endDate={dateNow}
                             />
                           </Grid>
                         </Grid>
@@ -692,7 +574,7 @@ const Forms = ({ handleNext }) => {
                       </Grid>
                     </>
                   ) : null}
-                  {/* refrence */}
+                  {/* Heala refrence */}
                   {reference ? (
                     <>
                       <Grid
@@ -705,9 +587,7 @@ const Forms = ({ handleNext }) => {
                         gap={3}
                         marginBottom={4}
                       >
-                        <Typography variant="h2">
-                          Reference From Doctor on Heala
-                        </Typography>
+                        <Typography variant="h2">Heala Reference</Typography>
                         <Grid
                           item
                           container
@@ -789,15 +669,27 @@ const Forms = ({ handleNext }) => {
                       </Grid>
                     </>
                   ) : null}
-                  {alert && Object.keys(alert).length > 0 && (
-                    <Alert
-                      variant="filled"
-                      sx={{ textAlign: "center" }}
-                      severity={alert.type}
-                    >
-                      {alert.message}
-                    </Alert>
-                  )}
+
+                  <Grid sx={{ marginBottom: "2rem", display: "flex" }}>
+                    <Checkbox
+                      checked={checked}
+                      onChange={() => setChecked(!checked)}
+                      color="success"
+                      size="large"
+                      sx={{ marginRight: "0.5rem" }}
+                    />
+                    <Typography>
+                      By clicking the "Save Record" button, you state that you
+                      have read, understood and agree to our{" "}
+                      <a
+                        href="https://heala.ng/terms/#imp"
+                        rel="no-referrer"
+                        target="_blank"
+                      >
+                        Terms and Conditions
+                      </a>
+                    </Typography>
+                  </Grid>
 
                   <Grid item md={12} container sm={10}>
                     <CustomButton
@@ -806,7 +698,7 @@ const Forms = ({ handleNext }) => {
                       type={greenButton}
                       className={classes.btn}
                       isSubmitting={isSubmitting}
-                      disabled={!(dirty || isValid)}
+                      disabled={!dirty || !isValid}
                     />
                   </Grid>
                 </Form>

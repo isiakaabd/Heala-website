@@ -1,31 +1,24 @@
 import React from "react";
 import PropTypes from "prop-types";
-import IconButton from "@mui/material/IconButton";
 import { makeStyles } from "@mui/styles";
 import { useTheme } from "@mui/material/styles";
-import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { Grid, Typography } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
 const useStyles = makeStyles((theme) => ({
-  container: {
-    "&.MuiGrid-root": {
-      padding: "3rem 0 0 0",
-      position: "relative",
-      zIndex: 50,
-    },
-  },
+  container: {},
   icon: {
     "&.MuiSvgIcon-root": {
       fontSize: "2.5rem",
+      color: theme.palette.common.white,
     },
   },
   break: {
-    [theme.breakpoints.up("md")]: {
-      marginLeft: "-150%",
-    },
     margin: 0,
   },
 }));
+
 const PreviousButton = ({ handlePrevious }) => {
   const classes = useStyles();
   const theme = useTheme();
@@ -34,10 +27,7 @@ const PreviousButton = ({ handlePrevious }) => {
     <Grid className={classes.container} onClick={handlePrevious}>
       <Grid container alignItems="center" className={classes.break}>
         <IconButton>
-          <KeyboardBackspaceIcon
-            color={theme.palette.common.black}
-            className={classes.icon}
-          />
+          <KeyboardBackspaceIcon className={classes.icon} />
         </IconButton>
         <Typography
           style={{ fontSize: "2rem", color: "white", cursor: "pointer" }}

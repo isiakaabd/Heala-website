@@ -11,7 +11,9 @@ import {
   Button,
   Typography,
 } from "@mui/material";
+
 import { Loader } from "components/Utilities";
+import { RequiredIcon } from "components/Typography";
 import { compressAndUploadImage, uploadImage } from "../../helpers/helperFuncs";
 
 const useStyles = makeStyles((theme) => ({
@@ -49,7 +51,6 @@ export const Formiks = ({ name, setFieldValue, onBlur }) => {
 
   const onChange = async (e) => {
     const file = e.target.files[0];
-    console.log("fired!!!");
     compressAndUploadImage(
       file,
       uploadImage,
@@ -64,7 +65,7 @@ export const Formiks = ({ name, setFieldValue, onBlur }) => {
   const fileRef = useRef(null);
   return (
     <Grid container spacing={2} alignItems="center">
-      {progress < 100 || isCompressing ? (
+      {progress < 100 && isCompressing ? (
         <Grid
           container
           item
@@ -106,7 +107,9 @@ export const Formiks = ({ name, setFieldValue, onBlur }) => {
             {progress < 100 ? (
               <Loader progres={progress} />
             ) : (
-              preview && <Avatar src={preview} />
+              preview && (
+                <Avatar sx={{ backgroundColor: "#eaeaea" }} src={preview} />
+              )
             )}
           </Grid>
         </>
@@ -126,11 +129,13 @@ Formiks.propTypes = {
 };
 
 const Files = (props) => {
-  const { name, label, ...rest } = props;
+  const { name, label, isRequired, ...rest } = props;
   const classes = useStyles();
   return (
     <Grid container direction="column" gap={1}>
-      <FormLabel className={classes.FormLabel}>{label}</FormLabel>
+      <FormLabel className={classes.FormLabel}>
+        {label} {isRequired && <RequiredIcon />}
+      </FormLabel>
       <Field name={name} as={Formiks} label={label} {...rest} />
       <ErrorMessage name={name} component={TextError} />
     </Grid>
@@ -142,6 +147,7 @@ Files.propTypes = {
   name: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
   placeholder: PropTypes.string,
+  isRequired: PropTypes.bool,
 };
 
 export default Files;

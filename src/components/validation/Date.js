@@ -1,14 +1,16 @@
 import React from "react";
-import { Field, ErrorMessage } from "formik";
-import { TextError } from "components/Utilities/TextError";
-import TextField from "@mui/material/TextField";
-import FormLabel from "@mui/material/FormLabel";
 import PropTypes from "prop-types";
 import { Grid } from "@mui/material";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { makeStyles } from "@mui/styles";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import { Field, ErrorMessage } from "formik";
+import TextField from "@mui/material/TextField";
+import FormLabel from "@mui/material/FormLabel";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+
+import { TextError } from "components/Utilities/TextError";
+import { RequiredIcon } from "components/Typography";
 
 const useStyles = makeStyles((theme) => ({
   FormLabel: {
@@ -17,13 +19,13 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   btn: {
-    "&.MuiButtonBase-root": {
+    "&.MuiIconButton-root": {
       color: "#40424b !important",
     },
   },
 }));
 
-const Dates = ({ name, value, setFieldValue, onBlur }) => {
+const Dates = ({ name, value, setFieldValue, onBlur, startDate, endDate }) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DesktopDatePicker
@@ -31,6 +33,9 @@ const Dates = ({ name, value, setFieldValue, onBlur }) => {
         onChange={(value) => setFieldValue(name, value)}
         value={value}
         onBlur={onBlur}
+        minDate={startDate}
+        maxDate={endDate}
+        style={{ color: "#40424b !important" }}
         renderInput={(params) => (
           <TextField {...params} sx={{ padding: "-12px" }} />
         )}
@@ -50,11 +55,14 @@ Dates.propTypes = {
 };
 
 const DateComponent = (props) => {
-  const { name, label, ...rest } = props;
+  const { name, label, isRequired, ...rest } = props;
   const classes = useStyles();
   return (
     <Grid container direction="column" gap={1}>
-      <FormLabel className={classes.FormLabel}>{label}</FormLabel>
+      <FormLabel className={classes.FormLabel}>
+        {label}
+        {isRequired && <RequiredIcon />}
+      </FormLabel>
       <Field name={name} as={Dates} label={label} {...rest} />
       <ErrorMessage name={name} component={TextError} />
     </Grid>

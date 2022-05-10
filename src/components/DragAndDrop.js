@@ -1,9 +1,13 @@
 import React from "react";
+import { ErrorMessage } from "formik";
 import { useDropzone } from "react-dropzone";
+import { useTheme } from "@mui/material/styles";
 import { Grid, Typography } from "@mui/material";
 
 import { Loader } from "./Utilities";
 import styled from "styled-components";
+import { TextError } from "./Utilities/TextError";
+import { CustomButton } from "../components/Utilities";
 import { compressAndUploadImage, uploadImage } from "helpers/helperFuncs";
 
 const getColor = (props) => {
@@ -29,7 +33,7 @@ const Container = styled.div`
   padding: 20px;
   border-width: 2px;
   border-radius: 2px;
-  border-color: #777171;
+  border-color: ${(props) => getColor(props)};
   border-style: dashed;
   background-color: #fafafa;
   color: #777171;
@@ -37,16 +41,10 @@ const Container = styled.div`
   transition: border 0.24s ease-in-out;
 `;
 
-const thumbsContainer = {
-  display: "flex",
-  flexDirection: "row",
-  flexWrap: "wrap",
-  marginTop: 16,
-};
-
 const thumb = {
   display: "inline-flex",
   borderRadius: 2,
+  backgroundColor: "#eaeaea",
   border: "1px solid #eaeaea",
   marginBottom: 8,
   marginRight: 8,
@@ -68,26 +66,44 @@ const img = {
   height: "100%",
 };
 
+const errorContainer = {
+  margin: "1rem 0rem",
+};
+
 const DragAndDrop = ({ name, setFieldValue, maxFiles }) => {
+  const theme = useTheme();
+  const greenButton = {
+    background: theme.palette.success.main,
+    hover: theme.palette.success.light,
+    active: theme.palette.primary.dark,
+  };
+
   const [preview, setPreview] = React.useState("");
   const [isCompressing, setIsCompressing] = React.useState(false);
   const [progress, setProgress] = React.useState();
-  const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } =
-    useDropzone({
-      accept: "image/*",
-      maxFiles: maxFiles,
-      onDrop: (acceptedFiles) => {
-        compressAndUploadImage(
-          acceptedFiles[0],
-          uploadImage,
-          setPreview,
-          name,
-          setFieldValue,
-          setProgress,
-          setIsCompressing
-        );
-      },
-    });
+  const {
+    getRootProps,
+    getInputProps,
+    isFocused,
+    isDragAccept,
+    isDragReject,
+    open,
+  } = useDropzone({
+    accept: "image/*",
+    maxFiles: maxFiles,
+    autoFocus: true,
+    onDrop: (acceptedFiles) => {
+      compressAndUploadImage(
+        acceptedFiles[0],
+        uploadImage,
+        setPreview,
+        name,
+        setFieldValue,
+        setProgress,
+        setIsCompressing
+      );
+    },
+  });
 
   return (
     <div>
@@ -95,13 +111,33 @@ const DragAndDrop = ({ name, setFieldValue, maxFiles }) => {
         <Container {...getRootProps({ isFocused, isDragAccept, isDragReject })}>
           <input {...getInputProps()} />
           <Typography>
-            Drag and drop your file(s), or click to select files
+            Drag and drop your file(s), or click to select files or Click on the
+            button below
           </Typography>
+          <Grid
+            item
+            container
+            justifyContent="center"
+            style={{ marginTop: "15px" }}
+          >
+            <CustomButton
+              variant="contained"
+              title=" Select file(s)"
+              type={greenButton}
+              onClick={(e) => {
+                e.preventDefault();
+                open();
+              }}
+            />
+          </Grid>
         </Container>
+      </div>
+      <div style={errorContainer}>
+        <ErrorMessage name={name} component={TextError} />
       </div>
       <aside style={{ marginTop: "1.5rem" }}>
         <Grid item>
-          {progress < 100 || isCompressing ? (
+          {progress < 100 && isCompressing ? (
             <Grid
               container
               item
