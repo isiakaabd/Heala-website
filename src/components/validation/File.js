@@ -65,7 +65,7 @@ export const Formiks = ({ name, setFieldValue, onBlur }) => {
   const fileRef = useRef(null);
   return (
     <Grid container spacing={2} alignItems="center">
-      {progress < 100 && isCompressing ? (
+      {progress < 100 || isCompressing ? (
         <Grid
           container
           item

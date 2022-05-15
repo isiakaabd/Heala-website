@@ -11,7 +11,6 @@ import { Grid, FormLabel, Typography } from "@mui/material";
 import { useStyles } from "styles/formStyles";
 import DragAndDrop from "components/DragAndDrop";
 import { Card, CustomButton } from "components/Utilities";
-import { TextError } from "components/Utilities/TextError";
 import { getUsertypess } from "components/graphQL/UseQuery";
 import { FormValidationSchema } from "helpers/formValidation";
 import ErrorRoundedIcon from "@mui/icons-material/ErrorRounded";
@@ -23,12 +22,12 @@ import { ReactComponent as ReferenceIcon } from "assets/images/reference.svg";
 import {
   getSelectedCertification,
   onPageThreeSubmit,
-  showErrorMsg,
 } from "helpers/helperFuncs";
 import {
   requirementValues,
   step3FromInitialValues,
 } from "../../helpers/mockData";
+import VerificationCard from "components/cards/VerificationCard";
 
 const Forms = ({ handleNext }) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -51,7 +50,7 @@ const Forms = ({ handleNext }) => {
   const options = [{ key: "MDCN", value: "MDCN" }];
 
   const [qualification, setQualification] = useState(false);
-  const [license] = useState(true);
+  const [license, setLicense] = useState(true);
   const [yearBook, setYearBook] = useState(false);
   const [alumni, setAlumni] = useState(false);
   const [reference, setReference] = useState(false);
@@ -130,200 +129,82 @@ const Forms = ({ handleNext }) => {
           sx={{ width: "100%", margin: "auto" }}
         >
           {/* ========= LICENSE QUALIFICATION CARD ========= */}
-          <Grid
-            item
-            md={3.5}
-            xs={5.5}
-            className={
-              license
-                ? `${classes.parentGrid} ${classes.active}`
-                : classes.parentGrid
-            }
-          >
-            {license && (
-              <Checkbox
-                defaultChecked
-                color="success"
-                size="large"
-                sx={{ position: "absolute", top: "0" }}
-              />
-            )}
-            <Card
-              title="Medical License"
-              background={theme.palette.common.lightRed}
-            >
-              <LicenseIcon
-                // color="error"
+          <VerificationCard
+            name={license}
+            /* setName={setLicense} */
+            title="Medical License"
+            icon={
+              <CalendarIcon
+                color="error"
                 fill={theme.palette.common.red}
+                className={classes.cardIcon}
               />
-            </Card>
-          </Grid>
+            }
+          />
 
           {/* ========= MBBS QUALIFICATION CARD ========= */}
-          <Grid
-            item
-            container
-            md={3.5}
-            xs={5.5}
-            className={
-              qualification
-                ? `${classes.parentGrid} ${classes.active}`
-                : classes.parentGrid
-            }
-            onClick={() => {
-              setQualification(!qualification);
-            }}
-          >
-            {qualification && (
-              <Checkbox
-                defaultChecked
-                color="success"
-                size="large"
-                sx={{ position: "absolute", top: "0" }}
+          <VerificationCard
+            name={qualification}
+            setName={setQualification}
+            title="MBBS Qualification"
+            icon={
+              <CalendarIcon
+                color="error"
+                fill={theme.palette.common.red}
+                className={classes.cardIcon}
               />
-            )}
-            <Card
-              title="MBBS Qualification"
-              background={theme.palette.common.lightRed}
-            >
-              <Grid className={classes.iconWrapper}>
-                <CalendarIcon
-                  color="error"
-                  fill={theme.palette.common.red}
-                  className={classes.cardIcon}
-                />
-              </Grid>
-            </Card>
-          </Grid>
+            }
+          />
 
           {/* ========= YEAR BOOK CARD ========= */}
-          <Grid
-            item
-            md={3.5}
-            xs={5.5}
-            className={
-              yearBook
-                ? `${classes.parentGrid} ${classes.active}`
-                : classes.parentGrid
-            }
-            onClick={() => {
-              setYearBook(!yearBook);
-            }}
-          >
-            {yearBook && (
-              <Checkbox
-                defaultChecked
-                color="success"
-                size="large"
-                sx={{ position: "absolute", top: "0" }}
-              />
-            )}
-            <Card title="Year Book" background={theme.palette.common.lightRed}>
+          <VerificationCard
+            name={yearBook}
+            setName={setYearBook}
+            title="Year Book"
+            icon={
               <CalendarIcon
                 color="error"
                 fill={theme.palette.common.red}
                 className={classes.cardIcon}
               />
-            </Card>
-          </Grid>
+            }
+          />
+
           {/* ========= ALUMNI ASSOCIATION CARD ========= */}
-          <Grid
-            md={3.5}
-            xs={5.5}
-            item
-            className={
-              alumni
-                ? `${classes.parentGrid} ${classes.active}`
-                : classes.parentGrid
-            }
-            onClick={() => {
-              setAlumni(!alumni);
-            }}
-          >
-            {alumni && (
-              <Checkbox
-                defaultChecked
-                color="success"
-                size="large"
-                sx={{ position: "absolute", top: "0" }}
-              />
-            )}
-            <Card
-              title="Alumni Association"
-              background={theme.palette.common.lightRed}
-            >
-              {/* <Grid item className={classes.iconWrapper}> */}
+          <VerificationCard
+            name={alumni}
+            setName={setAlumni}
+            title="Alumni Association"
+            icon={
               <CalendarIcon
                 color="error"
                 fill={theme.palette.common.red}
                 className={classes.cardIcon}
               />
-              {/* </Grid> */}
-            </Card>
-          </Grid>
-          {/* 2b */}
+            }
+          />
+
           {/* ========= HEALA REFERENCE CARD ========= */}
-          <Grid
-            item
-            md={3.5}
-            xs={5.5}
-            className={
-              reference
-                ? `${classes.parentGrid} ${classes.active}`
-                : classes.parentGrid
-            }
-            onClick={() => {
-              setReference(!reference);
-            }}
-          >
-            {reference && (
-              <Checkbox
-                defaultChecked
-                color="success"
-                size="large"
-                sx={{ position: "absolute", top: "0" }}
-              />
-            )}
-            <Card
-              title="Heala Reference"
-              background={theme.palette.common.lightRed}
-            >
+          <VerificationCard
+            name={reference}
+            setName={setReference}
+            title="Heala Partner"
+            icon={
               <CalendarIcon
                 color="error"
                 fill={theme.palette.common.red}
                 className={classes.cardIcon}
               />
-            </Card>
-          </Grid>
-          {/* ========= EXTERNAL REFERENCE CARD ========= */}
-          <Grid
-            item
-            md={3.5}
-            xs={5.5}
-            className={
-              externalReference
-                ? `${classes.parentGrid} ${classes.active}`
-                : classes.parentGrid
             }
-            onClick={() => {
-              setExternalReference(!externalReference);
-            }}
-          >
-            {externalReference && (
-              <Checkbox
-                defaultChecked
-                color="success"
-                size="large"
-                sx={{ position: "absolute", top: "0" }}
-              />
-            )}
-            <Card
-              title="External Reference"
-              background={theme.palette.common.lightRed}
-            >
-              <ReferenceIcon color="error" className={classes.cardIcon} />
-            </Card>
-          </Grid>
+          />
+
+          {/* ========= EXTERNAL REFERENCE CARD ========= */}
+          <VerificationCard
+            name={externalReference}
+            setName={setExternalReference}
+            title="External Reference"
+            icon={<ReferenceIcon color="error" className={classes.cardIcon} />}
+          />
         </Grid>
 
         <Grid item className={classes.infoBadge} gap={2}>
@@ -587,7 +468,7 @@ const Forms = ({ handleNext }) => {
                         gap={3}
                         marginBottom={4}
                       >
-                        <Typography variant="h2">Heala Reference</Typography>
+                        <Typography variant="h2">Heala partner</Typography>
                         <Grid
                           item
                           container
@@ -599,7 +480,7 @@ const Forms = ({ handleNext }) => {
                               control="select"
                               name="referenceCode"
                               placeholder="Select reference "
-                              label="Reference"
+                              label="Partner hospital"
                               options={dropDown}
                             />
                           </Grid>
@@ -670,7 +551,13 @@ const Forms = ({ handleNext }) => {
                     </>
                   ) : null}
 
-                  <Grid sx={{ marginBottom: "2rem", display: "flex" }}>
+                  <Grid
+                    sx={{
+                      marginBottom: "2rem",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
                     <Checkbox
                       checked={checked}
                       onChange={() => setChecked(!checked)}

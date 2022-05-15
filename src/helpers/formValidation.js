@@ -48,9 +48,12 @@ export const pageTwoValidationSchema = Yup.object({
     .required("Image is required")
     .typeError("Image is required"),
   dob: Yup.date("Enter your DOB").required("DOB is Required"),
-  phoneNumber: Yup.number("Enter your Phone Number").required(
-    "Phone Number is Required"
-  ),
+  phoneNumber: Yup.string("Enter your Phone Number")
+    .matches(
+      /(^[0]\d{10}$)|(^[\+]?[234]\d{12}$)/gm,
+      "please enter a valid phone number"
+    )
+    .required("Phone Number is Required"),
   level: Yup.string("Enter your Level").trim().required("Level is Required"),
 });
 

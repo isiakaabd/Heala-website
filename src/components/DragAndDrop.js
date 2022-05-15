@@ -56,12 +56,14 @@ const thumb = {
 
 const thumbInner = {
   display: "flex",
+  backgroundColor: "#eaeaea",
   minWidth: 0,
   overflow: "hidden",
 };
 
 const img = {
   display: "block",
+  backgroundColor: "#eaeaea",
   width: "auto",
   height: "100%",
 };
@@ -137,7 +139,7 @@ const DragAndDrop = ({ name, setFieldValue, maxFiles }) => {
       </div>
       <aside style={{ marginTop: "1.5rem" }}>
         <Grid item>
-          {progress < 100 && isCompressing ? (
+          {progress < 100 || isCompressing ? (
             <Grid
               container
               item

@@ -26,11 +26,10 @@ export const pageTwoUseStyles = makeStyles((theme) => ({
       ...theme.typography.btn,
       width: "100%",
       fontSize: "1.5rem",
-      color: "#ffffff",
     },
-    "&.MuiButtonBase-root": {
+    /* "&.MuiButtonBase-root": {
       color: "#40424b !important",
-    },
+    }, */
   },
 }));
 
@@ -119,6 +118,7 @@ export const useStyles = makeStyles((theme) => ({
       ...theme.typography.btn,
       width: "100%",
       fontSize: "1.5rem",
+      color: "#ffffff !important",
     },
   },
   parentGrid: {

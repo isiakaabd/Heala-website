@@ -1,5 +1,4 @@
 import axios from "axios";
-import Compressor from "compressorjs";
 import Slide from "@material-ui/core/Slide";
 import { setAccessToken } from "accessToken";
 import { dateMoment } from "components/Utilities/Time";
@@ -83,17 +82,11 @@ export const compressAndUploadImage = (
   };
 
   try {
-    isCompressing(true);
-    new Compressor(img, {
-      quality: 0.8,
-      success: (result) => {
-        isCompressing(false);
-        uploadFile(result);
-      },
-    });
+    // isCompressing(true);
+    uploadFile(img);
   } catch (error) {
     console.log("Error while trying to compress image", error);
-    isCompressing(false);
+    // isCompressing(false);
     uploadFile(img);
   }
 };
@@ -358,7 +351,6 @@ export const onPageTwoFormSubmit = async (
   Typography,
   handleNext
 ) => {
-  console.log("values", values);
   const {
     dob,
     firstName,
