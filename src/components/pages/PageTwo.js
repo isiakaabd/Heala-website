@@ -23,6 +23,7 @@ const PageTwo = ({ handleNext }) => {
   const classes = pageTwoUseStyles();
   const theme = useTheme();
   const { enqueueSnackbar } = useSnackbar();
+  const id = localStorage.getItem("heala_id");
   const [endDateLimit, setEndDataLimit] = React.useState("");
 
   React.useEffect(() => {
@@ -60,12 +61,12 @@ const PageTwo = ({ handleNext }) => {
             <Formik
               initialValues={pageTwoIntialValues}
               validationSchema={pageTwoValidationSchema}
-              validateOnChange={false}
-              validateOnBlur={false}
+              validateOnChange={true}
+              validateOnBlur={true}
               validateOnMount={false}
               onSubmit={(values) =>
                 onPageTwoFormSubmit(
-                  values,
+                  { healaId: id, ...values },
                   createDoctor,
                   enqueueSnackbar,
                   Typography,

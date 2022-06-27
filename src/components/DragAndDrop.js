@@ -1,14 +1,21 @@
 import React from "react";
 import { ErrorMessage } from "formik";
+import { useSnackbar } from "notistack";
 import { useDropzone } from "react-dropzone";
 import { useTheme } from "@mui/material/styles";
 import { Grid, Typography } from "@mui/material";
 
 import { Loader } from "./Utilities";
 import styled from "styled-components";
+import { CloseBtn } from "./Utilities/Button";
 import { TextError } from "./Utilities/TextError";
 import { CustomButton } from "../components/Utilities";
-import { compressAndUploadImage, uploadImage } from "helpers/helperFuncs";
+import {
+  compressAndUploadImage,
+  showErrorMsg,
+  showSuccessMsg,
+  uploadImage,
+} from "helpers/helperFuncs";
 
 const getColor = (props) => {
   if (props.isDragAccept) {
@@ -52,6 +59,7 @@ const thumb = {
   height: 100,
   padding: 4,
   boxSizing: "border-box",
+  position: "relative",
 };
 
 const thumbInner = {
@@ -59,6 +67,7 @@ const thumbInner = {
   backgroundColor: "#eaeaea",
   minWidth: 0,
   overflow: "hidden",
+  position: "relative",
 };
 
 const img = {
@@ -74,15 +83,11 @@ const errorContainer = {
 
 const DragAndDrop = ({ name, setFieldValue, maxFiles }) => {
   const theme = useTheme();
-  const greenButton = {
-    background: theme.palette.success.main,
-    hover: theme.palette.success.light,
-    active: theme.palette.primary.dark,
-  };
-
+  const { enqueueSnackbar } = useSnackbar();
   const [preview, setPreview] = React.useState("");
-  const [isCompressing, setIsCompressing] = React.useState(false);
   const [progress, setProgress] = React.useState();
+  const [isCompleted, setIsCompleted] = React.useState(null);
+  const [isCompressing, setIsCompressing] = React.useState(false);
   const {
     getRootProps,
     getInputProps,
@@ -95,6 +100,8 @@ const DragAndDrop = ({ name, setFieldValue, maxFiles }) => {
     maxFiles: maxFiles,
     autoFocus: true,
     onDrop: (acceptedFiles) => {
+      setProgress(1);
+
       compressAndUploadImage(
         acceptedFiles[0],
         uploadImage,
@@ -102,10 +109,33 @@ const DragAndDrop = ({ name, setFieldValue, maxFiles }) => {
         name,
         setFieldValue,
         setProgress,
-        setIsCompressing
+        setIsCompressing,
+        setIsCompleted
       );
+
+      const reader = new FileReader();
+      reader.readAsDataURL(acceptedFiles[0]);
+      reader.onloadend = (e) => setPreview(reader.result);
     },
   });
+
+  const greenButton = {
+    background: theme.palette.success.main,
+    hover: theme.palette.success.light,
+    active: theme.palette.primary.dark,
+  };
+
+  React.useEffect(() => {
+    isCompleted === "passed" &&
+      showSuccessMsg(enqueueSnackbar, Typography, "Image upload complete.");
+    if (isCompleted === "failed") {
+      showErrorMsg(
+        enqueueSnackbar,
+        Typography,
+        "Image upload failed, Try again."
+      );
+    }
+  }, [isCompleted]);
 
   return (
     <div>
@@ -152,14 +182,29 @@ const DragAndDrop = ({ name, setFieldValue, maxFiles }) => {
               </Typography>
               <Loader />
             </Grid>
-          ) : (
-            preview && (
-              <div style={thumb}>
-                <div style={thumbInner}>
-                  <img src={preview} style={img} />
-                </div>
+          ) : preview && isCompleted !== "failed" ? (
+            <div style={thumb}>
+              <Grid
+                sx={{
+                  position: "absolute",
+                  top: "-10px",
+                  right: "-10px",
+                  zIndex: "5",
+                }}
+              >
+                <CloseBtn
+                  handleClick={() => {
+                    setFieldValue(name, null);
+                    setPreview("");
+                  }}
+                />
+              </Grid>
+              <div style={thumbInner}>
+                <img src={preview} style={img} />
               </div>
-            )
+            </div>
+          ) : (
+            ""
           )}
         </Grid>
       </aside>

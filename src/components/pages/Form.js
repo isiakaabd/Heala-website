@@ -50,7 +50,7 @@ const Forms = ({ handleNext }) => {
   const options = [{ key: "MDCN", value: "MDCN" }];
 
   const [qualification, setQualification] = useState(false);
-  const [license, setLicense] = useState(true);
+  const [license] = useState(true);
   const [yearBook, setYearBook] = useState(false);
   const [alumni, setAlumni] = useState(false);
   const [reference, setReference] = useState(false);
@@ -117,7 +117,7 @@ const Forms = ({ handleNext }) => {
             Select at least 2 verification method
           </Typography>
           <Typography variant="h6" textAlign="center" color="green">
-            (Qualification and any other)
+            (Medical licence and any other)
           </Typography>
         </Grid>
         <Grid
@@ -128,92 +128,105 @@ const Forms = ({ handleNext }) => {
           spacing={3}
           sx={{ width: "100%", margin: "auto" }}
         >
-          {/* ========= LICENSE QUALIFICATION CARD ========= */}
-          <VerificationCard
-            name={license}
-            /* setName={setLicense} */
-            title="Medical License"
-            icon={
-              <CalendarIcon
-                color="error"
-                fill={theme.palette.common.red}
-                className={classes.cardIcon}
+          {[
+            {
+              id: 1,
+              name: license,
+              setName: () => null,
+              title: "Medical License",
+              icon: (
+                <CalendarIcon
+                  color="error"
+                  fill={theme.palette.common.red}
+                  className={classes.cardIcon}
+                />
+              ),
+            },
+            {
+              id: 2,
+              name: qualification,
+              setName: setQualification,
+              title: "MBBS Qualification",
+              icon: (
+                <CalendarIcon
+                  color="error"
+                  fill={theme.palette.common.red}
+                  className={classes.cardIcon}
+                />
+              ),
+            },
+            {
+              id: 3,
+              name: yearBook,
+              setName: setYearBook,
+              title: "Year Book",
+              icon: (
+                <CalendarIcon
+                  color="error"
+                  fill={theme.palette.common.red}
+                  className={classes.cardIcon}
+                />
+              ),
+            },
+            {
+              id: 4,
+              name: alumni,
+              setName: setAlumni,
+              title: "Alumni Association",
+              icon: (
+                <CalendarIcon
+                  color="error"
+                  fill={theme.palette.common.red}
+                  className={classes.cardIcon}
+                />
+              ),
+            },
+            {
+              id: 5,
+              name: reference,
+              setName: setReference,
+              title: "Heala Partner",
+              icon: (
+                <CalendarIcon
+                  color="error"
+                  fill={theme.palette.common.red}
+                  className={classes.cardIcon}
+                />
+              ),
+            },
+            {
+              id: 6,
+              name: externalReference,
+              setName: setExternalReference,
+              title: "External Reference",
+              icon: (
+                <ReferenceIcon color="error" className={classes.cardIcon} />
+              ),
+            },
+          ].map((card, idx) => {
+            return (
+              <VerificationCard
+                key={idx}
+                name={card.name}
+                setName={card.setName}
+                title={card.title}
+                icon={card.icon}
               />
-            }
-          />
-
-          {/* ========= MBBS QUALIFICATION CARD ========= */}
-          <VerificationCard
-            name={qualification}
-            setName={setQualification}
-            title="MBBS Qualification"
-            icon={
-              <CalendarIcon
-                color="error"
-                fill={theme.palette.common.red}
-                className={classes.cardIcon}
-              />
-            }
-          />
-
-          {/* ========= YEAR BOOK CARD ========= */}
-          <VerificationCard
-            name={yearBook}
-            setName={setYearBook}
-            title="Year Book"
-            icon={
-              <CalendarIcon
-                color="error"
-                fill={theme.palette.common.red}
-                className={classes.cardIcon}
-              />
-            }
-          />
-
-          {/* ========= ALUMNI ASSOCIATION CARD ========= */}
-          <VerificationCard
-            name={alumni}
-            setName={setAlumni}
-            title="Alumni Association"
-            icon={
-              <CalendarIcon
-                color="error"
-                fill={theme.palette.common.red}
-                className={classes.cardIcon}
-              />
-            }
-          />
-
-          {/* ========= HEALA REFERENCE CARD ========= */}
-          <VerificationCard
-            name={reference}
-            setName={setReference}
-            title="Heala Partner"
-            icon={
-              <CalendarIcon
-                color="error"
-                fill={theme.palette.common.red}
-                className={classes.cardIcon}
-              />
-            }
-          />
-
-          {/* ========= EXTERNAL REFERENCE CARD ========= */}
-          <VerificationCard
-            name={externalReference}
-            setName={setExternalReference}
-            title="External Reference"
-            icon={<ReferenceIcon color="error" className={classes.cardIcon} />}
-          />
+            );
+          })}
         </Grid>
 
-        <Grid item className={classes.infoBadge} gap={2}>
-          <ErrorRoundedIcon />
-          <Typography variant="h6">
-            This will contain the status message regarding the verification
-            process of the HCP
-          </Typography>
-        </Grid>
+        {selectedCert.length > 0 ? (
+          ""
+        ) : (
+          <Grid item className={classes.infoBadge} gap={2}>
+            <ErrorRoundedIcon />
+            <Typography variant="h6">
+              Please select at least two verification methods (Medical licence
+              and any other verification method).
+            </Typography>
+          </Grid>
+        )}
 
         {/* ========= FORM SECTION ========= */}
         <Grid item>

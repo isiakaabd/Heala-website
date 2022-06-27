@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
+import { useSnackbar } from "notistack";
 import { makeStyles } from "@mui/styles";
 import { Field, ErrorMessage } from "formik";
 import { TextError } from "components/Utilities/TextError";
@@ -14,7 +15,13 @@ import {
 
 import { Loader } from "components/Utilities";
 import { RequiredIcon } from "components/Typography";
-import { compressAndUploadImage, uploadImage } from "../../helpers/helperFuncs";
+import { CloseBtn } from "components/Utilities/Button";
+import {
+  compressAndUploadImage,
+  showErrorMsg,
+  showSuccessMsg,
+  uploadImage,
+} from "../../helpers/helperFuncs";
 
 const useStyles = makeStyles((theme) => ({
   FormLabel: {
@@ -22,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
       ...theme.typography.FormLabel,
     },
   },
+
   uploadBtn: {
     "&.MuiButton-root": {
       ...theme.typography.btn,
@@ -44,13 +52,29 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const Formiks = ({ name, setFieldValue, onBlur }) => {
+  const fileRef = useRef(null);
+  const classes = useStyles();
+  const { enqueueSnackbar } = useSnackbar();
   const [preview, setPreview] = useState("");
+  const [isCompleted, setIsCompleted] = React.useState(null);
   const [progress, setProgress] = useState();
   const [isCompressing, setIsCompressing] = React.useState(false);
-  const classes = useStyles();
+
+  React.useEffect(() => {
+    isCompleted === "passed" &&
+      showSuccessMsg(enqueueSnackbar, Typography, "Image upload complete.");
+    if (isCompleted === "failed") {
+      showErrorMsg(
+        enqueueSnackbar,
+        Typography,
+        "Image upload failed, Try again."
+      );
+    }
+  }, [isCompleted]);
 
   const onChange = async (e) => {
     const file = e.target.files[0];
+    setProgress(1);
     compressAndUploadImage(
       file,
       uploadImage,
@@ -58,13 +82,17 @@ export const Formiks = ({ name, setFieldValue, onBlur }) => {
       name,
       setFieldValue,
       setProgress,
-      setIsCompressing
+      setIsCompressing,
+      setIsCompleted
     );
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = (e) => setPreview(reader.result);
   };
 
-  const fileRef = useRef(null);
   return (
-    <Grid container spacing={2} alignItems="center">
+    <Grid container alignItems="center">
       {progress < 100 || isCompressing ? (
         <Grid
           container
@@ -103,14 +131,38 @@ export const Formiks = ({ name, setFieldValue, onBlur }) => {
               </Grid>
             </FormControl>
           </Grid>
-          <Grid item>
-            {progress < 100 ? (
-              <Loader progres={progress} />
-            ) : (
-              preview && (
-                <Avatar sx={{ backgroundColor: "#eaeaea" }} src={preview} />
-              )
-            )}
+          <Grid
+            sx={{
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+              marginLeft: "10px",
+            }}
+          >
+            <Grid item sx={{ position: "relative" }}>
+              {preview && isCompleted !== "failed" ? (
+                <>
+                  <Grid
+                    sx={{
+                      position: "absolute",
+                      top: "-10px",
+                      right: "-10px",
+                      zIndex: "5",
+                    }}
+                  >
+                    <CloseBtn
+                      handleClick={() => {
+                        setFieldValue(name, null);
+                        setPreview("");
+                      }}
+                    />
+                  </Grid>
+                  <Avatar sx={{ backgroundColor: "#eaeaea" }} src={preview} />
+                </>
+              ) : (
+                ""
+              )}
+            </Grid>
           </Grid>
         </>
       )}

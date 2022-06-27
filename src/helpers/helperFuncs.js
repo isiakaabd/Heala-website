@@ -62,32 +62,37 @@ const handleError = (error, enqueueSnackbar, Typography) => {
   }
 };
 
-export const compressAndUploadImage = (
+export const compressAndUploadImage = async (
   img,
   uploadFunc,
   setPreview,
   name,
   setFieldValue,
   setProgress,
-  isCompressing
+  isCompressing,
+  setIsCompleted
 ) => {
-  const uploadFile = (file) => {
-    if (!file) throw new Error("No file passed to upload function");
-    uploadFunc(file, setProgress)
-      .then((res) => {
-        setPreview(res);
-        setFieldValue(name, res);
-      })
-      .catch((err) => console.log("couldn't upload image", err));
-  };
-
   try {
-    // isCompressing(true);
-    uploadFile(img);
+    if (!img) throw new Error("No file passed to upload function");
+    const uploadRes = await uploadFunc(img, setProgress);
+    if (uploadRes === undefined) {
+      throw new Error("couldn't upload image");
+    }
+    if (uploadRes) {
+      setFieldValue(name, uploadRes);
+      setIsCompleted("passed");
+      setTimeout(() => {
+        setIsCompleted(null);
+      }, 1500);
+    }
   } catch (error) {
-    console.log("Error while trying to compress image", error);
-    // isCompressing(false);
-    uploadFile(img);
+    console.log("Error while trying to upload image", error);
+    setProgress(100);
+    setIsCompleted("failed");
+    setTimeout(() => {
+      setPreview(undefined);
+      setIsCompleted(null);
+    }, 1500);
   }
 };
 
@@ -118,6 +123,7 @@ export const uploadImage = async (file, setProgress) => {
     return data.data.data.mediaUrl; //data.data.mediaUrl
   } catch (error) {
     console.error(error);
+    setProgress(100);
   }
 };
 
@@ -168,7 +174,7 @@ export const signUp = async (
     const { email, password } = signUpData;
     const { data } = await register({
       variables: {
-        email,
+        email: email.toLowerCase(),
         password,
       },
     });
@@ -261,7 +267,7 @@ export const signIn = async (
     const { email, password } = loginData;
     const { data } = await Login({
       variables: {
-        email,
+        email: email.toLowerCase(),
         password,
       },
     });
@@ -358,13 +364,17 @@ export const onPageTwoFormSubmit = async (
     gender,
     specialization,
     image,
+    healaId,
     phoneNumber,
     hospital,
     level,
   } = values;
   const correctDOB = dateMoment(dob);
-  const healaId = localStorage.getItem("heala_id");
   try {
+    if (!healaId) {
+      showErrorMsg(enqueueSnackbar, Typography, "heala ID not found!");
+      return;
+    }
     const { data } = await createDoctor({
       variables: {
         firstName: firstName.trim(),
@@ -471,8 +481,6 @@ export const onPageThreeSubmit = async (
     );
     return;
   }
-
-  console.log("passed all tests...");
 
   try {
     // GET PROFILE_ID

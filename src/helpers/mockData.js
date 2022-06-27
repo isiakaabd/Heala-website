@@ -72,7 +72,6 @@ export const pageTwoIntialValues = {
   lastName: "",
   gender: "",
   specialization: "",
-  dociId: localStorage.getItem("heala_id"),
   dob: null,
   image: null,
   hospital: "",

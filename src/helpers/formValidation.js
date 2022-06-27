@@ -37,9 +37,6 @@ export const pageTwoValidationSchema = Yup.object({
     .trim()
     .required("lastName Name is Required"),
   hospital: Yup.string("Enter your hospital").trim(),
-  dociId: Yup.string("Enter your dociId")
-    .trim()
-    .required("dociId Name is Required"),
   specialization: Yup.string("Select your Specialization")
     .trim()
     .required("Specialization is Required"),
@@ -47,7 +44,9 @@ export const pageTwoValidationSchema = Yup.object({
   image: Yup.string("Upload a single Image")
     .required("Image is required")
     .typeError("Image is required"),
-  dob: Yup.date("Enter your DOB").required("DOB is Required"),
+  dob: Yup.date("Enter your DOB")
+    .typeError("Please select a valid date")
+    .required("DOB is Required"),
   phoneNumber: Yup.string("Enter your Phone Number")
     .matches(
       /(^[0]\d{10}$)|(^[\+]?[234]\d{12}$)/gm,

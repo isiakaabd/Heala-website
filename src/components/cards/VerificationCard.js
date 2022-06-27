@@ -8,7 +8,6 @@ import { useTheme } from "@mui/material/styles";
 import { Card } from "components/Utilities";
 
 const VerificationCard = ({ name, setName, title, icon }) => {
-  const theme = useTheme();
   const classes = useStyles();
   return (
     <Grid
@@ -31,10 +30,7 @@ const VerificationCard = ({ name, setName, title, icon }) => {
           sx={{ position: "absolute", top: "3rem" }}
         />
       )}
-      <Card
-        title={title} // "MBBS Qualification"
-        /* background={theme.palette.common.lightRed} */
-      >
+      <Card title={title}>
         <Grid className={classes.iconWrapper}>{icon}</Grid>
       </Card>
     </Grid>
