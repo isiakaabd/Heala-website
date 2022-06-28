@@ -4,7 +4,6 @@ import App from "./App";
 import { Provider } from "react-redux";
 import { Typography } from "@mui/material";
 import { SnackbarProvider } from "notistack";
-
 import { store } from "store";
 import { getAccessToken } from "./accessToken";
 import {
@@ -74,5 +73,5 @@ ReactDOM.render(
       </ApolloProvider>
     </Provider>
   </SnackbarProvider>,
-  document.getElementById("root")
+  document.getElementById("root"),
 );
