@@ -38,7 +38,6 @@ const SignUpForm = ({ changeStep }) => {
       signUpData,
       setAccessToken,
       enqueueSnackbar,
-      Typography,
       changeStep,
       onsubmitProp
     );

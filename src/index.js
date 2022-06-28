@@ -16,10 +16,11 @@ import {
 } from "@apollo/client";
 
 require("dotenv").config();
+console.log(process);
 const BASE_URL = process.env.REACT_APP_BASE_URL;
-
+console.log(BASE_URL);
 const httpLink = createHttpLink({
-  uri: BASE_URL,
+  uri: "https://api-staging.heala.io",
 });
 
 const authMiddleware = new ApolloLink((operation, forward) => {
@@ -73,5 +74,5 @@ ReactDOM.render(
       </ApolloProvider>
     </Provider>
   </SnackbarProvider>,
-  document.getElementById("root"),
+  document.getElementById("root")
 );

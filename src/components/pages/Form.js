@@ -237,7 +237,6 @@ const Forms = ({ handleNext }) => {
                 values,
                 selectedCert,
                 enqueueSnackbar,
-                Typography,
                 requirementValues,
                 createVerification,
                 handleNext,

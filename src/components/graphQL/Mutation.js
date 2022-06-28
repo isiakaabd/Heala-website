@@ -167,6 +167,51 @@ export const createDoctorVerification = gql`
     }
   }
 `;
+export const resetPassword = gql`
+  mutation resetPassword($email: EmailAddress!) {
+    resetPassword(data: { email: $email }) {
+      account {
+        _id
+        email
+        dociId
+        createdAt
+        updatedAt
+        isEmailVerified
+        isPasswordTemporary
+        otpTokenExpiresAt
+      }
+      errors {
+        field
+        message
+      }
+    }
+  }
+`;
+export const completePasswordReset = gql`
+  mutation completePasswordReset(
+    $email: EmailAddress!
+    $newPassword: String!
+    $otp: Int!
+  ) {
+    completePasswordReset(
+      data: { email: $email, newPassword: $newPassword, token: $otp }
+    ) {
+      account {
+        _id
+        email
+        dociId
+        createdAt
+        updatedAt
+        isEmailVerified
+        isPasswordTemporary
+      }
+      errors {
+        field
+        message
+      }
+    }
+  }
+`;
 
 export const createLogout = gql`
   mutation logout($user: String!) {

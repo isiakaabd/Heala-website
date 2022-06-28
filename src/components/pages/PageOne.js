@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { useTheme } from "@mui/material/styles";
 import SwipeableViews from "react-swipeable-views";
 import { Grid, Typography, Box, Tab, Tabs, AppBar } from "@mui/material";
-
 import SignUpForm from "components/forms/SignUpForm";
 import SignInForm from "components/forms/SignInForm";
 
@@ -29,8 +28,8 @@ function TabPanel(props) {
 
 TabPanel.propTypes = {
   children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
+  index: PropTypes.number,
+  value: PropTypes.number,
 };
 
 function a11yProps(index) {
@@ -42,7 +41,7 @@ function a11yProps(index) {
 
 const PageOne = ({ handleNext }) => {
   const theme = useTheme();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
   React.useEffect(() => {
     ["account_id", "email", "heala_id", "profile_id", "token"].map((text) =>

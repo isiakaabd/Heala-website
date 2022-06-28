@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useSnackbar } from "notistack";
 import { makeStyles } from "@mui/styles";
@@ -56,19 +56,15 @@ export const Formiks = ({ name, setFieldValue, onBlur }) => {
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
   const [preview, setPreview] = useState("");
-  const [isCompleted, setIsCompleted] = React.useState(null);
+  const [isCompleted, setIsCompleted] = useState(null);
   const [progress, setProgress] = useState();
-  const [isCompressing, setIsCompressing] = React.useState(false);
+  const [isCompressing, setIsCompressing] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     isCompleted === "passed" &&
-      showSuccessMsg(enqueueSnackbar, Typography, "Image upload complete.");
+      showSuccessMsg(enqueueSnackbar, "Image upload complete.");
     if (isCompleted === "failed") {
-      showErrorMsg(
-        enqueueSnackbar,
-        Typography,
-        "Image upload failed, Try again."
-      );
+      showErrorMsg(enqueueSnackbar, "Image upload failed, Try again.");
     }
   }, [isCompleted]);
 

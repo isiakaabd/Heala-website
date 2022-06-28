@@ -1,5 +1,5 @@
 import React from "react";
-import { PageOne, PageTwo, Form, PageFour } from "components/pages";
+import { PageOne, PageTwo, Form, OTP, PageFour } from "components/pages";
 import PropTypes from "prop-types";
 import { Grid } from "@mui/material";
 import { withRouter } from "react-router-dom";
@@ -37,6 +37,13 @@ const Create = ({ handleNext, step, ...rest }) => {
       return (
         <Grid item container sx={{ justifyContent: "center", padding: "1rem" }}>
           <VerifyComplete {...rest} />
+          );
+        </Grid>
+      );
+    case 6:
+      return (
+        <Grid item container sx={{ justifyContent: "center", padding: "1rem" }}>
+          <OTP {...rest} />
           );
         </Grid>
       );

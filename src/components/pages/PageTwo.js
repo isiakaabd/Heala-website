@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { useSnackbar } from "notistack";
 import { useMutation } from "@apollo/client";
@@ -24,9 +24,9 @@ const PageTwo = ({ handleNext }) => {
   const theme = useTheme();
   const { enqueueSnackbar } = useSnackbar();
   const id = localStorage.getItem("heala_id");
-  const [endDateLimit, setEndDataLimit] = React.useState("");
+  const [endDateLimit, setEndDataLimit] = useState("");
 
-  React.useEffect(() => {
+  useEffect(() => {
     setEndDataLimit(Date.now());
   }, []);
 
@@ -69,7 +69,6 @@ const PageTwo = ({ handleNext }) => {
                   { healaId: id, ...values },
                   createDoctor,
                   enqueueSnackbar,
-                  Typography,
                   handleNext
                 )
               }

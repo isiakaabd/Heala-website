@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import { muiTheme } from "components/muiTheme";
 import ScrollToView from "components/ScrollToView";
-import BecomePartner from "components/pages/BecomePartner";
+import { BecomePartner, OTP } from "components/pages";
 import { setAccessToken } from "./accessToken";
 
 const sectionStyles = {
@@ -48,6 +48,8 @@ const App = () => {
                     path={["/", "/partners/form"]}
                     component={BecomePartner}
                   />
+
+                  <Route exact path="/otp" component={OTP} />
                 </section>
               )}
             </Switch>

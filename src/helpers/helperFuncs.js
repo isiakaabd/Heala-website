@@ -1,55 +1,55 @@
 import axios from "axios";
-import { Slide } from "@mui/material";
-// import Slide from "@material-ui/core/Slide";
+import { Slide, Typography } from "@mui/material";
+import React from "react";
 import { setAccessToken } from "accessToken";
 import { dateMoment } from "components/Utilities/Time";
 
-/* console.log("graphQL Errors", error.graphQLErrors);
-console.log("client Errors", error.clientErrors);
-console.log(
-  "network Errors",
-  error.networkError?.result.errors.map((err) => err.message)
-);
-console.log("message Errors", error.message);
-console.log("Extra Info", error.extraInfo); */
-
-export const showErrorMsg = (enqueueSnackbar, Typography, errorMsg) => {
-  enqueueSnackbar(<Typography style={{ fontSize: "1.2rem" }}>{errorMsg}</Typography>, {
-    variant: "error",
-    preventDuplicate: true,
-    anchorOrigin: {
-      horizontal: "center",
-      vertical: "top",
-    },
-    autoHideDuration: 10000,
-    TransitionComponent: Slide,
-  });
+export const showErrorMsg = (enqueueSnackbar, errorMsg) => {
+  enqueueSnackbar(
+    <Typography style={{ fontSize: "1.2rem" }}>{errorMsg}</Typography>,
+    {
+      variant: "error",
+      preventDuplicate: true,
+      anchorOrigin: {
+        horizontal: "center",
+        vertical: "top",
+      },
+      autoHideDuration: 10000,
+      TransitionComponent: Slide,
+    }
+  );
 };
 
-export const showSuccessMsg = (enqueueSnackbar, Typography, successMsg) => {
-  enqueueSnackbar(<Typography style={{ fontSize: "1.2rem" }}>{successMsg}</Typography>, {
-    variant: "success",
-    preventDuplicate: true,
-    anchorOrigin: {
-      horizontal: "right",
-      vertical: "top",
-    },
-    autoHideDuration: 5000,
-    TransitionComponent: Slide,
-  });
+export const showSuccessMsg = (enqueueSnackbar, successMsg) => {
+  enqueueSnackbar(
+    <Typography style={{ fontSize: "1.2rem" }}>{successMsg}</Typography>,
+    {
+      variant: "success",
+      preventDuplicate: true,
+      anchorOrigin: {
+        horizontal: "right",
+        vertical: "top",
+      },
+      autoHideDuration: 5000,
+      TransitionComponent: Slide,
+    }
+  );
 };
 
-const handleError = (error, enqueueSnackbar, Typography) => {
+const handleError = (error, enqueueSnackbar) => {
   if (error?.graphQLErrors && error?.graphQLErrors?.length > 0) {
     (error?.graphQLErrors || []).map((err) =>
-      showErrorMsg(enqueueSnackbar, Typography, err.message),
+      showErrorMsg(enqueueSnackbar, err.message)
     );
   } else if (error?.networkError) {
     error.networkError?.result?.errors?.map((err) =>
-      showErrorMsg(enqueueSnackbar, Typography, err.message || "Something went wrong, try again."),
+      showErrorMsg(
+        enqueueSnackbar,
+        err.message || "Something went wrong, try again."
+      )
     );
   } else if (error?.message) {
-    showErrorMsg(enqueueSnackbar, Typography, error.message);
+    showErrorMsg(enqueueSnackbar, error.message);
   }
 };
 
@@ -61,7 +61,7 @@ export const compressAndUploadImage = async (
   setFieldValue,
   setProgress,
   isCompressing,
-  setIsCompleted,
+  setIsCompleted
 ) => {
   try {
     if (!img) throw new Error("No file passed to upload function");
@@ -157,9 +157,8 @@ export const signUp = async (
   signUpData,
   setAccessToken,
   enqueueSnackbar,
-  Typography,
   handleNext,
-  onsubmitProp,
+  onsubmitProp
 ) => {
   try {
     const { email, password } = signUpData;
@@ -178,17 +177,22 @@ export const signUp = async (
       localStorage.setItem("account_id", _id);
       localStorage.setItem("token", access_token);
       setAccessToken(access_token);
-      showSuccessMsg(enqueueSnackbar, Typography, "Sign up successsful");
+      showSuccessMsg(enqueueSnackbar, "Sign up successsful");
       handleNext(1);
       onsubmitProp.resetForm();
       return true;
     }
   } catch (error) {
-    if (error.networkError.result.errors[0].message === "Email is already taken") {
-      showErrorMsg(enqueueSnackbar, Typography, "Email already exist, please Sign in to continue.");
+    if (
+      error.networkError.result.errors[0].message === "Email is already taken"
+    ) {
+      showErrorMsg(
+        enqueueSnackbar,
+        "Email already exist, please Sign in to continue."
+      );
       return "Email is already taken";
     } else {
-      handleError(error, enqueueSnackbar, Typography);
+      handleError(error, enqueueSnackbar);
       return false;
     }
   }
@@ -203,7 +207,9 @@ const getDocProfile = async (fetchProfile, dociId, email) => {
 
   const profileDataArr = profileDataRes?.data?.doctorProfiles.profile;
 
-  const profileData = profileDataArr.filter((profile) => profile?.email === email);
+  const profileData = profileDataArr.filter(
+    (profile) => profile?.email === email
+  );
 
   return profileData;
 };
@@ -215,7 +221,8 @@ const getDocVerification = async (fetchVerification, id) => {
     },
   });
 
-  const verificationData = getVerificationRes.data.getVerifications.verification;
+  const verificationData =
+    getVerificationRes.data.getVerifications.verification;
 
   return verificationData;
 };
@@ -240,10 +247,9 @@ export const signIn = async (
   Login,
   loginData,
   enqueueSnackbar,
-  Typography,
   fetchProfile,
   fetchVerification,
-  onsubmitProp,
+  onsubmitProp
 ) => {
   try {
     const { email, password } = loginData;
@@ -254,13 +260,18 @@ export const signIn = async (
       },
     });
 
-    const { dociId, email: emails, access_token, _id, role } = data.login.account;
+    const {
+      dociId,
+      email: emails,
+      access_token,
+      _id,
+      role,
+    } = data.login.account;
 
     if (role !== "doctor") {
       showErrorMsg(
         enqueueSnackbar,
-        Typography,
-        "This email is already linked to a Heala/HMO/Hospital user account.",
+        "This email is already linked to a Heala/HMO/Hospital user account."
       );
       return "STEP 1";
     }
@@ -276,21 +287,22 @@ export const signIn = async (
     if (profileData.length === 0) {
       showErrorMsg(
         enqueueSnackbar,
-        Typography,
-        "Profile not found. Please fill and submit the form below to create a profile",
+        "Profile not found. Please fill and submit the form below to create a profile"
       );
       return "STEP 2";
     }
 
     localStorage.setItem("profile_id", profileData[0]._id);
 
-    const verificationData = await getDocVerification(fetchVerification, profileData[0]._id);
+    const verificationData = await getDocVerification(
+      fetchVerification,
+      profileData[0]._id
+    );
 
     if (verificationData.length === 0) {
       showErrorMsg(
         enqueueSnackbar,
-        Typography,
-        "Verification not found or rejected. Please fill and submit the form below to create a verification process.",
+        "Verification not found or rejected. Please fill and submit the form below to create a verification process."
       );
       return "STEP 3";
     }
@@ -305,7 +317,7 @@ export const signIn = async (
 
     onsubmitProp.resetForm();
   } catch (err) {
-    handleError(err, enqueueSnackbar, Typography);
+    handleError(err, enqueueSnackbar);
   }
 };
 
@@ -327,8 +339,7 @@ export const onPageTwoFormSubmit = async (
   values,
   createDoctor,
   enqueueSnackbar,
-  Typography,
-  handleNext,
+  handleNext
 ) => {
   const {
     dob,
@@ -345,7 +356,7 @@ export const onPageTwoFormSubmit = async (
   const correctDOB = dateMoment(dob);
   try {
     if (!healaId) {
-      showErrorMsg(enqueueSnackbar, Typography, "heala ID not found!");
+      showErrorMsg(enqueueSnackbar, "heala ID not found!");
       return;
     }
     const { data } = await createDoctor({
@@ -366,7 +377,9 @@ export const onPageTwoFormSubmit = async (
     const { _id } = data?.createDoctorProfile?.profile;
     localStorage.setItem("profile_id", _id);
     enqueueSnackbar(
-      <Typography style={{ fontSize: "1.2rem" }}>Doctor Registeration successsful</Typography>,
+      <Typography style={{ fontSize: "1.2rem" }}>
+        Doctor Registeration successsful
+      </Typography>,
       {
         variant: "success",
         preventDuplicate: true,
@@ -374,12 +387,12 @@ export const onPageTwoFormSubmit = async (
           horizontal: "center",
           vertical: "top",
         },
-      },
+      }
     );
     handleNext(1);
   } catch (err) {
     console.log(err, "error message");
-    handleError(err, enqueueSnackbar, Typography);
+    handleError(err, enqueueSnackbar);
     if (err?.graphQLErrors[0]?.message === "Doctor Profile already exist") {
       handleNext(1);
     }
@@ -390,12 +403,11 @@ export const onPageThreeSubmit = async (
   values,
   selectedCert,
   enqueueSnackbar,
-  Typography,
   requirementValues,
   createVerification,
   handleNext,
   onsubmitProp,
-  checked,
+  checked
 ) => {
   const {
     degree,
@@ -423,24 +435,30 @@ export const onPageThreeSubmit = async (
   if (selectedCert.length === 0) {
     showErrorMsg(
       enqueueSnackbar,
-      Typography,
-      "Select at least 2 verification methods and fill the forms below",
+      "Select at least 2 verification methods and fill the forms below"
     );
     return;
   }
 
-  const incompleteFields = checkForIncompleteFields(selectedCert, values, requirementValues);
+  const incompleteFields = checkForIncompleteFields(
+    selectedCert,
+    values,
+    requirementValues
+  );
 
   if (!incompleteFields) {
-    showErrorMsg(enqueueSnackbar, Typography, "Empty fields detected, complete the form.");
+    showErrorMsg(
+      enqueueSnackbar,
+
+      "Empty fields detected, complete the form."
+    );
     return;
   }
 
   if (!checked) {
     showErrorMsg(
       enqueueSnackbar,
-      Typography,
-      "To continue, click on the box to accept our terms and conditiion.",
+      "To continue, click on the box to accept our terms and conditiion."
     );
     return;
   }
@@ -471,6 +489,6 @@ export const onPageThreeSubmit = async (
     if (data) return handleNext(1);
     onsubmitProp.resetForm();
   } catch (err) {
-    handleError(err, enqueueSnackbar, Typography);
+    handleError(err, enqueueSnackbar);
   }
 };
