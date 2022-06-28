@@ -4,7 +4,7 @@ import { useSnackbar } from "notistack";
 import { useDropzone } from "react-dropzone";
 import { useTheme } from "@mui/material/styles";
 import { Grid, Typography } from "@mui/material";
-
+import PropTypes from "prop-types";
 import { Loader } from "./Utilities";
 import styled from "styled-components";
 import { CloseBtn } from "./Utilities/Button";
@@ -17,18 +17,18 @@ import {
   uploadImage,
 } from "helpers/helperFuncs";
 
-const getColor = (props) => {
-  if (props.isDragAccept) {
-    return "#00e676";
-  }
-  if (props.isDragReject) {
-    return "#ff1744";
-  }
-  if (props.isFocused) {
-    return "#2196f3";
-  }
-  return "#eeeeee";
-};
+// const getColor = (props) => {
+//   if (props.isDragAccept) {
+//     return "#00e676";
+//   }
+//   if (props.isDragReject) {
+//     return "#ff1744";
+//   }
+//   if (props.isFocused) {
+//     return "#2196f3";
+//   }
+//   return "#eeeeee";
+// };
 
 const Container = styled.div`
   min-height: 250px;
@@ -206,6 +206,12 @@ const DragAndDrop = ({ name, setFieldValue, maxFiles }) => {
       </aside>
     </div>
   );
+};
+
+DragAndDrop.propTypes = {
+  name: PropTypes.string,
+  setFieldValue: PropTypes.func,
+  maxFiles: PropTypes.number,
 };
 
 export default DragAndDrop;
