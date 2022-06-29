@@ -5,3 +5,4 @@ export { default as Create } from "./Create";
 export { default as BecomePartner } from "./BecomePartner";
 export { default as PageFour } from "./PageFour";
 export { default as OTP } from "./OTP";
+export { default as Text } from "./Text";
