@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PageFour = () => {
+const VerifyComplete = () => {
   const classes = useStyles();
   const theme = useTheme();
   const greenButton = {
@@ -35,6 +35,7 @@ const PageFour = () => {
       <Grid
         item
         container
+        lg={8}
         md={5}
         gap={2}
         xs={11}
@@ -62,42 +63,36 @@ const PageFour = () => {
 
         <Grid item container justifyContent="center">
           <Typography variant="h1" sx={{ textAlign: "center" }}>
-            Thank you for Signing up
+            Verification complete
           </Typography>
         </Grid>
         <Grid item container justifyContent="center">
           <Typography variant="body2" sx={{ textAlign: "center" }}>
-            Your account is currently being reviewed. We will send an email with
-            the status of your verification in a few days. In the meantime,
-            check out our{" "}
-            <a
-              style={{
-                color: theme.palette.success.main,
-              }}
-              href="https://heala.ng/privacy-policy"
-              className={classes.link}
-            >
-              Privacy policy
-            </a>{" "}
-            and{" "}
-            <a
-              style={{
-                color: theme.palette.common.green,
-              }}
-              href="https://heala.ng/terms"
-              className={classes.link}
-            >
-              Terms{" "}
-            </a>
-            for more information
+            Your account is active. Please download the doctors application
+            using the links below.
           </Typography>
         </Grid>
 
-        <Grid item container xs={5} justifyContent="center">
-          <a style={{ textDecoration: "none" }} href="https://heala.ng">
+        <Grid item container justifyContent="center">
+          <a
+            style={{ textDecoration: "none" }}
+            href="https://apps.apple.com/ng/app/heala-doctor/id1610944146"
+          >
             <CustomButton
               variant="contained"
-              title="Go to website"
+              title="App store"
+              type={greenButton}
+              className={classes.btn}
+              sx={{ marginRight: "1rem" }}
+            />
+          </a>
+          <a
+            style={{ textDecoration: "none" }}
+            href="https://play.google.com/store/apps/details?id=com.heala.doctor"
+          >
+            <CustomButton
+              variant="contained"
+              title="Play store"
               type={greenButton}
               className={classes.btn}
             />
@@ -107,4 +102,4 @@ const PageFour = () => {
     </Grid>
   );
 };
-export default PageFour;
+export default VerifyComplete;

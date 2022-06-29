@@ -1,8 +1,14 @@
 import moment from "moment";
 
 export const dateMoment = (dateString) => {
-  return moment(dateString).utc().format("YYYY-MM-DD");
+  const formatedDate = moment(dateString).utc().format("YYYY-MM-DD");
+  if (formatedDate === "Invalid date") {
+    return null;
+  } else {
+    return formatedDate;
+  }
 };
+
 export const timeMoment = (dateString) => {
   return moment(dateString).format("hh:mm A");
 };
@@ -66,6 +72,6 @@ export const unformat = (amount, locale) => {
   return parseFloat(
     amount
       .replace(new RegExp("\\" + thousandSeparator, "g"), "")
-      .replace(new RegExp("\\" + decimalSeparator), ","),
+      .replace(new RegExp("\\" + decimalSeparator), ",")
   );
 };

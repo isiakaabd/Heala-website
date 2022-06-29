@@ -1,7 +1,8 @@
 import React from "react";
-import { Button, Stack } from "@mui/material";
 import PropTypes from "prop-types";
 import { makeStyles } from "@mui/styles";
+import { Button, Stack } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -15,7 +16,40 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "left",
     height: "100%",
   },
+
+  closeBtn: {
+    "&.button": {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      color: theme.palette.common.black,
+      stroke: theme.palette.common.black,
+      background: "#f2f2f2",
+      borderRadius: "100%",
+      padding: "0.6rem 0.3rem",
+      border: "none",
+      cursor: "pointer",
+
+      "&:hover": {
+        color: "red",
+        stroke: "red",
+      },
+    },
+  },
 }));
+
+export const CloseBtn = (props) => {
+  const classes = useStyles();
+  return (
+    <button
+      {...props}
+      onClick={() => props.handleClick()}
+      className={`button ${classes.closeBtn}`}
+    >
+      <CloseIcon sx={{ height: "10px", weight: "10px !important" }} />
+    </button>
+  );
+};
 
 const IconLabelButtons = ({
   placeholder,

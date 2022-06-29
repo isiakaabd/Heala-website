@@ -2,8 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import { Provider } from "react-redux";
-import { store } from "store";
+import { Typography } from "@mui/material";
 import { SnackbarProvider } from "notistack";
+import { store } from "store";
+import { getAccessToken } from "./accessToken";
 import {
   ApolloClient,
   ApolloProvider,
@@ -12,10 +14,11 @@ import {
   InMemoryCache,
   concat,
 } from "@apollo/client";
-import { getAccessToken } from "./accessToken";
-
-// require("dotenv").config();
-
+import { AuthProvider } from "helpers/Auth";
+require("dotenv").config();
+console.log(process);
+const BASE_URL = process.env.REACT_APP_BASE_URL;
+console.log(BASE_URL);
 const httpLink = createHttpLink({
   uri: "https://api-staging.heala.io",
 });
@@ -41,11 +44,35 @@ const client = new ApolloClient({
   resolvers: {},
 });
 
+// add action to all snackbars
+const notistackRef = React.createRef();
+const onClickDismiss = (key) => () => {
+  notistackRef.current.closeSnackbar(key);
+};
+
 ReactDOM.render(
-  <SnackbarProvider maxSnack={3}>
+  <SnackbarProvider
+    ref={notistackRef}
+    maxSnack={3}
+    action={(key) => (
+      <Typography
+        onClick={onClickDismiss(key)}
+        style={{
+          fontSize: "1.2rem",
+          color: "ffffff",
+          fontWeight: "bold",
+          cursor: "pointer",
+        }}
+      >
+        'Dismiss'
+      </Typography>
+    )}
+  >
     <Provider store={store}>
       <ApolloProvider client={client}>
-        <App />
+        <AuthProvider>
+          <App />
+        </AuthProvider>
       </ApolloProvider>
     </Provider>
   </SnackbarProvider>,
