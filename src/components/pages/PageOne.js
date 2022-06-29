@@ -1,15 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useTheme } from "@mui/material/styles";
-<<<<<<< HEAD
-import SwipeableViews from "react-swipeable-views";
-import { Grid, Typography, Box, Tab, Tabs, AppBar } from "@mui/material";
-import SignUpForm from "components/forms/SignUpForm";
-import SignInForm from "components/forms/SignInForm";
-
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-=======
 import { Grid, InputAdornment, Alert, Typography, Avatar } from "@mui/material";
 //import Success from "../Modal/Success";
 import { setAccessToken } from "accessToken";
@@ -19,24 +10,22 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import { signup, login } from "components/graphQL/Mutation";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { ReactComponent as HealaIcon } from "assets/images/logo.svg";
->>>>>>> 0a4a5fb0f4fe31909fd07789829522ce2ee12b1f
 
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
+return (
+  <div
+    role="tabpanel"
+    hidden={value !== index}
+    id={`full-width-tabpanel-${index}`}
+    aria-labelledby={`full-width-tab-${index}`}
+    {...other}
+  >
+    {value === index && (
+      <Box sx={{ p: 3 }}>
+        <Typography>{children}</Typography>
+      </Box>
+    )}
+  </div>
+);
 
 TabPanel.propTypes = {
   children: PropTypes.node,
@@ -53,22 +42,6 @@ function a11yProps(index) {
 
 const PageOne = ({ handleNext }) => {
   const theme = useTheme();
-<<<<<<< HEAD
-  const [value, setValue] = useState(0);
-
-  React.useEffect(() => {
-    ["account_id", "email", "heala_id", "profile_id", "token"].map((text) =>
-      localStorage.setItem(text, "")
-    );
-  }, []);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  const handleChangeIndex = (index) => {
-    setValue(index);
-=======
   const { enqueueSnackbar } = useSnackbar();
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswords, setShowPasswords] = useState(false);
@@ -78,8 +51,14 @@ const PageOne = ({ handleNext }) => {
     active: theme.palette.primary.dark,
   };
   const validationSchema = Yup.object({
-    email: Yup.string().trim().email("Enter a valid email").required("Email Required"),
-    password: Yup.string("Select your password").trim().required("Password Required").min(8),
+    email: Yup.string()
+      .trim()
+      .email("Enter a valid email")
+      .required("Email Required"),
+    password: Yup.string("Select your password")
+      .trim()
+      .required("Password Required")
+      .min(8),
     confirmPassword: Yup.string()
       .trim()
       .when("password", {
@@ -120,7 +99,9 @@ const PageOne = ({ handleNext }) => {
       localStorage.setItem("email", emails);
       setAccessToken(access_token);
       enqueueSnackbar(
-        <Typography style={{ fontSize: "1.2rem" }}>Registeration successsful</Typography>,
+        <Typography style={{ fontSize: "1.2rem" }}>
+          Registeration successsful
+        </Typography>,
         {
           variant: "success",
           preventDuplicate: true,
@@ -128,14 +109,16 @@ const PageOne = ({ handleNext }) => {
             horizontal: "center",
             vertical: "top",
           },
-        },
+        }
       );
 
       if (data) {
         handleNext();
       }
     } catch (err) {
-      if (err.networkError.result.errors[0].message === "Email is already taken") {
+      if (
+        err.networkError.result.errors[0].message === "Email is already taken"
+      ) {
         try {
           const { data } = await Login({
             variables: {
@@ -144,7 +127,12 @@ const PageOne = ({ handleNext }) => {
             },
           });
 
-          const { dociId, email: emails, access_token, _id } = data.login.account;
+          const {
+            dociId,
+            email: emails,
+            access_token,
+            _id,
+          } = data.login.account;
           localStorage.setItem("doctor_id", dociId);
           localStorage.setItem("token", access_token);
           localStorage.setItem("email", emails);
@@ -153,7 +141,9 @@ const PageOne = ({ handleNext }) => {
           setAccessToken(access_token);
           handleNext2();
           enqueueSnackbar(
-            <Typography style={{ fontSize: "1.2rem" }}>Registeration successsful</Typography>,
+            <Typography style={{ fontSize: "1.2rem" }}>
+              Registeration successsful
+            </Typography>,
             {
               variant: "success",
               preventDuplicate: true,
@@ -161,7 +151,7 @@ const PageOne = ({ handleNext }) => {
                 horizontal: "center",
                 vertical: "top",
               },
-            },
+            }
           );
           //setModal(true);
         } catch (err) {
@@ -180,7 +170,6 @@ const PageOne = ({ handleNext }) => {
     }
 
     onsubmitProp.resetForm();
->>>>>>> 0a4a5fb0f4fe31909fd07789829522ce2ee12b1f
   };
 
   return (
@@ -204,31 +193,16 @@ const PageOne = ({ handleNext }) => {
               variant="fullWidth"
               aria-label="full width tabs example"
             >
-<<<<<<< HEAD
-              <Tab label="SIGN UP" {...a11yProps(0)} />
-              <Tab label="SIGN IN" {...a11yProps(1)} />
-            </Tabs>
-          </AppBar>
-          <SwipeableViews
-            axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-            index={value}
-            onChangeIndex={handleChangeIndex}
-          >
-            <TabPanel value={value} index={0} dir={theme.direction}>
-              {/*  WRITE CONTEXT TO MANAGE NEXT STEP ETC. to avoid PROP DRILLING */}
-              <SignUpForm changeStep={handleNext} />
-            </TabPanel>
-            <TabPanel value={value} index={1} dir={theme.direction}>
-              <SignInForm changeStep={handleNext} />
-            </TabPanel>
-          </SwipeableViews>
-        </Box>
-=======
               {({ isSubmitting, isValid, dirty }) => {
                 return (
                   <Form>
                     <Grid container item gap={4}>
-                      <Grid item container justifyContent="center" rowSpacing={1}>
+                      <Grid
+                        item
+                        container
+                        justifyContent="center"
+                        rowSpacing={1}
+                      >
                         <Grid
                           item
                           container
@@ -279,7 +253,11 @@ const PageOne = ({ handleNext }) => {
                                 onClick={() => setShowPassword((prev) => !prev)}
                                 style={{ cursor: "pointer" }}
                               >
-                                {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                                {showPassword ? (
+                                  <VisibilityOffIcon />
+                                ) : (
+                                  <VisibilityIcon />
+                                )}
                               </InputAdornment>
                             }
                           />
@@ -296,10 +274,16 @@ const PageOne = ({ handleNext }) => {
                             endAdornment={
                               <InputAdornment
                                 position="end"
-                                onClick={() => setShowPasswords((prev) => !prev)}
+                                onClick={() =>
+                                  setShowPasswords((prev) => !prev)
+                                }
                                 style={{ cursor: "pointer" }}
                               >
-                                {showPasswords ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                                {showPasswords ? (
+                                  <VisibilityOffIcon />
+                                ) : (
+                                  <VisibilityIcon />
+                                )}
                               </InputAdornment>
                             }
                           />
@@ -320,10 +304,9 @@ const PageOne = ({ handleNext }) => {
                   </Form>
                 );
               }}
-            </Formik>
-          </Grid>
-        </Grid>
->>>>>>> 0a4a5fb0f4fe31909fd07789829522ce2ee12b1f
+            </Tabs>
+          </AppBar>
+        </Box>
       </Grid>
     </>
   );
