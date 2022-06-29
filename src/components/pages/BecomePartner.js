@@ -13,7 +13,7 @@ const BecomePartner = () => {
       setStep(step + count);
       scrollToTop(pageTop);
     },
-    [step]
+    [step],
   );
 
   const handleNext2 = useCallback(() => {

@@ -48,14 +48,8 @@ const PageOne = ({ handleNext2, handleNext, step }) => {
     active: theme.palette.primary.dark,
   };
   const validationSchema = Yup.object({
-    email: Yup.string()
-      .trim()
-      .email("Enter a valid email")
-      .required("Email Required"),
-    password: Yup.string("Select your password")
-      .trim()
-      .required("Password Required")
-      .min(8),
+    email: Yup.string().trim().email("Enter a valid email").required("Email Required"),
+    password: Yup.string("Select your password").trim().required("Password Required").min(8),
     confirmPassword: Yup.string()
       .trim()
       .when("password", {
@@ -97,9 +91,7 @@ const PageOne = ({ handleNext2, handleNext, step }) => {
       localStorage.setItem("email", emails);
       setAccessToken(access_token);
       enqueueSnackbar(
-        <Typography style={{ fontSize: "1.2rem" }}>
-          Registeration successsful
-        </Typography>,
+        <Typography style={{ fontSize: "1.2rem" }}>Registeration successsful</Typography>,
         {
           variant: "success",
           preventDuplicate: true,
@@ -107,16 +99,14 @@ const PageOne = ({ handleNext2, handleNext, step }) => {
             horizontal: "center",
             vertical: "top",
           },
-        }
+        },
       );
 
       if (data) {
         handleNext();
       }
     } catch (err) {
-      if (
-        err.networkError.result.errors[0].message === "Email is already taken"
-      ) {
+      if (err.networkError.result.errors[0].message === "Email is already taken") {
         try {
           const { data } = await Login({
             variables: {
@@ -125,12 +115,7 @@ const PageOne = ({ handleNext2, handleNext, step }) => {
             },
           });
 
-          const {
-            dociId,
-            email: emails,
-            access_token,
-            _id,
-          } = data.login.account;
+          const { dociId, email: emails, access_token, _id } = data.login.account;
           localStorage.setItem("doctor_id", dociId);
           localStorage.setItem("token", access_token);
           localStorage.setItem("email", emails);
@@ -139,9 +124,7 @@ const PageOne = ({ handleNext2, handleNext, step }) => {
           setAccessToken(access_token);
           handleNext2();
           enqueueSnackbar(
-            <Typography style={{ fontSize: "1.2rem" }}>
-              Registeration successsful
-            </Typography>,
+            <Typography style={{ fontSize: "1.2rem" }}>Registeration successsful</Typography>,
             {
               variant: "success",
               preventDuplicate: true,
@@ -149,7 +132,7 @@ const PageOne = ({ handleNext2, handleNext, step }) => {
                 horizontal: "center",
                 vertical: "top",
               },
-            }
+            },
           );
           //setModal(true);
         } catch (err) {
@@ -221,12 +204,7 @@ const PageOne = ({ handleNext2, handleNext, step }) => {
                 return (
                   <Form>
                     <Grid container item gap={4}>
-                      <Grid
-                        item
-                        container
-                        justifyContent="center"
-                        rowSpacing={1}
-                      >
+                      <Grid item container justifyContent="center" rowSpacing={1}>
                         <Grid
                           item
                           container
@@ -277,11 +255,7 @@ const PageOne = ({ handleNext2, handleNext, step }) => {
                                 onClick={() => setShowPassword((prev) => !prev)}
                                 style={{ cursor: "pointer" }}
                               >
-                                {showPassword ? (
-                                  <VisibilityOffIcon />
-                                ) : (
-                                  <VisibilityIcon />
-                                )}
+                                {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
                               </InputAdornment>
                             }
                           />
@@ -298,16 +272,10 @@ const PageOne = ({ handleNext2, handleNext, step }) => {
                             endAdornment={
                               <InputAdornment
                                 position="end"
-                                onClick={() =>
-                                  setShowPasswords((prev) => !prev)
-                                }
+                                onClick={() => setShowPasswords((prev) => !prev)}
                                 style={{ cursor: "pointer" }}
                               >
-                                {showPasswords ? (
-                                  <VisibilityOffIcon />
-                                ) : (
-                                  <VisibilityIcon />
-                                )}
+                                {showPasswords ? <VisibilityOffIcon /> : <VisibilityIcon />}
                               </InputAdornment>
                             }
                           />

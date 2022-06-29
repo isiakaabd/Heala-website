@@ -72,43 +72,34 @@ const DragAndDrop = ({ name, setFieldValue, maxFiles }) => {
   const [preview, setPreview] = React.useState("");
   const [isCompressing, setIsCompressing] = React.useState(false);
   const [progress, setProgress] = React.useState();
-  const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } =
-    useDropzone({
-      accept: "image/*",
-      maxFiles: maxFiles,
-      onDrop: (acceptedFiles) => {
-        compressAndUploadImage(
-          acceptedFiles[0],
-          uploadImage,
-          setPreview,
-          name,
-          setFieldValue,
-          setProgress,
-          setIsCompressing
-        );
-      },
-    });
+  const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } = useDropzone({
+    accept: "image/*",
+    maxFiles: maxFiles,
+    onDrop: (acceptedFiles) => {
+      compressAndUploadImage(
+        acceptedFiles[0],
+        uploadImage,
+        setPreview,
+        name,
+        setFieldValue,
+        setProgress,
+        setIsCompressing,
+      );
+    },
+  });
 
   return (
     <div>
       <div className="container">
         <Container {...getRootProps({ isFocused, isDragAccept, isDragReject })}>
           <input {...getInputProps()} />
-          <Typography>
-            Drag and drop your file(s), or click to select files
-          </Typography>
+          <Typography>Drag and drop your file(s), or click to select files</Typography>
         </Container>
       </div>
       <aside style={{ marginTop: "1.5rem" }}>
         <Grid item>
           {progress < 100 || isCompressing ? (
-            <Grid
-              container
-              item
-              direction="row"
-              justifyContent="center"
-              alignItems="center"
-            >
+            <Grid container item direction="row" justifyContent="center" alignItems="center">
               <Typography display={"inline"}>
                 {isCompressing ? "Compressing file" : "Uploading file"}
               </Typography>
