@@ -11,7 +11,7 @@ const Text = ({ counter, requestNewOTP }) => {
           ? {
               textDecoration: "underline",
               cursor: "hand",
-              color: "red",
+              color: "black",
               whiteSpace: "nowrap",
               fontSize: "clamp(1rem, 1.5vw,1.5rem)",
             }

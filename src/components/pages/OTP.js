@@ -136,7 +136,7 @@ const OTP = () => {
     >
       <Grid item>
         <Typography gutterBottom color="#000" variant="h6">
-          Enter your OTP
+          ENTER YOUR OTP
         </Typography>
       </Grid>
       {load && (
@@ -239,27 +239,28 @@ const OTP = () => {
                     flexWrap="nowrap"
                     justifyContent="space-between"
                   >
-                    <Grid item xs={{ flex: 1 }}>
-                      <Typography
-                        variant="h5"
-                        style={{
-                          fontSize: "clamp(1rem, 1.5vw,1.5rem)",
-                          color: "#000",
-                        }}
+                    <div style={{ zIndex: "9", display:'flex', justifyContent:'space-between', width:'100%' }}>
+                      <Grid item xs={{ flex: 1 }}>
+                        <Typography
+                          variant="h5"
+                          style={{
+                            fontSize: "clamp(1rem, 1.5vw,1.5rem)",
+                            color: "#000",
+                          }}
 
-                        // color="success"
-                        // onClick={}
-                        // className={classes.link}
-                        // sx={{
-                        //   fontSize: "clamp(1rem, 2vw, 1.4rem)",
-                        // }}
-                      >
-                        Please check your email to continue
-                      </Typography>
-                    </Grid>
-                    <Grid item justifySelf="flex-end" xs={{ flex: 3 }}>
-                      <Text counter={counter} requestNewOTP={requestNewOTP} />
-                      {/* <Typography
+                          // color="success"
+                          // onClick={}
+                          // className={classes.link}
+                          // sx={{
+                          //   fontSize: "clamp(1rem, 2vw, 1.4rem)",
+                          // }}
+                        >
+                          Please check your email to continue
+                        </Typography>
+                      </Grid>
+                      <Grid item justifySelf="flex-end" xs={{ flex: 3 }}>
+                        <Text counter={counter} requestNewOTP={requestNewOTP} />
+                        {/* <Typography
                         onClick={requestNewOTP}
                         className={classes.typo}
                         sx={
@@ -276,7 +277,8 @@ const OTP = () => {
                       >
                         {counter === 0 ? "Resend OTP" : counter}
                       </Typography> */}
-                    </Grid>
+                      </Grid>
+                    </div>
                   </Grid>
                   <Grid
                     item
