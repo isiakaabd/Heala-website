@@ -61,10 +61,7 @@ export const compressAndUploadImage = async (
   setFieldValue,
   setProgress,
   isCompressing,
-<<<<<<< HEAD
   setIsCompleted
-=======
->>>>>>> 0a4a5fb0f4fe31909fd07789829522ce2ee12b1f
 ) => {
   try {
     if (!img) throw new Error("No file passed to upload function");

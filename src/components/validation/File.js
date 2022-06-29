@@ -4,7 +4,6 @@ import { useSnackbar } from "notistack";
 import { makeStyles } from "@mui/styles";
 import { Field, ErrorMessage } from "formik";
 import { TextError } from "components/Utilities/TextError";
-<<<<<<< HEAD
 import {
   FormControl,
   FormLabel,
@@ -14,9 +13,6 @@ import {
   Typography,
 } from "@mui/material";
 
-=======
-import { FormControl, FormLabel, Grid, Avatar, Button, Typography } from "@mui/material";
->>>>>>> 0a4a5fb0f4fe31909fd07789829522ce2ee12b1f
 import { Loader } from "components/Utilities";
 import { RequiredIcon } from "components/Typography";
 import { CloseBtn } from "components/Utilities/Button";
@@ -83,10 +79,7 @@ export const Formiks = ({ name, setFieldValue, onBlur }) => {
       setFieldValue,
       setProgress,
       setIsCompressing,
-<<<<<<< HEAD
       setIsCompleted
-=======
->>>>>>> 0a4a5fb0f4fe31909fd07789829522ce2ee12b1f
     );
 
     const reader = new FileReader();
@@ -97,7 +90,13 @@ export const Formiks = ({ name, setFieldValue, onBlur }) => {
   return (
     <Grid container alignItems="center">
       {progress < 100 || isCompressing ? (
-        <Grid container item direction="row" justifyContent="center" alignItems="center">
+        <Grid
+          container
+          item
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+        >
           <Typography display={"inline"}>
             {isCompressing ? "Compressing image" : "Uploading image"}
           </Typography>
@@ -128,7 +127,6 @@ export const Formiks = ({ name, setFieldValue, onBlur }) => {
               </Grid>
             </FormControl>
           </Grid>
-<<<<<<< HEAD
           <Grid
             sx={{
               height: "100%",
@@ -161,10 +159,6 @@ export const Formiks = ({ name, setFieldValue, onBlur }) => {
                 ""
               )}
             </Grid>
-=======
-          <Grid item>
-            {progress < 100 ? <Loader progres={progress} /> : preview && <Avatar src={preview} />}
->>>>>>> 0a4a5fb0f4fe31909fd07789829522ce2ee12b1f
           </Grid>
         </>
       )}

@@ -41,16 +41,12 @@ const Dates = ({ name, value, setFieldValue, onBlur, startDate, endDate }) => {
         onChange={(value) => setFieldValue(name, value)}
         value={value}
         onBlur={onBlur}
-<<<<<<< HEAD
         minDate={startDate}
         maxDate={endDate}
         style={{ color: "#40424b !important" }}
         renderInput={(params) => (
           <TextField {...params} sx={{ padding: "-12px" }} />
         )}
-=======
-        renderInput={(params) => <TextField {...params} sx={{ padding: "-12px" }} />}
->>>>>>> 0a4a5fb0f4fe31909fd07789829522ce2ee12b1f
       />
     </LocalizationProvider>
   );
