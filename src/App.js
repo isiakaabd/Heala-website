@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import { muiTheme } from "components/muiTheme";
 import ScrollToView from "components/ScrollToView";
-import BecomePartner from "components/pages/BecomePartner";
+import { BecomePartner, OTP } from "components/pages";
 import { setAccessToken } from "./accessToken";
 
 const sectionStyles = {
@@ -17,11 +17,13 @@ const sectionStyles = {
 
 const App = () => {
   const [state, setstate] = useState(true);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     setAccessToken(token);
     setstate(false);
   }, []);
+
   return (
     <ThemeProvider theme={muiTheme}>
       <Router>
@@ -33,6 +35,7 @@ const App = () => {
             display: "flex",
             justifyContent: "center",
             minHeight: "100vh",
+            width: "100%",
             alignItems: "center",
           }}
         >
@@ -40,7 +43,13 @@ const App = () => {
             <Switch>
               {!state && (
                 <section style={sectionStyles}>
-                  <Route exact path={["/", "/partners/form"]} component={BecomePartner} />
+                  <Route
+                    exact
+                    path={["/", "/partners/form"]}
+                    component={BecomePartner}
+                  />
+
+                  <Route exact path="/otp" component={OTP} />
                 </section>
               )}
             </Switch>

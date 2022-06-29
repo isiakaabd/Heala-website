@@ -38,9 +38,8 @@ const SignUpForm = ({ changeStep }) => {
       signUpData,
       setAccessToken,
       enqueueSnackbar,
-      Typography,
       changeStep,
-      onsubmitProp,
+      onsubmitProp
     );
     if (signUpResult === true) {
       changeStep(1);
@@ -62,7 +61,14 @@ const SignUpForm = ({ changeStep }) => {
             <Form>
               <Grid container item gap={4}>
                 <Grid item container justifyContent="center" rowSpacing={1}>
-                  <Grid item container justifyContent="center" md={12} sm={10} marginBottom="14px">
+                  <Grid
+                    item
+                    container
+                    justifyContent="center"
+                    md={12}
+                    sm={10}
+                    marginBottom="14px"
+                  >
                     <Typography variant="h5" className={classes.header}>
                       CREATE YOUR ACCOUNT
                     </Typography>
@@ -92,7 +98,11 @@ const SignUpForm = ({ changeStep }) => {
                           onClick={() => setShowPassword((prev) => !prev)}
                           style={{ cursor: "pointer" }}
                         >
-                          {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                          {showPassword ? (
+                            <VisibilityOffIcon />
+                          ) : (
+                            <VisibilityIcon />
+                          )}
                         </InputAdornment>
                       }
                     />
@@ -112,7 +122,11 @@ const SignUpForm = ({ changeStep }) => {
                           onClick={() => setShowPasswords((prev) => !prev)}
                           style={{ cursor: "pointer" }}
                         >
-                          {showPasswords ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                          {showPasswords ? (
+                            <VisibilityOffIcon />
+                          ) : (
+                            <VisibilityIcon />
+                          )}
                         </InputAdornment>
                       }
                     />

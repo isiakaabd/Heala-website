@@ -142,7 +142,11 @@ const OTP = () => {
                             onClick={() => setShowPassword((prev) => !prev)}
                             style={{ cursor: "pointer" }}
                           >
-                            {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                            {showPassword ? (
+                              <VisibilityOffIcon />
+                            ) : (
+                              <VisibilityIcon />
+                            )}
                           </InputAdornment>
                         }
                       />

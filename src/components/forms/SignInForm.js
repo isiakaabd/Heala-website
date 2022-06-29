@@ -1,27 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Formik, Form } from "formik";
+import * as Yup from "yup";
 import { useSnackbar } from "notistack";
+import FormikControl from "components/validation/FormikControl";
 import { useTheme } from "@mui/material/styles";
 import { useLazyQuery, useMutation } from "@apollo/client";
-import { Grid, InputAdornment, Typography } from "@mui/material";
-
-import { CustomButton } from "components/Utilities";
+import { useHistory } from "react-router-dom";
+import { Grid, Checkbox, InputAdornment, Typography } from "@mui/material";
+import { CustomButton, Modals } from "components/Utilities";
 import { pageOneUseStyles } from "styles/formStyles";
 import LoginInput from "components/validation/LoginInput";
 import { signInFormInitialState } from "helpers/mockData";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { SignInValidationSchema } from "helpers/formValidation";
 import { logOut, signIn as onSignIn } from "helpers/helperFuncs";
-import { createLogout, login } from "components/graphQL/Mutation";
+import { showErrorMsg, showSuccessMsg } from "helpers/helperFuncs";
+import {
+  createLogout,
+  login,
+  resetPassword,
+} from "components/graphQL/Mutation";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { getDoctorProfile, getVerificationInfo } from "components/graphQL/UseQuery";
+import {
+  getDoctorProfile,
+  getVerificationInfo,
+} from "components/graphQL/UseQuery";
 
 const SignInForm = ({ changeStep }) => {
   const classes = pageOneUseStyles();
   const theme = useTheme();
+  const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [reset] = useMutation(resetPassword);
+  const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
   const greenButton = {
     background: theme.palette.success.main,
@@ -39,10 +52,9 @@ const SignInForm = ({ changeStep }) => {
       Login,
       signInData,
       enqueueSnackbar,
-      Typography,
       fetchProfile,
       fetchVerification,
-      onsubmitProp,
+      onsubmitProp
     );
 
     const destroyToken = async () => {
@@ -62,80 +74,217 @@ const SignInForm = ({ changeStep }) => {
       destroyToken();
     }
   };
+  const forgottenDetails = {
+    email: "",
+  };
+
+  const onSubmitForgottenPassword = async (values) => {
+    const { email } = values;
+    try {
+      const { data } = await reset({
+        variables: {
+          email,
+        },
+      });
+      if (data?.resetPassword) {
+        const { email } = data.resetPassword.account;
+        showSuccessMsg(enqueueSnackbar, "Password reset email sent");
+        localStorage.setItem("rest_password_email", email);
+        history.push("/otp");
+      }
+    } catch (err) {
+      console.error(err);
+      showErrorMsg(enqueueSnackbar, err.message);
+    }
+
+    if (error) {
+      showErrorMsg(enqueueSnackbar, error.message);
+      console.error(error.message);
+    }
+  };
+  const validationSchema1 = Yup.object({
+    email: Yup.string()
+      .email("Enter a valid email")
+      .required("Email is required"),
+  });
+  const [forgottenPassWordModal, setForgottenPassWordModal] = useState(false);
+  const handleForgottenPasswordModalClose = () =>
+    setForgottenPassWordModal(false);
+  const handleForgottenPasswordModalOpen = () =>
+    setForgottenPassWordModal(true);
 
   return (
-    <Grid item>
-      <Formik
-        initialValues={signInFormInitialState}
-        validateOnChange={false}
-        validateOnBlur={false}
-        validationSchema={SignInValidationSchema}
-        onSubmit={(values, onsubmitProp) => onSubmit(values, onsubmitProp)}
-        validateOnMount={false}
-      >
-        {({ isSubmitting, isValid, dirty }) => {
-          return (
-            <Form>
-              <Grid container item gap={4}>
-                <Grid item container justifyContent="center" rowSpacing={1}>
-                  <Grid item container justifyContent="center" md={12} sm={10} marginBottom="14px">
-                    <Typography variant="h5" className={classes.header}>
-                      LOGIN
-                    </Typography>
-                  </Grid>
+    <>
+      <Grid item>
+        <Formik
+          initialValues={signInFormInitialState}
+          validateOnChange={false}
+          validateOnBlur={false}
+          validationSchema={SignInValidationSchema}
+          onSubmit={(values, onsubmitProp) => onSubmit(values, onsubmitProp)}
+          validateOnMount={false}
+        >
+          {({ isSubmitting, isValid, dirty }) => {
+            return (
+              <Form>
+                <Grid container item gap={3}>
+                  <Grid item container justifyContent="center" rowSpacing={1}>
+                    <Grid
+                      item
+                      container
+                      justifyContent="center"
+                      md={12}
+                      sm={10}
+                      marginBottom="14px"
+                    >
+                      <Typography variant="h5" className={classes.header}>
+                        LOGIN
+                      </Typography>
+                    </Grid>
 
-                  <Grid item container md={12} sm={10}>
-                    <LoginInput
-                      label="Email"
-                      name="email"
-                      type="email"
-                      id="email"
-                      placeholder="Enter your email"
-                      hasStartIcon={false}
-                    />
+                    <Grid item container md={12} sm={10}>
+                      <LoginInput
+                        label="Email"
+                        name="email"
+                        type="email"
+                        id="email"
+                        placeholder="Enter your email"
+                        hasStartIcon={false}
+                      />
+                    </Grid>
+                    <Grid item container md={12} sm={10}>
+                      <LoginInput
+                        id="password"
+                        label="Password"
+                        name="password"
+                        placeholder="Enter your password"
+                        type={showPassword ? "text" : "password"}
+                        hasStartIcon={false}
+                        endAdornment={
+                          <InputAdornment
+                            position="end"
+                            onClick={() => setShowPassword((prev) => !prev)}
+                            style={{ cursor: "pointer" }}
+                          >
+                            {showPassword ? (
+                              <VisibilityOffIcon />
+                            ) : (
+                              <VisibilityIcon />
+                            )}
+                          </InputAdornment>
+                        }
+                      />
+                    </Grid>
                   </Grid>
-                  <Grid item container md={12} sm={10}>
-                    <LoginInput
-                      id="password"
-                      label="Password"
-                      name="password"
-                      placeholder="Enter your password"
-                      type={showPassword ? "text" : "password"}
-                      hasStartIcon={false}
-                      endAdornment={
-                        <InputAdornment
-                          position="end"
-                          onClick={() => setShowPassword((prev) => !prev)}
-                          style={{ cursor: "pointer" }}
+                  <Grid item container>
+                    <Grid
+                      container
+                      alignItems="center"
+                      flexWrap="nowrap"
+                      justifyContent="space-between"
+                    >
+                      <Grid item container alignItems="center">
+                        <Checkbox
+                          {...label}
+                          sx={{
+                            "& .MuiSvgIcon-root": {
+                              fontSize: "min(28, 5vw)",
+                            },
+                          }}
+                          color="success"
+                        />
+
+                        <Typography
+                          variant="span"
+                          sx={{ fontSize: "clamp(1rem, 2vw, 1.4rem)" }}
                         >
-                          {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                        </InputAdornment>
-                      }
+                          Remember me
+                        </Typography>
+                      </Grid>
+
+                      <Grid item>
+                        <Typography
+                          variant="span"
+                          color="error"
+                          onClick={handleForgottenPasswordModalOpen}
+                          to="forgot-password"
+                          className={classes.link}
+                          noWrap
+                          sx={{
+                            fontSize: "clamp(1rem, 2vw, 1.4rem)",
+                            cursor: "pointer",
+                          }}
+                        >
+                          Forgot password?
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Grid item container margin="auto" md={12} sm={10}>
+                    <CustomButton
+                      variant="contained"
+                      title="Sign In"
+                      type={greenButton}
+                      className={classes.btn}
+                      isSubmitting={isSubmitting}
+                      disabled={!(dirty || isValid) || isSubmitting}
                     />
                   </Grid>
                 </Grid>
+              </Form>
+            );
+          }}
+        </Formik>
+      </Grid>
 
-                <Grid item container margin="auto" md={12} sm={10}>
-                  <CustomButton
-                    variant="contained"
-                    title="Sign In"
-                    type={greenButton}
-                    className={classes.btn}
-                    isSubmitting={isSubmitting}
-                    disabled={!(dirty || isValid) || isSubmitting}
-                  />
+      <Modals
+        isOpen={forgottenPassWordModal}
+        title=""
+        rowSpacing={5}
+        handleClose={handleForgottenPasswordModalClose}
+      >
+        <Formik
+          initialValues={forgottenDetails}
+          onSubmit={onSubmitForgottenPassword}
+          validateOnBlur={false}
+          validationSchema={validationSchema1}
+          validateOnChange={false}
+          validateOnMount={false}
+        >
+          {({ isSubmitting, isValid, dirty }) => {
+            return (
+              <Form style={{ marginTop: "3rem" }}>
+                <Grid item container gap={4}>
+                  <Grid item container>
+                    <FormikControl
+                      control="input"
+                      name="email"
+                      label="Email Address"
+                      placeholder="Enter Email Address"
+                    />
+                  </Grid>
+
+                  <Grid item container>
+                    <CustomButton
+                      title="Reset Password"
+                      width="100%"
+                      isSubmitting={isSubmitting}
+                      disabled={!(dirty || isValid)}
+                      type={greenButton}
+                    />
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Form>
-          );
-        }}
-      </Formik>
-    </Grid>
+              </Form>
+            );
+          }}
+        </Formik>
+      </Modals>
+    </>
   );
 };
 
 SignInForm.propTypes = {
-  changeStep: PropTypes.func.isRequired,
+  changeStep: PropTypes.func,
 };
 
 export default SignInForm;
