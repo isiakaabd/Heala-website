@@ -5,14 +5,14 @@ const Text = ({ counter, requestNewOTP }) => {
   return (
     <Typography
       onClick={requestNewOTP}
-      // className={classes.typo}
       sx={
         counter === 0
           ? {
               textDecoration: "underline",
-              cursor: "hand",
+              cursor: "pointer",
               color: "red",
               whiteSpace: "nowrap",
+              zIndex: "999999 !important",
               fontSize: "clamp(1rem, 1.5vw,1.5rem)",
             }
           : ""

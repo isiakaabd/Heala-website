@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Grid, Typography, InputAdornment } from "@mui/material";
 import OtpInput from "react-otp-input";
 import { useTheme } from "@mui/material/styles";
@@ -41,7 +41,7 @@ const OTP = () => {
     active: theme.palette.primary.dark,
   };
   const [otp, setOtp] = useState("");
-  const handleChange = (e) => setOtp(e);
+  const handleChange = useCallback((e) => setOtp(e), []);
   const history = useHistory();
   const forgottenDetails = {
     password: "",
@@ -61,7 +61,7 @@ const OTP = () => {
       .required("Please confirm Password"),
   });
   const [reset, { loading }] = useMutation(resetPassword);
-  const requestNewOTP = async () => {
+  const requestNewOTP = useCallback(async () => {
     if (counter === 0) {
       setLoad(true);
       const email = localStorage.getItem("request_new_OTP_mail");
@@ -83,9 +83,9 @@ const OTP = () => {
         showErrorMsg(enqueueSnackbar, err.message);
       }
     }
-  };
+  }, []);
   const [load, setLoad] = useState(false);
-  const timeOut = 59;
+  const timeOut = 2;
 
   const [counter, setCounter] = useState(timeOut);
   useEffect(() => {
@@ -96,7 +96,6 @@ const OTP = () => {
       return () => clearTimeout(x);
     }
   }, [counter]);
-  console.log(counter);
 
   const onSubmit = async (values, onSubmitProps) => {
     const emailValue = localStorage.getItem("rest_password_email");
@@ -122,6 +121,7 @@ const OTP = () => {
       showErrorMsg(enqueueSnackbar, err.message);
     }
   };
+
   return (
     <Grid
       container
@@ -135,7 +135,12 @@ const OTP = () => {
       rowSpacing={3}
     >
       <Grid item>
-        <Typography gutterBottom color="#000" variant="h6">
+        <Typography
+          gutterBottom
+          color="#000"
+          variant="h6"
+          className={classes.header}
+        >
           Enter your OTP
         </Typography>
       </Grid>
@@ -246,36 +251,17 @@ const OTP = () => {
                           fontSize: "clamp(1rem, 1.5vw,1.5rem)",
                           color: "#000",
                         }}
-
-                        // color="success"
-                        // onClick={}
-                        // className={classes.link}
-                        // sx={{
-                        //   fontSize: "clamp(1rem, 2vw, 1.4rem)",
-                        // }}
                       >
                         Please check your email to continue
                       </Typography>
                     </Grid>
-                    <Grid item justifySelf="flex-end" xs={{ flex: 3 }}>
+                    <Grid
+                      item
+                      justifySelf="flex-end"
+                      style={{ cursor: "pointer" }}
+                      xs={{ flex: 3 }}
+                    >
                       <Text counter={counter} requestNewOTP={requestNewOTP} />
-                      {/* <Typography
-                        onClick={requestNewOTP}
-                        className={classes.typo}
-                        sx={
-                          counter === 0
-                            ? {
-                                textDecoration: "underline",
-                                cursor: "hand",
-                                color: "red",
-                                whiteSpace: "nowrap",
-                                fontSize: "clamp(1rem, 1.5vw,1.5rem)",
-                              }
-                            : ""
-                        }
-                      >
-                        {counter === 0 ? "Resend OTP" : counter}
-                      </Typography> */}
                     </Grid>
                   </Grid>
                   <Grid
@@ -293,6 +279,7 @@ const OTP = () => {
                       type={greenButton}
                       className={classes.btn}
                       width="100%"
+                      disabled={otp.length < 6 || !isValid || isSubmitting}
                       isSubmitting={isSubmitting}
                     />
                   </Grid>
