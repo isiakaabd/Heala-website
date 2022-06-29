@@ -26,10 +26,11 @@ import {
   getDoctorProfile,
   getVerificationInfo,
 } from "components/graphQL/UseQuery";
-
+import useAuth from "helpers/useAuth";
 const SignInForm = ({ changeStep }) => {
   const classes = pageOneUseStyles();
   const theme = useTheme();
+  const { _, setAuth } = useAuth();
   const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
   const [showPassword, setShowPassword] = useState(false);
@@ -90,6 +91,7 @@ const SignInForm = ({ changeStep }) => {
         const { email } = data.resetPassword.account;
         showSuccessMsg(enqueueSnackbar, "Password reset email sent");
         localStorage.setItem("rest_password_email", email);
+        setAuth(true);
         history.push("/otp");
       }
     } catch (err) {

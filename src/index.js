@@ -14,7 +14,7 @@ import {
   InMemoryCache,
   concat,
 } from "@apollo/client";
-
+import { AuthProvider } from "helpers/Auth";
 require("dotenv").config();
 console.log(process);
 const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -70,7 +70,9 @@ ReactDOM.render(
   >
     <Provider store={store}>
       <ApolloProvider client={client}>
-        <App />
+        <AuthProvider>
+          <App />
+        </AuthProvider>
       </ApolloProvider>
     </Provider>
   </SnackbarProvider>,

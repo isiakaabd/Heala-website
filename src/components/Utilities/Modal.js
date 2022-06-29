@@ -33,7 +33,7 @@ const Modals = ({
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    height: "auto",
+    height,
     bgcolor: "background.paper",
     borderRadius: "2rem",
   };
@@ -49,7 +49,7 @@ const Modals = ({
       >
         <Box
           sx={style}
-          width={{ sm: "40vw", xs: "90vw", md: "40vw" }}
+          width={{ sm: "30vw", xs: "90vw", md: "30vw" }}
           padding={{ sm: 4, xs: 3, md: 4 }}
         >
           <Grid

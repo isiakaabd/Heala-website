@@ -69,7 +69,7 @@ const SignUpForm = ({ changeStep }) => {
                     sm={10}
                     marginBottom="14px"
                   >
-                    <Typography variant="h5" className={classes.header}>
+                    <Typography variant="h6" className={classes.header}>
                       CREATE YOUR ACCOUNT
                     </Typography>
                   </Grid>
