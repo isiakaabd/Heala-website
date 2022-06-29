@@ -84,6 +84,12 @@ export const muiTheme = createTheme({
       fontSize: "1.5rem",
       fontWeight: 300,
     },
+    h6: {
+      fontSize: "2rem",
+      lineHeight: "2.6rem",
+      color: "#010101",
+      fontWeight: "600",
+    },
 
     body1: {
       fontSize: "1.4rem",

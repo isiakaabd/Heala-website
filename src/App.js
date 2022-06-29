@@ -6,6 +6,7 @@ import { muiTheme } from "components/muiTheme";
 import ScrollToView from "components/ScrollToView";
 import { BecomePartner, OTP } from "components/pages";
 import { setAccessToken } from "./accessToken";
+import { PrivateRoute } from "components/routes";
 
 const sectionStyles = {
   minHeight: "100vh",
@@ -49,7 +50,7 @@ const App = () => {
                     component={BecomePartner}
                   />
 
-                  <Route exact path="/otp" component={OTP} />
+                  <PrivateRoute exact path="/otp" component={OTP} />
                 </section>
               )}
             </Switch>
