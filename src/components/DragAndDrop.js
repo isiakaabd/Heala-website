@@ -4,7 +4,7 @@ import { useSnackbar } from "notistack";
 import { useDropzone } from "react-dropzone";
 import { useTheme } from "@mui/material/styles";
 import { Grid, Typography } from "@mui/material";
-
+import PropTypes from "prop-types";
 import { Loader } from "./Utilities";
 import styled from "styled-components";
 import { CloseBtn } from "./Utilities/Button";
@@ -17,18 +17,18 @@ import {
   uploadImage,
 } from "helpers/helperFuncs";
 
-const getColor = (props) => {
-  if (props.isDragAccept) {
-    return "#00e676";
-  }
-  if (props.isDragReject) {
-    return "#ff1744";
-  }
-  if (props.isFocused) {
-    return "#2196f3";
-  }
-  return "#eeeeee";
-};
+// const getColor = (props) => {
+//   if (props.isDragAccept) {
+//     return "#00e676";
+//   }
+//   if (props.isDragReject) {
+//     return "#ff1744";
+//   }
+//   if (props.isFocused) {
+//     return "#2196f3";
+//   }
+//   return "#eeeeee";
+// };
 
 const Container = styled.div`
   min-height: 250px;
@@ -48,6 +48,16 @@ const Container = styled.div`
   transition: border 0.24s ease-in-out;
 `;
 
+<<<<<<< HEAD
+=======
+// const thumbsContainer = {
+//   display: "flex",
+//   flexDirection: "row",
+//   flexWrap: "wrap",
+//   marginTop: 16,
+// };
+
+>>>>>>> 0a4a5fb0f4fe31909fd07789829522ce2ee12b1f
 const thumb = {
   display: "inline-flex",
   borderRadius: 2,
@@ -86,6 +96,7 @@ const DragAndDrop = ({ name, setFieldValue, maxFiles }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [preview, setPreview] = React.useState("");
   const [progress, setProgress] = React.useState();
+<<<<<<< HEAD
   const [isCompleted, setIsCompleted] = React.useState(null);
   const [isCompressing, setIsCompressing] = React.useState(false);
   const {
@@ -102,6 +113,12 @@ const DragAndDrop = ({ name, setFieldValue, maxFiles }) => {
     onDrop: (acceptedFiles) => {
       setProgress(1);
 
+=======
+  const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } = useDropzone({
+    accept: "image/*",
+    maxFiles: maxFiles,
+    onDrop: (acceptedFiles) => {
+>>>>>>> 0a4a5fb0f4fe31909fd07789829522ce2ee12b1f
       compressAndUploadImage(
         acceptedFiles[0],
         uploadImage,
@@ -109,7 +126,11 @@ const DragAndDrop = ({ name, setFieldValue, maxFiles }) => {
         name,
         setFieldValue,
         setProgress,
+<<<<<<< HEAD
         setIsCompressing
+=======
+        setIsCompressing,
+>>>>>>> 0a4a5fb0f4fe31909fd07789829522ce2ee12b1f
       );
     },
   });
@@ -119,6 +140,7 @@ const DragAndDrop = ({ name, setFieldValue, maxFiles }) => {
       <div className="container">
         <Container {...getRootProps({ isFocused, isDragAccept, isDragReject })}>
           <input {...getInputProps()} />
+<<<<<<< HEAD
           <Typography>
             Drag and drop your file(s), or click to select files or Click on the
             button below
@@ -139,6 +161,9 @@ const DragAndDrop = ({ name, setFieldValue, maxFiles }) => {
               }}
             />
           </Grid>
+=======
+          <Typography>Drag and drop your file(s), or click to select files</Typography>
+>>>>>>> 0a4a5fb0f4fe31909fd07789829522ce2ee12b1f
         </Container>
       </div>
       <div style={errorContainer}>
@@ -147,13 +172,7 @@ const DragAndDrop = ({ name, setFieldValue, maxFiles }) => {
       <aside style={{ marginTop: "1.5rem" }}>
         <Grid item>
           {progress < 100 || isCompressing ? (
-            <Grid
-              container
-              item
-              direction="row"
-              justifyContent="center"
-              alignItems="center"
-            >
+            <Grid container item direction="row" justifyContent="center" alignItems="center">
               <Typography display={"inline"}>
                 {isCompressing ? "Compressing file" : "Uploading file"}
               </Typography>
@@ -187,6 +206,12 @@ const DragAndDrop = ({ name, setFieldValue, maxFiles }) => {
       </aside>
     </div>
   );
+};
+
+DragAndDrop.propTypes = {
+  name: PropTypes.string,
+  setFieldValue: PropTypes.func,
+  maxFiles: PropTypes.number,
 };
 
 export default DragAndDrop;

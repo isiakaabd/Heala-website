@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import { Grid } from "@mui/material";
 import { Avatar } from "@mui/material";
 import { makeStyles } from "@mui/styles";
@@ -17,6 +17,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const BecomePartner = () => {
+<<<<<<< HEAD
   const classes = useStyles();
   const pageTop = React.useRef();
   const [step, setStep] = useState(1);
@@ -25,6 +26,22 @@ const BecomePartner = () => {
     setStep(step + count);
     scrollToTop(pageTop);
   };
+=======
+  const pageTop = useRef();
+  const [step, setStep] = useState(1);
+
+  const increment = useCallback(
+    (count) => () => {
+      setStep(step + count);
+      scrollToTop(pageTop);
+    },
+    [step],
+  );
+
+  // const handleNext2 = useCallback(() => {
+  //   setStep(step + 2);
+  // }, [step]);
+>>>>>>> 0a4a5fb0f4fe31909fd07789829522ce2ee12b1f
 
   const handlePrevious = useCallback(() => {
     if (step === 1) return location.assign("https://heala.ng/doctors");
