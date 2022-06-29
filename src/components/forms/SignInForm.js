@@ -5,17 +5,17 @@ import * as Yup from "yup";
 import { useSnackbar } from "notistack";
 import FormikControl from "components/validation/FormikControl";
 import { useTheme } from "@mui/material/styles";
-import { useLazyQuery, useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 import { Grid, Checkbox, InputAdornment, Typography } from "@mui/material";
 import { CustomButton, Modals } from "components/Utilities";
-import { pageOneUseStyles } from "styles/formStyles";
 import LoginInput from "components/validation/LoginInput";
 import { signInFormInitialState } from "helpers/mockData";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { SignInValidationSchema } from "helpers/formValidation";
 import { logOut, signIn as onSignIn } from "helpers/helperFuncs";
 import { showErrorMsg, showSuccessMsg } from "helpers/helperFuncs";
+import { pageOneUseStyles } from "styles/formStyles";
+import { useLazyQuery, useMutation } from "@apollo/client";
 import {
   createLogout,
   login,
@@ -91,17 +91,14 @@ const SignInForm = ({ changeStep }) => {
         const { email } = data.resetPassword.account;
         showSuccessMsg(enqueueSnackbar, "Password reset email sent");
         localStorage.setItem("rest_password_email", email);
+        localStorage.setItem("request_new_OTP_mail", email);
+        localStorage.setItem("resetPasswordAuth", true);
         setAuth(true);
         history.push("/otp");
       }
     } catch (err) {
       console.error(err);
       showErrorMsg(enqueueSnackbar, err.message);
-    }
-
-    if (error) {
-      showErrorMsg(enqueueSnackbar, error.message);
-      console.error(error.message);
     }
   };
   const validationSchema1 = Yup.object({
@@ -139,7 +136,7 @@ const SignInForm = ({ changeStep }) => {
                       sm={10}
                       marginBottom="14px"
                     >
-                      <Typography variant="h5" className={classes.header}>
+                      <Typography variant="h6" className={classes.header}>
                         LOGIN
                       </Typography>
                     </Grid>
@@ -270,6 +267,7 @@ const SignInForm = ({ changeStep }) => {
                     <CustomButton
                       title="Reset Password"
                       width="100%"
+                      className={classes.btn}
                       isSubmitting={isSubmitting}
                       disabled={!(dirty || isValid)}
                       type={greenButton}

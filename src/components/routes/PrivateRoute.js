@@ -3,16 +3,15 @@ import { Redirect, Route } from "react-router-dom";
 import useAuth from "helpers/useAuth";
 const PrivateRoute = ({ component: Component, path, ...rest }) => {
   const { auth } = useAuth();
-
+  const resetPasswordAuth = Boolean(localStorage.getItem("resetPasswordAuth"));
   return (
     <Route
       path={path}
       {...rest}
       render={(props) => {
-        if (!auth) return <Redirect to="/" />;
-        else if (auth) {
-          return <Component {...props} {...rest} path={path} />;
-        }
+        if (!resetPasswordAuth) return <Redirect to="/" />;
+
+        return <Component {...props} {...rest} path={path} />;
       }}
     />
   );

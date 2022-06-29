@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Grid, Typography, InputAdornment } from "@mui/material";
 import OtpInput from "react-otp-input";
 import { useTheme } from "@mui/material/styles";
 import { showErrorMsg, showSuccessMsg } from "helpers/helperFuncs";
+import { resetPassword } from "components/graphQL/Mutation";
 import { pageOneUseStyles } from "styles/formStyles";
 import * as Yup from "yup";
-import { CustomButton } from "components/Utilities";
+// import Countdown from "react-countdown";
+import { CustomButton, Loader } from "components/Utilities";
 import { useSnackbar } from "notistack";
 import { completePasswordReset } from "components/graphQL/Mutation";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -17,7 +19,7 @@ import { useHistory } from "react-router-dom";
 const OTP = () => {
   const theme = useTheme();
   const classes = pageOneUseStyles();
-  const [resetPassword] = useMutation(completePasswordReset);
+  const [resetPasswords] = useMutation(completePasswordReset);
   const { enqueueSnackbar } = useSnackbar();
   const [showPassword, setShowPassword] = useState(false);
   const inputStyle = {
@@ -57,11 +59,33 @@ const OTP = () => {
       })
       .required("Please confirm Password"),
   });
+  const [reset, { loading }] = useMutation(resetPassword);
+  const requestNewOTP = async () => {
+    setLoad(true);
+    const email = localStorage.getItem("request_new_OTP_mail");
+
+    try {
+      const { data } = await reset({
+        variables: {
+          email,
+        },
+      });
+      if (data?.resetPassword) {
+        setLoad(false);
+        showSuccessMsg(enqueueSnackbar, "New OTP has been sent to your email");
+      }
+    } catch (err) {
+      console.error(err);
+      showErrorMsg(enqueueSnackbar, err.message);
+    }
+  };
+  const [load, setLoad] = useState(false);
+
   const onSubmit = async (values, onSubmitProps) => {
     const emailValue = localStorage.getItem("rest_password_email");
     const { password } = values;
     try {
-      const { data } = await resetPassword({
+      const { data } = await resetPasswords({
         variables: {
           newPassword: password,
           email: emailValue,
@@ -71,6 +95,7 @@ const OTP = () => {
       if (data) {
         localStorage.removeItem("rest_password_email");
         showSuccessMsg(enqueueSnackbar, "Password reset successful");
+        localStorage.removeItem("resetPasswordAuth");
         history.replace("/");
       }
       setOtp("");
@@ -97,7 +122,11 @@ const OTP = () => {
           Enter your OTP
         </Typography>
       </Grid>
-
+      {load && (
+        <Grid item>
+          <Loader />
+        </Grid>
+      )}
       <Grid item container justifyContent="center">
         <OtpInput
           value={otp}
@@ -138,7 +167,7 @@ const OTP = () => {
           {({ isSubmitting, dirty, isValid }) => {
             return (
               <Form>
-                <Grid container item rowGap={3}>
+                <Grid container item rowGap={1}>
                   <Grid item container>
                     <LoginInput
                       id="password"
@@ -184,6 +213,26 @@ const OTP = () => {
                         </InputAdornment>
                       }
                     />
+                  </Grid>
+
+                  <Grid
+                    item
+                    container
+                    alignItems="center"
+                    flexWrap="nowrap"
+                    justifyContent="flex-end"
+                  >
+                    <Typography
+                      variant="span"
+                      color="success"
+                      onClick={requestNewOTP}
+                      className={classes.link}
+                      sx={{
+                        fontSize: "clamp(1rem, 2vw, 1.4rem)",
+                      }}
+                    >
+                      Request new OTP
+                    </Typography>
                   </Grid>
                   <Grid
                     item
