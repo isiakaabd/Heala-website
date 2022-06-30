@@ -96,7 +96,6 @@ const OTP = () => {
       return () => clearTimeout(x);
     }
   }, [counter]);
-  console.log(counter);
 
   const onSubmit = async (values, onSubmitProps) => {
     const emailValue = localStorage.getItem("rest_password_email");
