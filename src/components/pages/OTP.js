@@ -135,13 +135,8 @@ const OTP = () => {
       rowSpacing={3}
     >
       <Grid item>
-        <Typography
-          gutterBottom
-          color="#000"
-          variant="h6"
-          className={classes.header}
-        >
-          Enter your OTP
+        <Typography gutterBottom color="#000" variant="h6">
+          ENTER YOUR OTP
         </Typography>
       </Grid>
       {load && (
@@ -244,25 +239,29 @@ const OTP = () => {
                     flexWrap="nowrap"
                     justifyContent="space-between"
                   >
-                    <Grid item xs={{ flex: 1 }}>
-                      <Typography
-                        variant="h5"
-                        style={{
-                          fontSize: "clamp(1rem, 1.5vw,1.5rem)",
-                          color: "#000",
-                        }}
-                      >
-                        Please check your email to continue
-                      </Typography>
-                    </Grid>
-                    <Grid
-                      item
-                      justifySelf="flex-end"
-                      style={{ cursor: "pointer" }}
-                      xs={{ flex: 3 }}
+                    <div
+                      style={{
+                        zIndex: "9",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        width: "100%",
+                      }}
                     >
-                      <Text counter={counter} requestNewOTP={requestNewOTP} />
-                    </Grid>
+                      <Grid item xs={{ flex: 1 }}>
+                        <Typography
+                          variant="h5"
+                          style={{
+                            fontSize: "clamp(1rem, 1.5vw,1.5rem)",
+                            color: "#000",
+                          }}
+                        >
+                          Please check your email to continue
+                        </Typography>
+                      </Grid>
+                      <Grid item justifySelf="flex-end" xs={{ flex: 3 }}>
+                        <Text counter={counter} requestNewOTP={requestNewOTP} />
+                      </Grid>
+                    </div>
                   </Grid>
                   <Grid
                     item
