@@ -17,6 +17,15 @@ export const pageOneUseStyles = makeStyles((theme) => ({
       fontWeight: "600",
     },
   },
+  typo: {
+    "&.MuiTypography-root": {
+      cursor: "pointer",
+      background: "blue",
+      "&:hover": {
+        color: "green",
+      },
+    },
+  },
 }));
 
 export const pageTwoUseStyles = makeStyles((theme) => ({

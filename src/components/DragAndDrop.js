@@ -109,10 +109,33 @@ const DragAndDrop = ({ name, setFieldValue, maxFiles }) => {
         name,
         setFieldValue,
         setProgress,
-        setIsCompressing
+        setIsCompressing,
+        setIsCompleted
       );
+
+      const reader = new FileReader();
+      reader.readAsDataURL(acceptedFiles[0]);
+      reader.onloadend = (e) => setPreview(reader.result);
     },
   });
+
+  const greenButton = {
+    background: theme.palette.success.main,
+    hover: theme.palette.success.light,
+    active: theme.palette.primary.dark,
+  };
+
+  React.useEffect(() => {
+    isCompleted === "passed" &&
+      showSuccessMsg(enqueueSnackbar, Typography, "Image upload complete.");
+    if (isCompleted === "failed") {
+      showErrorMsg(
+        enqueueSnackbar,
+        Typography,
+        "Image upload failed, Try again."
+      );
+    }
+  }, [isCompleted]);
 
   return (
     <div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Grid, Typography, InputAdornment } from "@mui/material";
 import OtpInput from "react-otp-input";
 import { useTheme } from "@mui/material/styles";
@@ -16,6 +16,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import LoginInput from "components/validation/LoginInput";
 import { Formik, Form } from "formik";
 import { useHistory } from "react-router-dom";
+import { Text } from "components/pages";
 const OTP = () => {
   const theme = useTheme();
   const classes = pageOneUseStyles();
@@ -40,7 +41,7 @@ const OTP = () => {
     active: theme.palette.primary.dark,
   };
   const [otp, setOtp] = useState("");
-  const handleChange = (e) => setOtp(e);
+  const handleChange = useCallback((e) => setOtp(e), []);
   const history = useHistory();
   const forgottenDetails = {
     password: "",
@@ -60,26 +61,41 @@ const OTP = () => {
       .required("Please confirm Password"),
   });
   const [reset, { loading }] = useMutation(resetPassword);
-  const requestNewOTP = async () => {
-    setLoad(true);
-    const email = localStorage.getItem("request_new_OTP_mail");
-
-    try {
-      const { data } = await reset({
-        variables: {
-          email,
-        },
-      });
-      if (data?.resetPassword) {
-        setLoad(false);
-        showSuccessMsg(enqueueSnackbar, "New OTP has been sent to your email");
+  const requestNewOTP = useCallback(async () => {
+    if (counter === 0) {
+      setLoad(true);
+      const email = localStorage.getItem("request_new_OTP_mail");
+      try {
+        const { data } = await reset({
+          variables: {
+            email,
+          },
+        });
+        if (data?.resetPassword) {
+          setLoad(false);
+          showSuccessMsg(
+            enqueueSnackbar,
+            "New OTP has been sent to your email"
+          );
+        }
+      } catch (err) {
+        console.error(err);
+        showErrorMsg(enqueueSnackbar, err.message);
       }
-    } catch (err) {
-      console.error(err);
-      showErrorMsg(enqueueSnackbar, err.message);
     }
-  };
+  }, []);
   const [load, setLoad] = useState(false);
+  const timeOut = 2;
+
+  const [counter, setCounter] = useState(timeOut);
+  useEffect(() => {
+    if (counter > 0) {
+      const x = setTimeout(() => {
+        setCounter(counter - 1);
+      }, 1000);
+      return () => clearTimeout(x);
+    }
+  }, [counter]);
 
   const onSubmit = async (values, onSubmitProps) => {
     const emailValue = localStorage.getItem("rest_password_email");
@@ -105,6 +121,7 @@ const OTP = () => {
       showErrorMsg(enqueueSnackbar, err.message);
     }
   };
+
   return (
     <Grid
       container
@@ -119,7 +136,7 @@ const OTP = () => {
     >
       <Grid item>
         <Typography gutterBottom color="#000" variant="h6">
-          Enter your OTP
+          ENTER YOUR OTP
         </Typography>
       </Grid>
       {load && (
@@ -142,7 +159,7 @@ const OTP = () => {
                 width: "10px",
                 height: "100%",
                 textAlign: "center",
-                fontSize: "20px",
+                fontSize: "min(3vw, 20px)",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
@@ -220,19 +237,31 @@ const OTP = () => {
                     container
                     alignItems="center"
                     flexWrap="nowrap"
-                    justifyContent="flex-end"
+                    justifyContent="space-between"
                   >
-                    <Typography
-                      variant="span"
-                      color="success"
-                      onClick={requestNewOTP}
-                      className={classes.link}
-                      sx={{
-                        fontSize: "clamp(1rem, 2vw, 1.4rem)",
+                    <div
+                      style={{
+                        zIndex: "9",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        width: "100%",
                       }}
                     >
-                      Request new OTP
-                    </Typography>
+                      <Grid item xs={{ flex: 1 }}>
+                        <Typography
+                          variant="h5"
+                          style={{
+                            fontSize: "clamp(1rem, 1.5vw,1.5rem)",
+                            color: "#000",
+                          }}
+                        >
+                          Please check your email to continue
+                        </Typography>
+                      </Grid>
+                      <Grid item justifySelf="flex-end" xs={{ flex: 3 }}>
+                        <Text counter={counter} requestNewOTP={requestNewOTP} />
+                      </Grid>
+                    </div>
                   </Grid>
                   <Grid
                     item
@@ -249,8 +278,8 @@ const OTP = () => {
                       type={greenButton}
                       className={classes.btn}
                       width="100%"
+                      disabled={otp.length < 6 || !isValid || isSubmitting}
                       isSubmitting={isSubmitting}
-                      disabled={otp.length !== 6 || !(dirty || isValid)}
                     />
                   </Grid>
                 </Grid>

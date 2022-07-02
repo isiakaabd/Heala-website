@@ -1,7 +1,6 @@
 import * as actionTypes from "store/action-types";
 
 export const loginUser = (data) => async (dispatch) => {
-  console.log(data);
   try {
     dispatch({
       type: actionTypes.LOGIN_SUCCESS,
