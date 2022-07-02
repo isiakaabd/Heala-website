@@ -4,7 +4,6 @@ import { useSnackbar } from "notistack";
 import { useDropzone } from "react-dropzone";
 import { useTheme } from "@mui/material/styles";
 import { Grid, Typography } from "@mui/material";
-
 import { Loader } from "./Utilities";
 import styled from "styled-components";
 import { CloseBtn } from "./Utilities/Button";
