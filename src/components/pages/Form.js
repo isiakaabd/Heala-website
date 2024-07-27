@@ -128,105 +128,155 @@ const Forms = ({ handleNext }) => {
           spacing={3}
           sx={{ width: "100%", margin: "auto" }}
         >
-          {[
-            {
-              id: 1,
-              name: license,
-              setName: () => null,
-              title: "Medical License",
-              icon: (
+          <Grid
+            item
+            container
+            md={3.5}
+            xs={5.5}
+            className={
+              qualification
+                ? `${classes.parentGrid} ${classes.active}`
+                : classes.parentGrid
+            }
+            // onClick={() => {
+            //   setQualification(!qualification);
+            // }}
+          >
+            <Card
+              title="MBBS Qualification"
+              background={theme.palette.common.lightRed}
+            >
+              <Grid className={classes.iconWrapper}>
                 <CalendarIcon
                   color="error"
                   fill={theme.palette.common.red}
                   className={classes.cardIcon}
                 />
-              ),
-            },
-            {
-              id: 2,
-              name: qualification,
-              setName: setQualification,
-              title: "MBBS Qualification",
-              icon: (
-                <CalendarIcon
-                  color="error"
-                  fill={theme.palette.common.red}
-                  className={classes.cardIcon}
-                />
-              ),
-            },
-            {
-              id: 3,
-              name: yearBook,
-              setName: setYearBook,
-              title: "Year Book",
-              icon: (
-                <CalendarIcon
-                  color="error"
-                  fill={theme.palette.common.red}
-                  className={classes.cardIcon}
-                />
-              ),
-            },
-            {
-              id: 4,
-              name: alumni,
-              setName: setAlumni,
-              title: "Alumni Association",
-              icon: (
-                <CalendarIcon
-                  color="error"
-                  fill={theme.palette.common.red}
-                  className={classes.cardIcon}
-                />
-              ),
-            },
-            {
-              id: 5,
-              name: reference,
-              setName: setReference,
-              title: "Heala Partner",
-              icon: (
-                <CalendarIcon
-                  color="error"
-                  fill={theme.palette.common.red}
-                  className={classes.cardIcon}
-                />
-              ),
-            },
-            {
-              id: 6,
-              name: externalReference,
-              setName: setExternalReference,
-              title: "External Reference",
-              icon: (
-                <ReferenceIcon color="error" className={classes.cardIcon} />
-              ),
-            },
-          ].map((card, idx) => {
-            return (
-              <VerificationCard
-                key={idx}
-                name={card.name}
-                setName={card.setName}
-                title={card.title}
-                icon={card.icon}
+              </Grid>
+            </Card>
+          </Grid>
+          <Grid
+            item
+            md={3.5}
+            xs={5.5}
+            className={
+              license
+                ? `${classes.parentGrid} ${classes.active}`
+                : classes.parentGrid
+            }
+            onClick={() => setLicense(!license)}
+          >
+            <Card title="License" background={theme.palette.common.lightRed}>
+              <LicenseIcon
+                // color="error"
+                fill={theme.palette.common.red}
               />
-            );
-          })}
+            </Card>
+          </Grid>
+          <Grid
+            item
+            md={3.5}
+            xs={5.5}
+            className={
+              yearBook
+                ? `${classes.parentGrid} ${classes.active}`
+                : classes.parentGrid
+            }
+            onClick={() => {
+              setYearBook(!yearBook);
+            }}
+          >
+            <Card title="Year Book" background={theme.palette.common.lightRed}>
+              <CalendarIcon
+                color="error"
+                fill={theme.palette.common.red}
+                className={classes.cardIcon}
+              />
+            </Card>
+          </Grid>
+
+          {/* second container */}
+          <Grid
+            md={3.5}
+            xs={5.5}
+            item
+            className={
+              alumni
+                ? `${classes.parentGrid} ${classes.active}`
+                : classes.parentGrid
+            }
+            onClick={() => {
+              setAlumni(!alumni);
+            }}
+          >
+            <Card
+              title="Alumni Association"
+              background={theme.palette.common.lightRed}
+            >
+              {/* <Grid item className={classes.iconWrapper}> */}
+              <CalendarIcon
+                color="error"
+                fill={theme.palette.common.red}
+                className={classes.cardIcon}
+              />
+              {/* </Grid> */}
+            </Card>
+          </Grid>
+          {/* 2b */}
+          <Grid
+            item
+            md={3.5}
+            xs={5.5}
+            className={
+              reference
+                ? `${classes.parentGrid} ${classes.active}`
+                : classes.parentGrid
+            }
+            onClick={() => {
+              setReference(!reference);
+            }}
+          >
+            <Card
+              title="Heala Reference"
+              background={theme.palette.common.lightRed}
+            >
+              <CalendarIcon
+                color="error"
+                fill={theme.palette.common.red}
+                className={classes.cardIcon}
+              />
+            </Card>
+          </Grid>
+          {/* 3b */}
+          <Grid
+            item
+            md={3.5}
+            xs={5.5}
+            className={
+              externalReference
+                ? `${classes.parentGrid} ${classes.active}`
+                : classes.parentGrid
+            }
+            onClick={() => {
+              setExternalReference(!externalReference);
+            }}
+          >
+            <Card
+              title="External Reference"
+              background={theme.palette.common.lightRed}
+            >
+              <ReferenceIcon color="error" className={classes.cardIcon} />
+            </Card>
+          </Grid>
         </Grid>
 
-        {selectedCert.length > 0 ? (
-          ""
-        ) : (
-          <Grid item className={classes.infoBadge} gap={2}>
-            <ErrorRoundedIcon />
-            <Typography variant="h6">
-              Please select at least two verification methods (Medical licence
-              and any other verification method).
-            </Typography>
-          </Grid>
-        )}
+        <Grid item className={classes.infoBadge} gap={2}>
+          <ErrorRoundedIcon />
+          <Typography variant="h6">
+            This will contain the status message regarding the verification
+            process of the HCP
+          </Typography>
+        </Grid>
 
         {/* ========= FORM SECTION ========= */}
         <Grid item>
@@ -249,10 +299,72 @@ const Forms = ({ handleNext }) => {
             validateOnMount={false}
             validateOnBlur={false}
           >
-            {({ setValues, setFieldValue, isSubmitting, dirty, isValid }) => {
+            {({
+              setValues,
+              setFieldValue,
+              isSubmitting,
+              dirty,
+              isValid,
+              errors,
+            }) => {
+              /* console.log(errors); */
+
               return (
                 <Form>
-                  {/* ========= LICENSE FORM ========= */}
+                  {qualification ? (
+                    <>
+                      <Grid
+                        item
+                        container
+                        md={12}
+                        sm={12}
+                        direction="column"
+                        justifyContent="space-between"
+                        gap={1}
+                        marginBottom={4}
+                      >
+                        <Typography variant="h2">Qualification</Typography>
+
+                        <Grid
+                          item
+                          container
+                          justifyContent="space-between"
+                          gap={1}
+                        >
+                          <Grid item container md={5} sm={10}>
+                            <FormikControl
+                              control="input"
+                              name="degree"
+                              placeholder="BSc Surgery"
+                              label="Degree"
+                            />
+                          </Grid>
+                          <Grid item container md={5} sm={10}>
+                            <FormikControl
+                              control="date"
+                              name="year"
+                              label="Year"
+                              setFieldValue={setFieldValue}
+                              setValues={setValues}
+                            />
+                          </Grid>
+                        </Grid>
+                        <FormLabel
+                          component="legend"
+                          className={classes.FormLabel}
+                        >
+                          Upload Your Qualification
+                        </FormLabel>
+                        <DragAndDrop
+                          name="degreeImage"
+                          setFieldValue={setFieldValue}
+                          maxFiles={1}
+                        />
+                      </Grid>
+                    </>
+                  ) : null}
+
+                  {/*  */}
                   {license ? (
                     <>
                       <Grid
@@ -265,9 +377,7 @@ const Forms = ({ handleNext }) => {
                         gap={3}
                         marginBottom={4}
                       >
-                        <Typography variant="h2">
-                          Medical License (MDCN)
-                        </Typography>
+                        <Typography variant="h2">License</Typography>
                         <Grid
                           item
                           container
@@ -480,7 +590,9 @@ const Forms = ({ handleNext }) => {
                         gap={3}
                         marginBottom={4}
                       >
-                        <Typography variant="h2">Heala partner</Typography>
+                        <Typography variant="h2">
+                          Reference From Doctor on Heala
+                        </Typography>
                         <Grid
                           item
                           container
@@ -562,33 +674,15 @@ const Forms = ({ handleNext }) => {
                       </Grid>
                     </>
                   ) : null}
-
-                  <Grid
-                    sx={{
-                      marginBottom: "2rem",
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Checkbox
-                      checked={checked}
-                      onChange={() => setChecked(!checked)}
-                      color="success"
-                      size="large"
-                      sx={{ marginRight: "0.5rem" }}
-                    />
-                    <Typography>
-                      By clicking the "Save Record" button, you state that you
-                      have read, understood and agree to our{" "}
-                      <a
-                        href="https://heala.ng/terms/#imp"
-                        rel="no-referrer"
-                        target="_blank"
-                      >
-                        Terms and Conditions
-                      </a>
-                    </Typography>
-                  </Grid>
+                  {alert && Object.keys(alert).length > 0 && (
+                    <Alert
+                      variant="filled"
+                      sx={{ textAlign: "center" }}
+                      severity={alert.type}
+                    >
+                      {alert.message}
+                    </Alert>
+                  )}
 
                   <Grid item md={12} container sm={10}>
                     <CustomButton
